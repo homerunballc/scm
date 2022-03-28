@@ -310,7 +310,7 @@
 		
 		var totalCntComnGrpCod = $("#totalCntComnGrpCod").val();
 		
-		
+		// 테스트!
 		//swal(totalCntComnGrpCod);
 		
 		// 페이지 네비게이션 생성
