@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Ad">
+
+	
+<select id="nexacroAd.selectAdList" parameterClass="Map" resultClass="java.util.HashMap" remapResults="true">
+	SELECT	accno
+				 ,modelnm
+		         ,copnm
+		     	 ,regID
+				,regDate
+				,accyn 
+				,divdtl
+	FROM tb_medicalinfo
+	WHERE 1=1
+	<dynamic>
+		<isNotNull property="search_m_com">
+			<isNotEqual prepend="AND" property="search_m_com" compareValue="9">
+				accyn = #search_m_com#
+			</isNotEqual>
+		</isNotNull>
+		
+		<isNotNull property="search_m_word">
+				<isEqual prepend="AND" property="search_m_key" compareValue="0">
+					modelnm  LIKE concat('%', #search_m_word#, '%') OR
+					copnm LIKE concat('%', #search_m_word#, '%') OR
+					regID LIKE concat('%', #search_m_word#, '%')
+					
+				</isEqual>
+				<isEqual prepend="AND" property="search_m_key" compareValue="1">
+					modelnm LIKE concat('%', #search_m_word#, '%')
+				</isEqual>
+				<isEqual prepend="AND" property="search_m_key" compareValue="2">
+					copnm LIKE concat('%', #search_m_word#, '%')
+				</isEqual>
+				<isEqual prepend="AND" property="search_m_key" compareValue="3">
+					regID LIKE concat('%', #search_m_word#, '%')
+				</isEqual>
+			</isNotNull>
+		</dynamic>
+</select>
+
+	<update id="nexacroAd,comfcom0" parameterClass="String">
+		UPDATE tb_medicalinfo
+		SET accyn = 0
+		WHERE accno = #confirmcomf#
+	</update>
+	<update id="nexacroAd,comfcom1" parameterClass="String">
+		UPDATE tb_medicalinfo
+		SET accyn = 1
+		WHERE accno = #confirmcomf#
+	</update>
+	<update id="nexacroAd,comfcom2" parameterClass="String">
+		UPDATE tb_medicalinfo
+		SET accyn = 2
+		WHERE accno = #confirmcomf#
+	</update>
+	
+	<insert id="nexacroMC,insert"  parameterClass="Map" >
+		INSERT INTO tb_medicalinfo(
+							  dec_name
+						   	 ,dec_birth
+						   	 ,dec_address
+						   	 ,copnm
+						   	 ,coplicense
+						   	 ,copaddress
+						   	 ,type
+						   	 ,divdtl
+						   	 ,modelnm
+						   	 ,divno
+						   	 ,shape
+						   	 ,property
+						   	 ,usepurpose
+						   	 ,usemethod
+						   	 ,hints
+						   	 ,manufacturer
+						   	 ,etc
+						   	 ,manager
+						   	 ,managerphone
+						   	 ,meditype
+						   	 ,otheryn
+						   	 ,reporttype
+						   	 ,reporNumber
+						   	 ,accas
+						   	 ,copphone
+						   	 ,regDate
+						   	 ,regID
+					 )VALUES(
+							  #dec_name#
+							 ,#dec_birth#
+							 ,#dec_address#
+							 ,#copnm#
+						   	 ,#coplicense#
+						   	 ,#copaddress#
+						   	 ,#type#
+						   	 ,#divdtl#
+						   	 ,#modelnm#
+						   	 ,#divno#
+						   	 ,#shape#
+						   	 ,#property#
+						   	 ,#usepurpose#
+						   	 ,#usemethod#
+						   	 ,#hints#
+						   	 ,#manufacturer#
+						   	 ,#etc#
+						   	 ,#manager#
+						   	 ,#managerphone#
+						   	 ,#meditype#
+						   	 ,#otheryn#
+						   	 ,#reporttype#
+						   	 ,#reporNumber#
+						   	 ,#accas#
+						   	 ,#copphone#
+						   	 ,now()
+						   	 ,#regID#
+							 );
+	</insert>
+
+	<update id="nexacroMC,update" parameterClass="Map">
+		UPDATE tb_medicalinfo
+		SET 		dec_name=#dec_name#
+					,dec_birth=#dec_birth#
+					,dec_address=#dec_address#
+					,copnm=#copnm#
+					,coplicense=#coplicense#
+					,copaddress=#copaddress#
+					,type=#type#
+					,divdtl=#divdtl#
+					,modelnm=#modelnm#
+					,divno=#divno#
+					,shape=#shape#
+					,property=#property#
+					,usepurpose=#usepurpose#
+					,usemethod=#usemethod#
+					,hints=#hints#
+					,manufacturer=#manufacturer#
+					,etc=#etc#
+					,manager=#manager#
+					,managerphone=#managerphone# 
+					,modelnm=#modelnm#
+		WHERE  accno=#accno#
+		
+	</update>
+	
+	<select id="nexacroMC,select" parameterClass="String" resultClass="java.util.HashMap" remapResults="true">
+		SELECT * 
+		FROM tb_medicalinfo
+		WHERE accno = #accno#
+	</select>
+
+</sqlMap>

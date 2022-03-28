@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.happyjob.study.TCHSUP.dao.LectureSupDao">
+
+	<!-- 강의 리스트 -->
+	<select id="lecList" parameterType="java.util.Map" resultType="kr.happyjob.study.ADMMNG.model.AdminLectureInfo">
+		SELECT * FROM tb_lec
+	</select>
+	
+	<select id="selectMaxlecno" resultType="int">
+		SELECT IFNULL(MAX(lec_no),0) + 1 FROM tb_lec
+	</select>
+	
+	<!-- 강의 등록 -->
+	<insert id="addLecture" parameterType="java.util.Map">
+		<!-- <selectKey resultType="string" keyProperty="lecNo" order="BEFORE">
+			SELECT IFNULL(MAX(lec_no),0) + 1 FROM tb_lec
+		</selectKey> -->
+		<selectKey resultType="string" keyProperty="testNo" order="BEFORE">
+         SELECT IFNULL(MAX(test_no),0) + 1 FROM tb_prob
+      </selectKey>
+		INSERT INTO tb_lec (
+			lec_no, 
+			lec_name, 
+			room_no,
+			teach_no, 
+			lec_cnt, 
+			lec_start, 
+			lec_end, 
+			lec_goal,
+			lec_plan,
+			test_no,
+			lec_lp,
+			lec_pp,
+			lec_filesize,
+			lec_file
+			) VALUES (
+			#{lecno},
+			#{lec_name},
+			#{room_no},
+			222,
+			#{lec_cnt},
+			#{lec_start},
+			#{lec_end},
+			#{lec_goal},
+			#{lec_plan},
+			#{testNo},
+			#{file.file_lloc},
+			#{file.file_loc},
+			#{file.file_size},
+			#{file.file_nm}
+			)
+	</insert>
+	
+	<!-- 강의계획서 상세조회 -->
+	<select id="planDetail" parameterType="int" resultType="kr.happyjob.study.ADMMNG.model.AdminLectureInfo" >
+		SELECT lec_no
+		          , lec_name, lec_start, lec_end, lec_cnt, 
+		room_no, lec_goal, lec_file , lec_pp
+		 FROM tb_lec
+		WHERE lec_no = #{lec_no}
+	</select>
+	
+</mapper>

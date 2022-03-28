@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.0">
+  <Form id="Popupcom" width="290" height="140" titletext="New Form">
+    <Layouts>
+      <Layout height="140" mobileorientation="landscape" width="290">
+        <Radio id="rdo00" taborder="0" left="50" top="20" width="216" height="50" innerdataset="innerdataset" codecolumn="codecolumn" datacolumn="datacolumn" index="0" text="승인완료" value="0" direction="vertical">
+          <Dataset id="innerdataset">
+            <ColumnInfo>
+              <Column id="codecolumn" size="256"/>
+              <Column id="datacolumn" size="256"/>
+            </ColumnInfo>
+            <Rows>
+              <Row>
+                <Col id="codecolumn">0</Col>
+                <Col id="datacolumn">대기중</Col>
+              </Row>
+              <Row>
+                <Col id="codecolumn">1</Col>
+                <Col id="datacolumn">승인완료</Col>
+              </Row>
+              <Row>
+                <Col id="codecolumn">2</Col>
+                <Col id="datacolumn">반려</Col>
+              </Row>
+            </Rows>
+          </Dataset>
+        </Radio>
+        <Button id="btn00" taborder="1" text="확인" left="34" top="80" width="105" height="45" onclick="btn00_com"/>
+        <Button id="btn01" taborder="2" text="취소" left="162" top="80" width="105" height="45" onclick="btn01_onclick"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[
+this.btn00_com = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var btn00_com = this.rdo00.value;
+	//alert("hi"+btn00_com);
+	this.close(btn00_com);
+};
+
+this.btn01_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.close();
+};
+]]></Script>
+  </Form>
+</FDL>

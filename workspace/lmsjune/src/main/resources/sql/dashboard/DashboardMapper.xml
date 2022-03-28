@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.happyjob.study.dashboard.dao.DashboardDao">
+	
+	<select id="cntEngineer" resultType="int">
+		/*kr.happyjob.study.system.dao.DashboardDao.cntEngineer*/
+		SELECT COUNT(loginID)
+		FROM 	tb_userinfo
+		WHERE	user_type = 'B'
+	</select>	
+	
+	<select id="cntCompany" resultType="int">
+		/*kr.happyjob.study.system.dao.DashboardDao.cntCompany*/
+		SELECT COUNT(loginID)
+		FROM 	tb_userinfo
+		WHERE	user_type = 'C'
+	</select>	
+	
+	<select id="cntProject" resultType="int">
+		/*kr.happyjob.study.system.dao.DashboardDao.cntProject*/
+		SELECT COUNT(pro_no)
+		FROM 	tb_prolist
+		<!-- WHERE	reg_date <![CDATA[<=]]> STR_TO_DATE(#{to_date}, '%Y-%m-%d')  --> 
+	</select>	
+	
+
+
+
+	<select id="listlec" resultType="kr.happyjob.study.dashboard.model.LectureModel">
+		/*kr.happyjob.study.system.dao.DashboardDao.listlec*/
+		   select lc.lec_no
+			      ,lc.teach_no
+			      ,ui.name
+			      ,lc.lec_name
+			      ,lc.room_no
+			      ,rm.room_name
+			      ,DATE_FORMAT(lc.lec_start, '%Y-%m-%d') as lec_start
+			      ,DATE_FORMAT(lc.lec_end, '%Y-%m-%d') as lec_end
+			      ,ifnull(lc.lec_cnt,0) as lec_cnt
+			      ,ifnull(ll.cnt,0) as std_cnt
+			      ,#{usertype} as usertype
+			      ,ifnull(ll2.cnt,0) as lst_yn
+			from tb_lec lc
+			       inner join tb_userinfo ui on ui.teach_no = lc.teach_no and ui.user_type = 'T'
+			       inner join tb_room rm on rm.room_no = lc.room_no
+			       left outer join (
+			                             select lec_no
+			                                    , count(*) as cnt
+			                              from tb_class
+			                          ) ll on ll.lec_no = lc.lec_no
+			       left outer join (
+			                             select lec_no
+			                                    , count(*) as cnt
+			                              from tb_class
+			                             where loginID = #{loginid}
+			                             group by lec_no
+			                          ) ll2 on ll2.lec_no = lc.lec_no                   
+	        <where>
+				<if test ="(slec != null) and (!slec.equals(''))">
+				    and lc.lec_name  Like CONCAT('%', #{slec}, '%')
+				</if>
+				<if test ="(stea != null) and (!stea.equals(''))">
+				    and ui.name  Like CONCAT('%', #{stea}, '%')
+				</if>			
+			</where>	           
+			order by lc.lec_start desc
+		    LIMIT #{pageIndex}, #{pageSize}
+	</select>	
+	
+	<select id="listleccnt" resultType="int">
+		/*kr.happyjob.study.system.dao.DashboardDao.listleccnt*/
+		   select count(*)
+		    from tb_lec lc
+			       inner join tb_userinfo ui on ui.teach_no = lc.teach_no and ui.user_type = 'T'
+			       inner join tb_room rm on rm.room_no = lc.room_no
+	        <where>
+				<if test ="(slec != null) and (!slec.equals(''))">
+				    and lc.lec_name  Like CONCAT('%', #{slec}, '%')
+				</if>
+				<if test ="(stea != null) and (!stea.equals(''))">
+				    and ui.name  Like CONCAT('%', #{stea}, '%')
+				</if>			
+			</where>	   
+	</select>	
+	
+    <select id="selectlec" resultType="kr.happyjob.study.dashboard.model.LectureModel">
+		/*kr.happyjob.study.system.dao.DashboardDao.selectlec*/
+		   select lc.lec_no
+			      ,lc.teach_no
+			      ,ui.name
+			      ,lc.lec_name
+			      ,lc.room_no
+			      ,rm.room_name
+			      ,DATE_FORMAT(lc.lec_start, '%Y.%m.%d') as lec_start
+			      ,DATE_FORMAT(lc.lec_end, '%Y.%m.%d') as lec_end
+			      ,ifnull(lc.lec_cnt,0) as lec_cnt
+			      ,ifnull(ll.cnt,0) as std_cnt
+			      ,lc.lec_file
+			      ,lc.lec_lp
+			      ,lc.lec_pp
+			      ,lc.lec_filesize
+			from tb_lec lc
+			       inner join tb_userinfo ui on ui.teach_no = lc.teach_no and ui.user_type = 'T'
+			       inner join tb_room rm on rm.room_no = lc.room_no
+			       left outer join (
+			                             select lec_no
+			                                    , count(*) as cnt
+			                              from tb_class
+			                          ) ll on ll.lec_no = lc.lec_no
+	        where lc.lec_no = #{lecno}
+	</select>	
+	
+	<select id="selectMaxlecno" resultType="int">
+	    select ifnull(max(lec_no),0) + 1 from tb_lec
+	</select>
+
+    <insert id="insertlec">
+           insert into tb_lec
+           (
+                  lec_no
+				, lec_name
+				, room_no
+				, teach_no
+				, lec_start
+				, lec_end
+				, lec_cnt
+				, lec_lp
+				, lec_pp
+				, lec_filesize
+				, lec_file
+           ) values (
+                  #{lecno}
+                , #{title}
+				, #{room}
+				, #{teacher}
+				, STR_TO_DATE(#{startdate}, '%Y.%m.%d')
+				, STR_TO_DATE(#{enddate}, '%Y.%m.%d')
+				, 20
+				, #{file.file_lloc}
+				, #{file.file_loc}
+				, #{file.file_size}
+				, #{file.file_nm}
+           )
+    </insert>
+    
+    <update id="updatelec">
+           update tb_lec
+                set lec_name = #{title}
+				   , room_no = #{room}
+				   , teach_no = #{teacher}
+				   , lec_start = STR_TO_DATE(#{startdate}, '%Y.%m.%d')
+				   , lec_end = STR_TO_DATE(#{enddate}, '%Y.%m.%d')
+				   , lec_cnt = 20
+				   , lec_lp = #{file.file_lloc}
+				   , lec_pp = #{file.file_loc}
+				   , lec_filesize = #{file.file_size}
+				   , lec_file = #{file.file_nm}
+            where lec_no = #{lecno}
+    </update>
+
+    <delete id="deletelec">
+           delete from tb_lec
+           where lec_no = #{lecno}
+    </delete>	
+	
+	<insert id="applySave">
+       <selectKey resultType="int" keyProperty="class_no" order="BEFORE">
+            SELECT IFNULL(MAX(class_no),0) +1   FROM tb_class
+        </selectKey>   
+	    insert into tb_class
+	         (
+	              class_no
+	             , lec_no
+	             , stu_no
+	             , class_ox
+	             , class_cnt
+	             , class_pass
+	             , loginID
+	         ) values (
+	              #{class_no}
+	             ,#{lecno}	      
+	             ,(select stu_no from tb_userinfo where user_type = 'H' and loginID = #{loginid} )
+	             ,'N'
+	             ,0             
+	             ,'N'       
+	             ,#{loginid}         
+	         )
+	</insert>
+
+	<delete id="canapplySave">
+	    delete from tb_class
+	    where lec_no = #{lecno}	 
+	       and loginID = #{loginid} 
+	</delete>
+	
+	
+	
+	<!-- 
+	<select id="cntApplicant" resultType="int">
+		/*kr.happyjob.study.system.dao.DashboardDao.cntApplicant*/
+		SELECT COUNT(p.loginID)
+		FROM 	tb_prolist p, tb_consupport cs
+		WHERE	reg_date <![CDATA[<=]]> STR_TO_DATE(#{reg_date}, '%Y-%m-%d') 
+	</select>
+	 -->
+	 
+</mapper>

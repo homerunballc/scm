@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.happyjob.study.adm.dao.decListDao">
+
+   <!-- 그룹코드 목록 조회 -->
+   <select id="decList" resultType="kr.happyjob.study.system.model.decListModel">
+      select 
+				       accno AS accno
+				       ,modelnm AS modelnm
+				       ,copnm AS copnm
+				       ,regID AS regID
+				       ,DATE_FORMAT(regDate, '%Y-%m-%d') as regDate
+				       ,accyn AS accyn
+				       ,divcd AS divcd
+        from 		tb_medicalinfo
+        <where>
+        	<if test="searchgrouptype1 != 9">
+        		and accyn = #{searchgrouptype1} 
+        	</if>
+        	
+        	<if test="search != null">
+        		<if test="searchgrouptype2 != 'all'.toString()">
+        			<choose>
+	        			 <when test="searchgrouptype2 eq 'codelnm'.toString()">
+	                        and modelnm Like CONCAT('%', #{search}, '%')
+	                     </when>
+	                     <when test="searchgrouptype2 eq 'copnm'.toString()">
+	                        and copnm Like CONCAT('%', #{search}, '%')
+	                     </when>
+	                     <otherwise>
+	                        and regID Like CONCAT('%', #{search}, '%')
+                     </otherwise>
+        			</choose>
+        		</if> 
+        	</if>
+        </where>
+      LIMIT #{pageIndex}, #{pageSize}  
+   </select>
+   
+ <select id="decListcount" resultType="int">
+      select count(*)
+        from tb_medicalinfo
+        <where>
+        	<if test="searchgrouptype1 != 9">
+        		and accyn = #{searchgrouptype1} 
+        	</if>
+        	
+        	<if test="search != null">
+        		<if test="searchgrouptype2 != 'all'.toString()">
+        			<choose>
+	        			 <when test="searchgrouptype2 eq 'codelnm'.toString()">
+	                        and modelnm Like CONCAT('%', #{search}, '%')
+	                     </when>
+	                     <when test="searchgrouptype2 eq 'copnm'.toString()">
+	                        and copnm Like CONCAT('%', #{search}, '%')
+	                     </when>
+	                     <otherwise>
+	                        and regID Like CONCAT('%', #{search}, '%')
+                     </otherwise>
+        			</choose>
+        		</if> 
+        	</if>
+        </where>
+    <!--   LIMIT #{pageIndex}, #{pageSize}   -->
+   </select> 
+   
+   <select id="modellist" resultType="kr.happyjob.study.system.model.decListModel" >
+   	SELECT 
+			   		accno AS accno, 
+			   		coplicense AS coplicense, 
+			   		modelnm AS modelnm, 
+			   		shape AS shape, 
+			   		property AS property,
+			   		copnm AS copnm,
+			   		usepurpose AS usepurpose, 
+			   		usemethod AS usemethod, 
+			   		hints AS hints,
+			   		etc AS etc,
+			   		regDate AS regDate,
+			   		manufacturer AS manufacturer, 
+			   		otheryn AS otheryn,
+			   		divcd AS divcd,
+			   		copaddress AS copaddress,
+			   		dec_name AS dec_name,
+			   		dec_birth AS dec_birth,
+			   		meditype AS meditype
+   	FROM	    tb_medicalinfo
+   	WHERE 	accno=#{no}
+   </select>
+   
+   <insert id="minsert" parameterType="map">
+   		insert into  tb_medicalinfo
+                       (
+                        dec_name,
+						dec_birth,
+						dec_address,
+						copnm,
+						coplicense,
+						copaddress,
+						type,
+						divdtl,
+						modelnm,
+						divno,
+						shape,
+						property,
+						usepurpose,
+						hints,
+						manufacturer,
+						etc,
+						manager,
+						managerphone,
+						regDate,
+						divcd,
+						otheryn,
+						accas,
+						meditype                    
+                       ) values (
+                             #{dec_name}
+                            ,#{dec_birth}
+                            ,#{dec_address}
+                            ,#{copnm}
+                            ,#{coplicense}
+                            ,#{copaddress}
+                            ,#{type}
+                            ,#{divdtl}
+                            ,#{modelnm}
+                            ,#{divno}
+                            ,#{shape}
+                            ,#{property}
+                            ,#{usepurpose}
+                            ,#{hints}
+                            ,#{manufacturer}
+                            ,#{etc}
+                            ,#{manager}
+                            ,#{managerphone}
+                            ,NOW()
+                            ,#{divcd}
+                            ,#{otheryn}
+                            ,#{accas}
+                            ,#{meditype}
+                            
+                       )
+   </insert>
+   
+    <update id="mupdate" parameterType="map">
+   		 update tb_medicalinfo
+               set 		
+	       				dec_name=#{dec_name},
+	                    dec_birth=#{dec_birth},
+	                    dec_address=#{dec_address},
+	                    copnm=#{copnm},
+	                    coplicense=#{coplicense},
+	                   copaddress=#{copaddress},
+	                   type=#{type},
+	                   divdtl=#{divdtl},
+	                   modelnm=#{modelnm},
+	                   divno=#{divno},
+	                    shape=#{shape},
+	                   property=#{property},
+	                   usepurpose=#{usepurpose},
+	                    hints=#{hints},
+	                    manufacturer=#{manufacturer},
+	                   etc=#{etc},
+	                    manager=#{manager},
+	                   managerphone=#{managerphone},
+	                   regDate =NOW(),
+	                   meditype=#{meditype}
+          where accno=#{accno}
+   </update>
+   
+   <delete id="mdelect" parameterType="map">
+   	DELETE FROM tb_medicalinfo
+   		WHERE accno=#{accno}
+   </delete>
+   
+   
+   
+   <update id="cupdate" parameterType="map">
+   		 update tb_medicalinfo
+               set  accyn = #{accyn}
+          where accno=#{accno}
+   </update>
+   
+   
+   <select id="oneselect" resultType="kr.happyjob.study.system.model.decListModel">
+   		SELECT 	dec_name,
+						dec_birth,
+						dec_address,
+						copnm,
+						coplicense,
+						copaddress,
+						type,
+						divdtl,
+						modelnm,
+						divno,
+						shape,
+						property,
+						usepurpose,
+						hints,
+						manufacturer,
+						etc,
+						manager,
+						managerphone,
+						regDate,
+						divcd,
+						meditype,
+						otheryn
+		FROM tb_medicalinfo
+   		WHERE accno=#{accno}
+		
+   </select>
+   
+   
+</mapper>

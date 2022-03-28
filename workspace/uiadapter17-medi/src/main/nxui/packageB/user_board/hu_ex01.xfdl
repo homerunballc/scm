@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.0">
+  <Form id="hu_ex01" width="580" height="680" titletext="New Form" onload="hu_ex01_onload">
+    <Layouts>
+      <Layout height="680" mobileorientation="landscape" width="580">
+        <Div id="div00" taborder="0" text="의료기기 제조품목 허가증" left="20" top="20" width="540" height="53" border="1px solid black" font="54px/normal &quot;Gulim&quot;">
+          <Layouts>
+            <Layout/>
+          </Layouts>
+        </Div>
+        <Div id="div01" taborder="1" left="19" top="486" width="540" height="100" border="1px solid black" font="54px/normal &quot;Gulim&quot;">
+          <Layouts>
+            <Layout>
+              <Div id="div00" taborder="0" text="의료기기법 제 5조 및 같은 법 시행규칙 제 5조 제 2항에 따라 위와 같이 허가" left="8" top="5" width="412" height="18"/>
+              <Div id="div01" taborder="1" text="2022년 2월 22일" left="180" top="34" width="110" height="18"/>
+              <Div id="div02" taborder="2" text="식품의약품안전청장 (인)" left="180" top="63" width="155" height="19"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="div02" taborder="2" left="351" top="81" width="209" height="58" border="1px solid black" font="54px/normal &quot;Gulim&quot;">
+          <Layouts>
+            <Layout>
+              <Div id="div00" taborder="0" text="입허가번호" left="0" top="-1" width="98" height="28"/>
+              <Div id="div01" taborder="1" text="구분" left="-1" top="30" width="98" height="17"/>
+              <Edit id="edt00" taborder="2" left="103" top="0" width="101" height="27"/>
+              <Edit id="edt01" taborder="3" left="103" top="27" width="101" height="27"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="div03" taborder="3" left="20" top="147" width="540" height="333" border="1px solid black" font="54px/normal &quot;Gulim&quot;">
+          <Layouts>
+            <Layout>
+              <Edit id="edt02" taborder="0" left="281" top="216" width="257" height="28"/>
+              <Edit id="edt03" taborder="1" left="281" top="245" width="257" height="28"/>
+              <Edit id="edt04" taborder="2" left="281" top="272" width="256" height="28"/>
+              <Edit id="edt05" taborder="3" left="281" top="301" width="255" height="28"/>
+              <Edit id="edt06" taborder="4" left="280" top="184" width="257" height="28"/>
+              <Edit id="edt07" taborder="5" left="280" top="151" width="257" height="28"/>
+              <Edit id="edt08" taborder="6" left="280" top="122" width="257" height="28"/>
+              <Edit id="edt09" taborder="7" left="280" top="92" width="257" height="27"/>
+              <Edit id="edt10" taborder="8" left="280" top="63" width="257" height="27"/>
+              <Edit id="edt00" taborder="9" left="280" top="33" width="257" height="26"/>
+              <Edit id="edt01" taborder="10" left="280" top="2" width="257" height="26"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="div04" taborder="4" left="20" top="147" width="280" height="333" border="1px solid black" font="54px/normal &quot;Gulim&quot;" text="">
+          <Layouts>
+            <Layout>
+              <Div id="div00" taborder="0" text="제품명(품목명 및 형명)" left="0" top="1" width="269" height="27"/>
+              <Div id="div01" taborder="1" text="형상 및 구조" left="0" top="33" width="267" height="27"/>
+              <Div id="div02" taborder="2" text="원자재 또는 성문 빛 분량" left="-1" top="65" width="265" height="27"/>
+              <Div id="div03" taborder="3" text="제조방법" left="-1" top="95" width="265" height="27"/>
+              <Div id="div04" taborder="4" text="성능 및 사용 목적" left="0" top="125" width="264" height="27"/>
+              <Div id="div05" taborder="5" text="조작방법 또는 사용방법" left="1" top="155" width="262" height="27"/>
+              <Div id="div06" taborder="6" text="사용시 주의 사항" left="0" top="185" width="261" height="26"/>
+              <Div id="div07" taborder="7" text="시험규격" left="0" top="274" width="261" height="27"/>
+              <Div id="div08" taborder="8" text="제조원" left="0" top="301" width="260" height="27"/>
+            </Layout>
+          </Layouts>
+        </Div>
+        <Div id="div05" taborder="5" text="포장단위" left="20" top="364" width="263" height="26"/>
+        <Div id="div06" taborder="6" text="저장방법 및 사용기한" left="21" top="393" width="263" height="27"/>
+        <Button id="btn00" taborder="7" text="닫기" left="218" top="600" width="145" height="60" onclick="btn00_onclick"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[
+this.btn00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.close();
+};
+
+this.hu_ex01_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	 accno = this.parent.accno;
+	 this.modelview();
+};
+
+this.modelview = function(){
+	var strSvcId    = "modelview";
+	var strSvcUrl   = "modelview.do";
+	var inData      = "";
+	var outData     = "MC_dataset=MC_dataset";
+	var strArg      = "accno="+accno;
+	var callBackFnc = "fnCallback";
+	
+	
+	var isAsync   = true;
+	var nDataType = 0;	
+		
+	this.gfnTransaction( strSvcId , 	
+						strSvcUrl , 	
+						inData , 		
+						outData , 		
+						strArg, 		
+						callBackFnc, 	
+						nDataType); 	
+};]]></Script>
+    <Objects>
+      <Dataset id="MC_dataset">
+        <ColumnInfo>
+          <Column id="dec_name" type="STRING" size="256"/>
+          <Column id="dec_birth" type="STRING" size="256"/>
+          <Column id="dec_address" type="STRING" size="256"/>
+          <Column id="copnm" type="STRING" size="256"/>
+          <Column id="coplicense" type="STRING" size="256"/>
+          <Column id="copaddress" type="STRING" size="256"/>
+          <Column id="type" type="STRING" size="256"/>
+          <Column id="divdtl" type="STRING" size="256"/>
+          <Column id="modelnm" type="STRING" size="256"/>
+          <Column id="divno" type="STRING" size="256"/>
+          <Column id="shape" type="STRING" size="256"/>
+          <Column id="property" type="STRING" size="256"/>
+          <Column id="usepurpose" type="STRING" size="256"/>
+          <Column id="usemethod" type="STRING" size="256"/>
+          <Column id="hints" type="STRING" size="256"/>
+          <Column id="manufacturer" type="STRING" size="256"/>
+          <Column id="etc" type="STRING" size="256"/>
+          <Column id="Column3" type="STRING" size="256"/>
+          <Column id="manager" type="STRING" size="256"/>
+          <Column id="managerphone" type="STRING" size="256"/>
+          <Column id="regID" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row/>
+        </Rows>
+      </Dataset>
+    </Objects>
+    <Bind>
+      <BindItem id="item0" compid="div02.form.edt00" propid="value" datasetid="MC_dataset" columnid="coplicense"/>
+      <BindItem id="item2" compid="div02.form.edt01" propid="value" datasetid="MC_dataset" columnid="type"/>
+      <BindItem id="item1" compid="div03.form.edt01" propid="value" datasetid="MC_dataset" columnid="modelnm"/>
+      <BindItem id="item3" compid="div03.form.edt00" propid="value" datasetid="MC_dataset" columnid="shape"/>
+      <BindItem id="item4" compid="div03.form.edt08" propid="value" datasetid="MC_dataset" columnid="usepurpose"/>
+      <BindItem id="item5" compid="div03.form.edt07" propid="value" datasetid="MC_dataset" columnid="usemethod"/>
+      <BindItem id="item6" compid="div03.form.edt06" propid="value" datasetid="MC_dataset" columnid="hints"/>
+      <BindItem id="item7" compid="div03.form.edt03" propid="value" datasetid="MC_dataset" columnid="dec_birth"/>
+      <BindItem id="item8" compid="div03.form.edt05" propid="value" datasetid="MC_dataset" columnid="manufacturer"/>
+      <BindItem id="item9" compid="div03.form.edt10" propid="value" datasetid="MC_dataset" columnid="property"/>
+      <BindItem id="item10" compid="div03.form.edt04" propid="value" datasetid="MC_dataset" columnid="etc"/>
+      <BindItem id="item11" compid="div03.form.edt09" propid="value" datasetid="MC_dataset" columnid="copnm"/>
+      <BindItem id="item12" compid="div03.form.edt02" propid="value" datasetid="MC_dataset" columnid="dec_address"/>
+    </Bind>
+  </Form>
+</FDL>

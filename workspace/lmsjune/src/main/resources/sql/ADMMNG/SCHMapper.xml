@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.happyjob.study.ADMMNG.dao.SCHDao">
+
+	<!-- 수강 목록 조회 -->
+	<select id="listClassInfo" resultType="kr.happyjob.study.ADMMNG.model.ClassInfo">
+		/*kr.happyjob.study.ADMMNG.dao.SCHDao.listClassInfo*/
+		SELECT		
+				ta.class_no as class_no 
+			,	ta.lec_no as lec_no
+			, 	ta.stu_no as stu_no
+			,	tc.name as name
+			,	tc.dep as dep
+			,	tb.lec_name as lec_name
+			,	tb.lec_start as lec_start
+			,	tb.lec_end as lec_end
+			,	ta.class_ox as class_ox
+			,	ta.class_cnt as class_cnt
+			,	ta.class_pass as class_pass
+			,	ta.loginID as loginID
+			
+		FROM	tb_class ta
+				,	tb_lec tb
+				,	tb_userinfo tc
+		<where>
+			ta.lec_no = tb.lec_no
+			and ta.stu_no = tc.stu_no
+			<if test="(sname != null) and (!sname.equals(''))">
+				<choose>
+					<when
+						test="oname eq 'lec_no'.toString()">
+						and ta.lec_no Like CONCAT('%', #{sname}, '%')
+					</when>
+					<when
+						test="oname eq 'teach_no'.toString()">
+						and tb.teach_no LIKE CONCAT('%', #{sname}, '%')
+					</when>
+					<when
+						test="oname eq 'stu_no'.toString()">
+						and ta.stu_no LIKE CONCAT('%', #{sname}, '%')
+					</when>
+					<otherwise>
+						AND 1=2
+					</otherwise>
+				</choose>
+			</if>
+		</where>
+		
+		ORDER BY stu_no DESC
+		LIMIT #{pageIndex}, #{pageSize}
+		
+	</select>
+	
+	<select id="countListClassInfo" resultType="int">
+		/*kr.happyjob.study.ADMMNG.dao.SCHDao.countListClassInfo*/
+		SELECT COUNT(1) AS tot_cnt
+		FROM	tb_class ta
+				,	tb_lec tb
+		<where>
+			ta.lec_no = tb.lec_no
+			<if test="(sname != null) and (!sname.equals(''))">
+				<choose>
+					<when
+						test="oname eq 'lec_no'.toString()">
+						and ta.lec_no Like CONCAT('%', #{sname}, '%')
+					</when>
+					<when
+						test="oname eq 'teach_no'.toString()">
+						and tb.teach_no LIKE CONCAT('%', #{sname}, '%')
+					</when>
+					<when
+						test="oname eq 'stu_no'.toString()">
+						and ta.stu_no LIKE CONCAT('%', #{sname}, '%')
+					</when>
+					<otherwise>
+						AND 1=2
+					</otherwise>
+				</choose>
+			</if>
+		</where>
+	</select>
+
+	<select id="selectClassInfo" resultType="kr.happyjob.study.ADMMNG.model.ClassInfo">
+		/*kr.happyjob.study.ADMMNG.dao.SCHDao.selectClassInfo*/
+		SELECT		
+				ta.class_no as class_no 
+			,	ta.lec_no as lec_no
+			, 	ta.stu_no as stu_no
+			,	tc.name as name
+			,	tc.dep as dep
+			,	tb.lec_name as lec_name
+			,	tb.lec_start as lec_start
+			,	tb.lec_end as lec_end
+			,	ta.class_ox as class_ox
+			,	ta.class_cnt as class_cnt
+			,	ta.class_pass as class_pass
+			,	ta.loginID as loginID
+			
+		FROM	tb_class ta
+				,	tb_lec tb
+				,	tb_userifo tc
+		<where>
+			ta.class_no =#{class_no}
+			ta.lec_no = tb.lec_no
+			and ta.stu_no = tc.stu_no
+			<if test="(sname != null) and (!sname.equals(''))">
+				<choose>
+					<when
+						test="oname eq 'lec_no'.toString()">
+						and lec_no Like CONCAT('%', #{sname}, '%')
+					</when>
+					<when
+						test="oname eq 'teach_no'.toString()">
+						and tb.teach_no LIKE CONCAT('%', #{sname}, '%')
+					</when>
+					<when
+						test="oname eq 'stu_no'.toString()">
+						and stu_no LIKE CONCAT('%', #{sname}, '%')
+					</when>
+					<otherwise>
+						AND 1=2
+					</otherwise>
+				</choose>
+			</if>
+		</where>
+	</select>
+
+	<insert id="insertClassInfo">
+		/*kr.happyjob.study.ADMMNG.dao.SCHDao.insertClassInfo*/
+		<selectKey resultType="string" keyProperty="classNo" order="BEFORE">
+            SELECT IFNULL(MAX(class_no),0) + 1 FROM tb_class
+        </selectKey>
+		INSERT INTO tb_class
+		(
+			class_no
+			,	lec_no
+			,	stu_no
+			,	class_ox
+			,	class_cnt
+			,	class_pass
+			,	loginID
+		)
+		VALUES
+		(
+			{classNo}
+			,	#{lec_no}
+			,	#{stu_no}
+			,	#{class_ox}
+			,	#{class_cnt}
+			,	#{class_pass}
+			,	(select loginID FROM tb_userinfo where stu_no = #{stu_no})
+		)
+	</insert>
+
+	<update id="updateClassInfo">
+		/*kr.happyjob.study.ADMMNG.dao.updateClassInfo*/
+		UPDATE tb_class SET
+				lec_no = #{lec_no}
+			,	stu_no = #{stu_no}
+			,	class_ox = #{class_ox}
+			,	class_cnt = #{class_cnt}
+			,	class_pass = #{class_pass}
+			,	loginID = (select loginID FROM tb_userinfo where stu_no = #{stu_no})
+			WHERE	class_no = #{class_no}
+	</update>
+	
+	<delete id="deleteClassInfo">
+		/*kr.happyjob.study.ADMMNG.dao.deleteClassInfo*/
+		DELETE FROM tb_class 
+		WHERE	class_no = #{class_no}
+	</delete>
+
+</mapper>

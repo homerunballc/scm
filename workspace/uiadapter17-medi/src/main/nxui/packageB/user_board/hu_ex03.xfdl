@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.0">
+  <Form id="hu_ex03" width="340" height="290" titletext="New Form" onload="hu_ex03_onload">
+    <Layouts>
+      <Layout height="290" mobileorientation="landscape" width="340"/>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[
+this.hu_ex03_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	alert("등록된 증서가 없습니다");
+	this.close();
+};
+]]></Script>
+  </Form>
+</FDL>

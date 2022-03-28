@@ -1,0 +1,387 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.0">
+  <Form id="ApprovalDeclaration" width="900" height="720" titletext="New Form" onload="ADlist_onload">
+    <Layouts>
+      <Layout height="720" mobileorientation="portrait" width="900">
+        <Grid id="grd00" taborder="0" left="10" top="125" width="860" height="365" binddataset="datasetlist" oncellclick="List_onclick" onexpandup="hu_ex">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="356"/>
+                <Column size="114"/>
+                <Column size="114"/>
+                <Column size="114"/>
+                <Column size="93"/>
+                <Column size="39"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="의료기기 이름" textAlign="left"/>
+                <Cell col="1" text="업체명"/>
+                <Cell col="2" text="등록자"/>
+                <Cell col="3" text="날짜" displaytype="normal"/>
+                <Cell col="4" text="승인여부"/>
+                <Cell col="5" text="증서"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:modelnm" textAlign="left"/>
+                <Cell col="1" text="bind:copnm"/>
+                <Cell col="2" text="bind:regID"/>
+                <Cell col="3" text="bind:regDate" displaytype="date"/>
+                <Cell col="4" text="bind:accyn" expr="expr:(accyn==0) ? &quot;대기중&quot; : (accyn==2) ? &quot;반려&quot; : &quot;승인완료&quot;"/>
+                <Cell col="5" text="bind:hu" expandshow="show" textAlign="center"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Combo id="cbo00" taborder="1" text="전체" left="47" top="72" width="142" height="37" innerdataset="accynsearch" codecolumn="accyn_code" datacolumn="accyn_name" onitemchanged="cbo00_onitemchanged" index="0" value="9"/>
+        <Combo id="cbo01" taborder="2" text="전체" left="207" top="72" width="142" height="37" innerdataset="ctsearch" codecolumn="ctserch_code" datacolumn="ctserch_name" index="0" value="0" onitemchanged="cbo01_onitemchanged"/>
+        <Edit id="edt_Keyword" taborder="3" left="367" top="69" width="287" height="40" onchanged="edt_Keyword_onchanged"/>
+        <Button id="btn00" taborder="4" text="등록" left="359" top="510" width="180" height="80" font="24px/normal &quot;Gulim&quot;" onclick="btn00_onclick"/>
+        <Button id="btn02" taborder="5" text="조회" left="610" top="510" width="180" height="80" font="24px/normal &quot;Gulim&quot;" onclick="btn02_onclick"/>
+        <Button id="btn01" taborder="6" text="검색" left="708" top="72" width="134" height="40" onclick="btn_Search" font="24pt &quot;Arial&quot;"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="datasetlist">
+        <ColumnInfo>
+          <Column id="modelnm" type="STRING" size="256"/>
+          <Column id="copnm" type="STRING" size="256"/>
+          <Column id="regID" type="STRING" size="256"/>
+          <Column id="regDate" type="STRING" size="256"/>
+          <Column id="accyn" type="STRING" size="256"/>
+          <Column id="hu" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="accynsearch">
+        <ColumnInfo>
+          <Column id="accyn_code" type="STRING" size="256"/>
+          <Column id="accyn_name" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="accyn_name">전체</Col>
+            <Col id="accyn_code">9</Col>
+          </Row>
+          <Row>
+            <Col id="accyn_code">0</Col>
+            <Col id="accyn_name">대기중</Col>
+          </Row>
+          <Row>
+            <Col id="accyn_code">1</Col>
+            <Col id="accyn_name">승인완료</Col>
+          </Row>
+          <Row>
+            <Col id="accyn_code">2</Col>
+            <Col id="accyn_name">반려</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="ctsearch">
+        <ColumnInfo>
+          <Column id="ctserch_code" type="STRING" size="256"/>
+          <Column id="ctserch_name" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="ctserch_code">0</Col>
+            <Col id="ctserch_name">전체</Col>
+          </Row>
+          <Row>
+            <Col id="ctserch_name">의료기기 이름</Col>
+            <Col id="ctserch_code">1</Col>
+          </Row>
+          <Row>
+            <Col id="ctserch_name">업체명</Col>
+            <Col id="ctserch_code">2</Col>
+          </Row>
+          <Row>
+            <Col id="ctserch_name">등록자</Col>
+            <Col id="ctserch_code">3</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+      <Dataset id="search_m">
+        <ColumnInfo>
+          <Column id="search_m_key" type="STRING" size="256"/>
+          <Column id="search_m_word" type="STRING" size="256"/>
+          <Column id="search_m_com" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row/>
+        </Rows>
+      </Dataset>
+      <Dataset id="mri">
+        <ColumnInfo>
+          <Column id="code" type="STRING" size="256"/>
+          <Column id="name" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="code">1</Col>
+            <Col id="name">제조 신고서</Col>
+          </Row>
+          <Row>
+            <Col id="code">2</Col>
+            <Col id="name">수리 신고서</Col>
+          </Row>
+          <Row>
+            <Col id="code">3</Col>
+            <Col id="name">판매 신고서</Col>
+          </Row>
+        </Rows>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[
+var searchID;
+var searchkey;
+var searchcom;
+var confirmcomf;
+var modelnmf;
+var ttl;
+
+this.ADlist_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	this.cbo01.set_displaynulltext("전체");
+	this.cbo00.set_displaynulltext("전체");
+	this.ADList();
+};
+
+// 의료기기 이름 / 등록자 / 업체명 검색 값 저장
+this.cbo01_onitemchanged = function(obj:nexacro.Combo,e:nexacro.ItemChangeEventInfo)
+{
+	searchID=e.postvalue;
+};
+
+// 검색 키워드 값 저장
+this.edt_Keyword_onchanged = function(obj:nexacro.Edit,e:nexacro.ChangeEventInfo)
+{
+	searchkey=e.postvalue;
+};
+// 승인 여부 검색 값 저장
+this.cbo00_onitemchanged = function(obj:nexacro.Combo,e:nexacro.ItemChangeEventInfo)
+{
+	searchcom=e.postvalue;
+};
+
+// 검색 버튼 
+this.btn_Search = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.ADList();
+};
+
+// 증서 확인 버튼 
+this.hu_ex = function(obj:nexacro.Grid,e:nexacro.GridMouseEventInfo)
+{
+	ttl = this.datasetlist.getColumn(this.datasetlist.rowposition, "divdtl");
+	modelnmf = this.datasetlist.getColumn(this.datasetlist.rowposition, "accno");
+	//alert(ttl);
+		var objChild = new ChildFrame("hu_ex", "absolute", 0, 0, 3, 4);			
+		objChild.set_openalign("center middle");
+		objChild.set_dragmovetype("all");  
+		
+		if(ttl == "1" || ttl == "2"){
+			objChild.set_formurl("user_board::hu_ex01.xfdl");
+		}else if(ttl=="3" || ttl=="4"){
+			objChild.set_formurl("user_board::hu_ex02.xfdl");
+		}else {
+			objChild.set_formurl("user_board::hu_ex03.xfdl");
+		};
+	
+	var objParam = {accno:modelnmf};
+	// 모달 실행 코드
+    objChild.showModal(this.getOwnerFrame()
+                     , objParam
+                     , this	
+                     , "fnCallback_m");
+};
+
+// 검색 
+this.ADList=function() 
+{		
+   	var strSvcId    = "ADList";
+	var strSvcUrl   = "ADList.do";
+	var inData      = "search_m=search_m";
+	var outData     = "datasetlist=datasetlist";
+	var strArg      = "";
+	var callBackFnc = "fnCallback";
+	
+	trace("------------------------------------");
+	trace("---------------ID : "+searchID);
+	trace("---------------keyword : "+searchkey);
+	trace("---------------searchcom : "+searchcom);
+	trace("------------------------------------");
+	
+	var isAsync   = true;
+	var nDataType = 0;	
+		
+	this.gfnTransaction( strSvcId , 	
+						strSvcUrl , 	
+						inData , 		
+						outData , 		
+						strArg, 		
+						callBackFnc, 	
+						nDataType); 	
+										
+}
+
+this.List_onclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{	
+	// 의료기기 품명 누르면 동작하는 함수
+	if(e.col == obj.getBindCellIndex("body","modelnm")){
+	
+		var objChild = new ChildFrame("Popupmode", "absolute", 0, 0, 30, 40);
+			modelnmf = this.datasetlist.getColumn(this.datasetlist.rowposition, "accno");
+		objChild.set_formurl("user_board::Popup_Model.xfdl");
+		objChild.set_openalign("center middle");
+		objChild.set_dragmovetype("all");  
+	
+	var objParam = {action:"U"
+	              , accno:modelnmf};
+				  
+	// 모달 실행 코드
+    objChild.showModal(this.getOwnerFrame()
+                     , objParam //param 값 (지금은 되돌려줄값이 없기때문에 안적음)
+                     , this	// this 써야됨
+                     , "fnCallback_m");	// 창이 닫혔을경우 실행	
+	}
+	
+	
+	// 승인완료 
+	if(e.col == obj.getBindCellIndex("body","accyn") ){
+			
+		var objChild = new ChildFrame("Popupcom", "absolute", 0, 0, 30, 40);
+			confirmcomf = this.datasetlist.getColumn(this.datasetlist.rowposition, "accno");
+			//alert(confirmcomf);
+		objChild.set_formurl("./user_board/Popupcom.xfdl");
+		objChild.set_openalign("center middle");
+		objChild.set_dragmovetype("all");  
+	
+	
+	// 모달 실행 코드
+    objChild.showModal(this.getOwnerFrame()
+                     , {}
+                     , this	
+                     , "fnCallback_m");	
+	}
+};
+
+// 조회 창 
+this.btn02_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var objChild = new ChildFrame("PopupLi", "absolute", 0, 0, 3, 4);			
+		objChild.set_formurl("user_board::Popup_Model.xfdl");
+		objChild.set_openalign("center middle");
+		objChild.set_dragmovetype("all");  
+		modelnmf = this.datasetlist.getColumn(this.datasetlist.rowposition, "accno");
+	var objParam = {action:"V"
+	              , accno:modelnmf};
+	
+	
+	// 모달 실행 코드
+    objChild.showModal(this.getOwnerFrame()
+                     , objParam
+                     , this	
+                     , "fnCallback_m");	
+		
+};
+
+// 등록 창
+this.btn00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var objChild = new ChildFrame("PopupMC", "absolute", 0, 0, 3, 4);			
+		objChild.set_openalign("center middle");
+		objChild.set_formurl("user_board::Popup_Model.xfdl");
+		objChild.set_dragmovetype("all");  
+
+	var objParam = {action:"I"
+	              , accno:""};
+	
+	
+	// 모달 실행 코드
+    objChild.showModal(this.getOwnerFrame()
+                     , objParam
+                     , this	
+                     , "fnCallback_m");		
+};
+
+this.fnCallback_m = function (sPopupId, sReturn){
+	if(sReturn == undefined){
+		sReturn = "";
+	}
+	if(sPopupId == "Popupcom")
+	{
+		if(sReturn.length > 0){
+			alert("완료 되었습니다");
+					
+				var strSvcId    = "cfcom";
+				var strSvcUrl   = "cfcom.do";
+				var inData      = "";
+				var outData     = "";
+				var strArg      = "confirmcom="+sReturn + " confirmcomf="+confirmcomf;
+				var callBackFnc = "fnCallback";
+					//trace("-------11--------"+confirmcomf);
+				var isAsync   = true;
+				var nDataType = 0;	
+						
+				this.gfnTransaction( strSvcId , 	
+									strSvcUrl , 	
+									inData , 		
+									outData , 		
+									strArg, 		
+									callBackFnc, 	
+									nDataType); 	
+		}
+	}
+	
+	if(sPopupId == "Popupmode" || sPopupId == "PopupMC"){
+		this.ADList();
+	}
+};
+
+// callback 함수 ------------------------------------------
+this.fnCallback = function(svcID, errorCode, errorMsg)
+{
+	switch(svcID)
+	{
+		case "ADList":
+		    alert(this.datasetlist.getRowCount() + " 건이 조회 되었습니다.");
+		break;
+		case "cfcom":
+		    alert(" 결제가 완료 되었습니다.");
+			this.ADList();
+		break; 
+	}
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+]]></Script>
+    <Bind>
+      <BindItem id="item2" compid="edt_Keyword" propid="value" datasetid="search_m" columnid="search_m_word"/>
+      <BindItem id="item0" compid="cbo01" propid="value" datasetid="search_m" columnid="search_m_key"/>
+      <BindItem id="item1" compid="cbo00" propid="value" datasetid="search_m" columnid="search_m_com"/>
+    </Bind>
+  </Form>
+</FDL>

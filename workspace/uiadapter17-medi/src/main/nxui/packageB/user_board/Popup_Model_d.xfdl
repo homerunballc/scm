@@ -1,0 +1,169 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.0">
+  <Form id="SaleRentCertificate" width="650" height="720" titletext="New Form">
+    <Layouts>
+      <Layout height="720" mobileorientation="landscape" width="650">
+        <Grid id="grd08" taborder="0" left="86" top="210" width="505" height="66"/>
+        <Grid id="grd01" taborder="1" left="85" top="288" width="505" height="104"/>
+        <Div id="div18" taborder="2" text="신고인" left="98" top="293" width="220" height="33">
+          <Layouts>
+            <Layout/>
+          </Layouts>
+        </Div>
+        <Div id="div19" taborder="3" text="담당자 성명" left="98" top="319" width="220" height="33">
+          <Layouts>
+            <Layout/>
+          </Layouts>
+        </Div>
+        <Div id="div20" taborder="4" text="담당자 전화번호" left="98" top="349" width="220" height="33">
+          <Layouts>
+            <Layout/>
+          </Layouts>
+        </Div>
+        <Edit id="edt16" taborder="5" left="320" top="298" width="263" height="22"/>
+        <Edit id="edt17" taborder="6" left="320" top="326" width="263" height="22"/>
+        <Edit id="edt18" taborder="7" left="320" top="354" width="263" height="22"/>
+        <Button id="btn00" taborder="8" text="등록" left="257" top="416" width="127" height="48" onclick="btn00_MC"/>
+        <Grid id="grd00" taborder="9" left="87" top="4" width="505" height="96"/>
+        <Div id="div00" taborder="10" text="신고인(대표자)" left="88" top="6" width="92" height="24" font="20px/normal &quot;Gulim&quot;">
+          <Layouts>
+            <Layout/>
+          </Layouts>
+        </Div>
+        <Div id="div02" taborder="11" text="성명" left="89" top="30" width="101" height="30"/>
+        <Edit id="edt00" taborder="12" left="196" top="34" width="134" height="22" onchanged="edt00_onchanged"/>
+        <Div id="div03" taborder="13" text="등록기준지" left="88" top="53" width="101" height="30"/>
+        <Edit id="edt01" taborder="14" left="196" top="61" width="384" height="22"/>
+        <Div id="div04" taborder="15" text="생년월일" left="327" top="29" width="100" height="31"/>
+        <Calendar id="cal00" taborder="16" left="431" top="34" width="149" height="22"/>
+        <Grid id="grd02" taborder="17" left="86" top="110" width="505" height="90"/>
+        <Div id="div01" taborder="18" text="제조(소입)업소" left="87" top="109" width="93" height="24" font="20px/normal &quot;Gulim&quot;">
+          <Layouts>
+            <Layout/>
+          </Layouts>
+        </Div>
+        <Div id="div05" taborder="19" text="영업소명" left="89" top="128" width="101" height="30"/>
+        <Edit id="edt02" taborder="20" left="192" top="133" width="134" height="22"/>
+        <Div id="div06" taborder="21" text="주소" left="89" top="152" width="101" height="30"/>
+        <Edit id="edt03" taborder="22" left="192" top="160" width="388" height="22"/>
+        <Div id="div07" taborder="23" text="전화번호" left="327" top="128" width="101" height="29"/>
+        <Edit id="edt04" taborder="24" left="431" top="133" width="149" height="22"/>
+        <Div id="div08" taborder="25" text="신고의 구분" left="86" top="209" width="100" height="24" font="20px/normal &quot;Gulim&quot;">
+          <Layouts>
+            <Layout/>
+          </Layouts>
+        </Div>
+        <Radio id="rdo00" taborder="26" left="212" top="234" width="331" height="32" innerdataset="innerdataset" codecolumn="codecolumn" datacolumn="datacolumn" direction="vertical">
+          <Dataset id="innerdataset">
+            <ColumnInfo>
+              <Column id="codecolumn" size="256"/>
+              <Column id="datacolumn" size="256"/>
+            </ColumnInfo>
+            <Rows>
+              <Row>
+                <Col id="codecolumn">1</Col>
+                <Col id="datacolumn">판매업</Col>
+              </Row>
+              <Row>
+                <Col id="codecolumn">2</Col>
+                <Col id="datacolumn">임대업</Col>
+              </Row>
+            </Rows>
+          </Dataset>
+        </Radio>
+      </Layout>
+    </Layouts>
+    <Bind>
+      <BindItem id="item2" compid="edt17" propid="value" datasetid="MC_dataset" columnid="manager"/>
+      <BindItem id="item3" compid="edt18" propid="value" datasetid="MC_dataset" columnid="managerphone"/>
+      <BindItem id="item4" compid="edt00" propid="value" datasetid="MC_dataset" columnid="dec_name"/>
+      <BindItem id="item5" compid="edt01" propid="value" datasetid="MC_dataset" columnid="dec_address"/>
+      <BindItem id="item6" compid="cal00" propid="value" datasetid="MC_dataset" columnid="dec_birth"/>
+      <BindItem id="item7" compid="edt02" propid="value" datasetid="MC_dataset" columnid="copnm"/>
+      <BindItem id="item8" compid="edt03" propid="value" datasetid="MC_dataset" columnid="copaddress"/>
+      <BindItem id="item9" compid="edt04" propid="value" datasetid="MC_dataset" columnid="copphone"/>
+      <BindItem id="item0" compid="rdo00" propid="value" datasetid="MC_dataset" columnid="accas"/>
+      <BindItem id="item1" compid="edt16" propid="value" datasetid="MC_dataset" columnid="regID"/>
+    </Bind>
+    <Objects>
+      <Dataset id="MC_dataset">
+        <ColumnInfo>
+          <Column id="dec_name" type="STRING" size="256"/>
+          <Column id="dec_birth" type="STRING" size="256"/>
+          <Column id="dec_address" type="STRING" size="256"/>
+          <Column id="copnm" type="STRING" size="256"/>
+          <Column id="coplicense" type="STRING" size="256"/>
+          <Column id="copaddress" type="STRING" size="256"/>
+          <Column id="type" type="STRING" size="256"/>
+          <Column id="divdtl" type="STRING" size="256"/>
+          <Column id="modelnm" type="STRING" size="256"/>
+          <Column id="divno" type="STRING" size="256"/>
+          <Column id="shape" type="STRING" size="256"/>
+          <Column id="property" type="STRING" size="256"/>
+          <Column id="usepurpose" type="STRING" size="256"/>
+          <Column id="usemethod" type="STRING" size="256"/>
+          <Column id="hints" type="STRING" size="256"/>
+          <Column id="manufacturer" type="STRING" size="256"/>
+          <Column id="etc" type="STRING" size="256"/>
+          <Column id="manager" type="STRING" size="256"/>
+          <Column id="managerphone" type="STRING" size="256"/>
+          <Column id="meditype" type="STRING" size="256"/>
+          <Column id="otheryn" type="STRING" size="256"/>
+          <Column id="reporttype" type="STRING" size="256"/>
+          <Column id="reporNumber" type="STRING" size="256"/>
+          <Column id="accas" type="STRING" size="256"/>
+          <Column id="copphone" type="STRING" size="256"/>
+          <Column id="regID" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row/>
+        </Rows>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[
+this.btn00_MC = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.insert_MC();
+};
+
+this.insert_MC=function() 
+{		
+   	var strSvcId    = "MCinsert";
+	var strSvcUrl   = "MCinsert.do";
+	var inData      = "MC_dataset=MC_dataset";
+	var outData     = "";
+	var strArg      = "";
+	var callBackFnc = "fnCallback";
+	
+	
+	var isAsync   = true;
+	var nDataType = 0;	
+		
+	this.gfnTransaction( strSvcId , 	
+						strSvcUrl , 	
+						inData , 		
+						outData , 		
+						strArg, 		
+						callBackFnc, 	
+						nDataType); 	
+										
+}
+
+
+
+// callback 함수 ------------------------------------------
+this.fnCallback = function(svcID, errorCode, errorMsg)
+{
+	switch(svcID)
+	{
+		case "MCinsert":
+		    alert("저장되었습니다");
+			this.reload();
+		break;
+		
+		
+		
+	}
+};]]></Script>
+  </Form>
+</FDL>

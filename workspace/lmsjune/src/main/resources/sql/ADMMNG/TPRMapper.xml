@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.happyjob.study.ADMMNG.dao.TPRDao">
+
+	<!-- 문제 목록 조회 -->
+	<select id="listProbInfo" resultType="kr.happyjob.study.ADMMNG.model.ProbInfo">
+		/*kr.happyjob.study.ADMMNG.dao.TPRDao.listProbInfo*/
+		SELECT	ta.test_no as test_no
+			    ,	ta.que_no as que_no
+			    ,	ta.que_que as que_que
+			, 	ta.que_right as que_right
+			,	ta.que_ex1 as que_ex1			
+			,	ta.que_ex2 as que_ex2
+			,	ta.que_ex3 as que_ex3
+			,	ta.que_ex4 as que_ex4
+		FROM tb_prob ta
+			,	 tb_lec tb
+		WHERE ta.test_no = tb.test_no
+			AND tb.lec_no = #{lec_no}
+		ORDER BY ta.que_no ASC
+		LIMIT #{pageIndex}, #{pageSize}
+	</select>
+	
+	<!-- 문제 목록 총 갯수 조회 -->
+	<select id="countListProbInfo" resultType="int">
+		/*kr.happyjob.study.ADMMNG.dao.TPRDao.countListProbInfo*/
+		SELECT COUNT(1) AS tot_cnt 
+		FROM tb_prob ta
+			,	 tb_lec tb 
+		WHERE ta.test_no = tb.test_no
+			AND tb.lec_no = #{lec_no}
+	</select>
+	
+		<!-- 문제 단건 조회 -->
+	<select id="selectProb" resultType="kr.happyjob.study.ADMMNG.model.ProbInfo">
+		/*kr.happyjob.study.ADMMNG.dao.TPRDao.selectProb*/
+		SELECT	test_no
+			    ,	que_no
+			    ,	que_que
+			, 	que_right
+			,	que_ex1			
+			,	que_ex2
+			,	que_ex3
+			,	que_ex4
+		FROM	tb_prob
+		WHERE	test_no = #{test_no}
+			AND	que_no = #{que_no}
+	</select>
+	
+	<!-- 문제 저장 -->
+	<insert id="insertProb">
+		/*kr.happyjob.study.ADMMNG.dao.TPRDao.insertProb*/
+		INSERT INTO tb_prob
+		(
+			  test_no
+			,	que_no
+			,	que_que
+			, 	que_right
+			,	que_ex1			
+			,	que_ex2
+			,	que_ex3
+			,	que_ex4
+		)
+		VALUES
+		(
+				#{test_no}
+			,	#{que_no}
+			,	#{que_que}
+			, 	#{que_right}
+			,	#{que_ex1}			
+			,	#{que_ex2}
+			,	#{que_ex3}
+			,	#{que_ex4}
+		)
+	</insert>
+	
+	<!-- 문제 수정 -->
+	<update id="updateProb">
+		/*kr.happyjob.study.ADMMNG.dao.TPRDao.updateProb*/
+		UPDATE tb_prob SET
+				que_que = #{que_que}
+			, 	que_right = #{que_right}
+			,	que_ex1	=	#{que_ex1}	
+			,	que_ex2 = #{que_ex2}
+			,	que_ex3 = #{que_ex3}
+			,	que_ex4 = #{que_ex4}
+		WHERE	test_no = #{test_no}
+			AND	que_no = #{que_no}
+	</update>
+	
+		
+	<!-- 문제 삭제 -->
+	<delete id="deleteProb">
+		/*kr.happyjob.study.ADMMNG.dao.TPRDao.deleteProb*/
+		DELETE FROM tb_prob 
+		WHERE	test_no = #{test_no}
+			AND	que_no = #{que_no}
+	</delete>
+	
+</mapper>

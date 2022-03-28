@@ -1,0 +1,162 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.0">
+  <Form id="RepairCertificate" width="690" height="890" titletext="New Form">
+    <Layouts>
+      <Layout height="890" mobileorientation="landscape" width="690">
+        <Grid id="grd08" taborder="0" left="86" top="210" width="505" height="200"/>
+        <Div id="div16" taborder="1" text="다른 겸업 여부" left="91" top="330" width="220" height="33">
+          <Layouts>
+            <Layout/>
+          </Layouts>
+        </Div>
+        <Div id="div17" taborder="2" text="비고" left="89" top="359" width="220" height="34"/>
+        <Grid id="grd01" taborder="3" left="87" top="419" width="505" height="104"/>
+        <Div id="div18" taborder="4" text="신고인" left="100" top="424" width="220" height="33">
+          <Layouts>
+            <Layout/>
+          </Layouts>
+        </Div>
+        <Div id="div19" taborder="5" text="담당자 성명" left="100" top="450" width="220" height="33">
+          <Layouts>
+            <Layout/>
+          </Layouts>
+        </Div>
+        <Div id="div20" taborder="6" text="담당자 전화번호" left="100" top="480" width="220" height="33">
+          <Layouts>
+            <Layout/>
+          </Layouts>
+        </Div>
+        <Edit id="edt14" taborder="7" left="317" top="340" width="263" height="22"/>
+        <Edit id="edt15" taborder="8" left="317" top="365" width="263" height="22" onchanged="edt15_onchanged"/>
+        <Edit id="edt16" taborder="9" left="322" top="429" width="263" height="22"/>
+        <Edit id="edt17" taborder="10" left="322" top="457" width="263" height="22"/>
+        <Edit id="edt18" taborder="11" left="322" top="485" width="263" height="22"/>
+        <Button id="btn00" taborder="12" text="등록" left="259" top="538" width="127" height="48" onclick="btn00_MC"/>
+        <Grid id="grd00" taborder="13" left="87" top="4" width="505" height="96"/>
+        <Div id="div00" taborder="14" text="신고인(대표자)" left="88" top="6" width="92" height="24" font="20px/normal &quot;Gulim&quot;">
+          <Layouts>
+            <Layout/>
+          </Layouts>
+        </Div>
+        <Div id="div02" taborder="15" text="성명" left="89" top="30" width="101" height="30"/>
+        <Edit id="edt00" taborder="16" left="196" top="34" width="134" height="22" onchanged="edt00_onchanged"/>
+        <Div id="div03" taborder="17" text="등록기준지" left="88" top="53" width="101" height="30"/>
+        <Edit id="edt01" taborder="18" left="196" top="61" width="384" height="22"/>
+        <Div id="div04" taborder="19" text="생년월일" left="327" top="29" width="100" height="31"/>
+        <Calendar id="cal00" taborder="20" left="431" top="34" width="149" height="22"/>
+        <Grid id="grd02" taborder="21" left="86" top="110" width="505" height="90"/>
+        <Div id="div01" taborder="22" text="제조(소입)업소" left="87" top="109" width="93" height="24" font="20px/normal &quot;Gulim&quot;">
+          <Layouts>
+            <Layout/>
+          </Layouts>
+        </Div>
+        <Div id="div05" taborder="23" text="영업소명" left="89" top="128" width="101" height="30"/>
+        <Edit id="edt02" taborder="24" left="192" top="133" width="134" height="22"/>
+        <Div id="div06" taborder="25" text="주소" left="89" top="152" width="101" height="30"/>
+        <Edit id="edt03" taborder="26" left="192" top="160" width="388" height="22"/>
+        <Div id="div07" taborder="27" text="전화번호" left="327" top="128" width="101" height="29"/>
+        <Edit id="edt04" taborder="28" left="431" top="133" width="149" height="22"/>
+        <Div id="div08" taborder="29" text="수리대상 의료기기의 유형" left="86" top="209" width="154" height="24" font="20px/normal &quot;Gulim&quot;">
+          <Layouts>
+            <Layout/>
+          </Layouts>
+        </Div>
+        <Edit id="edt05" taborder="30" left="89" top="240" width="491" height="80"/>
+      </Layout>
+    </Layouts>
+    <Bind>
+      <BindItem id="item12" compid="edt14" propid="value" datasetid="MC_dataset" columnid="otheryn"/>
+      <BindItem id="item13" compid="edt15" propid="value" datasetid="MC_dataset" columnid="etc"/>
+      <BindItem id="item15" compid="edt17" propid="value" datasetid="MC_dataset" columnid="manager"/>
+      <BindItem id="item16" compid="edt18" propid="value" datasetid="MC_dataset" columnid="managerphone"/>
+      <BindItem id="item17" compid="edt00" propid="value" datasetid="MC_dataset" columnid="dec_name"/>
+      <BindItem id="item18" compid="edt01" propid="value" datasetid="MC_dataset" columnid="dec_address"/>
+      <BindItem id="item19" compid="cal00" propid="value" datasetid="MC_dataset" columnid="dec_birth"/>
+      <BindItem id="item20" compid="edt02" propid="value" datasetid="MC_dataset" columnid="copnm"/>
+      <BindItem id="item21" compid="edt03" propid="value" datasetid="MC_dataset" columnid="copaddress"/>
+      <BindItem id="item22" compid="edt04" propid="value" datasetid="MC_dataset" columnid="copphone"/>
+      <BindItem id="item0" compid="edt05" propid="value" datasetid="MC_dataset" columnid="meditype"/>
+      <BindItem id="item1" compid="edt16" propid="value" datasetid="MC_dataset" columnid="regID"/>
+    </Bind>
+    <Script type="xscript5.1"><![CDATA[
+this.btn00_MC = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.insert_MC();
+};
+
+this.insert_MC=function() 
+{		
+   	var strSvcId    = "MCinsert";
+	var strSvcUrl   = "MCinsert.do";
+	var inData      = "MC_dataset=MC_dataset";
+	var outData     = "";
+	var strArg      = "";
+	var callBackFnc = "fnCallback";
+	
+	
+	var isAsync   = true;
+	var nDataType = 0;	
+		
+	this.gfnTransaction( strSvcId , 	
+						strSvcUrl , 	
+						inData , 		
+						outData , 		
+						strArg, 		
+						callBackFnc, 	
+						nDataType); 	
+										
+}
+
+
+
+// callback 함수 ------------------------------------------
+this.fnCallback = function(svcID, errorCode, errorMsg)
+{
+	switch(svcID)
+	{
+		case "MCinsert":
+		    alert("저장되었습니다");
+			this.reload();
+		break;
+		
+		
+		
+	}
+};]]></Script>
+    <Objects>
+      <Dataset id="MC_dataset">
+        <ColumnInfo>
+          <Column id="dec_name" type="STRING" size="256"/>
+          <Column id="dec_birth" type="STRING" size="256"/>
+          <Column id="dec_address" type="STRING" size="256"/>
+          <Column id="copnm" type="STRING" size="256"/>
+          <Column id="coplicense" type="STRING" size="256"/>
+          <Column id="copaddress" type="STRING" size="256"/>
+          <Column id="type" type="STRING" size="256"/>
+          <Column id="divdtl" type="STRING" size="256"/>
+          <Column id="modelnm" type="STRING" size="256"/>
+          <Column id="divno" type="STRING" size="256"/>
+          <Column id="shape" type="STRING" size="256"/>
+          <Column id="property" type="STRING" size="256"/>
+          <Column id="usepurpose" type="STRING" size="256"/>
+          <Column id="usemethod" type="STRING" size="256"/>
+          <Column id="hints" type="STRING" size="256"/>
+          <Column id="manufacturer" type="STRING" size="256"/>
+          <Column id="etc" type="STRING" size="256"/>
+          <Column id="manager" type="STRING" size="256"/>
+          <Column id="managerphone" type="STRING" size="256"/>
+          <Column id="meditype" type="STRING" size="256"/>
+          <Column id="otheryn" type="STRING" size="256"/>
+          <Column id="reporttype" type="STRING" size="256"/>
+          <Column id="reporNumber" type="STRING" size="256"/>
+          <Column id="accas" type="STRING" size="256"/>
+          <Column id="copphone" type="STRING" size="256"/>
+          <Column id="regID" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row/>
+        </Rows>
+      </Dataset>
+    </Objects>
+  </Form>
+</FDL>

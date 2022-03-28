@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.happyjob.study.system.dao.SelectComboDao">
+
+	<!-- 과정 목록 조회 -->
+	<select id="selectcourselist" resultType="kr.happyjob.study.system.model.comcombo">
+		/*kr.happyjob.study.system.dao.SelectComboDao.selectcourselist*/
+		select lec_no as cd
+               ,lec_name as name
+         from tb_lec		
+		order by lec_no
+	</select>
+	
+	<!-- 강의실 목록 조회 -->
+	<select id="selectroomlist" resultType="kr.happyjob.study.system.model.comcombo">
+		/*kr.happyjob.study.system.dao.SelectComboDao.selectroomlist*/
+		select room_no as cd
+               ,room_name as name
+         from tb_room
+        order by room_no
+	</select>
+	
+
+	<!-- 교수 목록 조회 -->
+	<select id="selecttealist" resultType="kr.happyjob.study.system.model.comcombo">
+		/*kr.happyjob.study.system.dao.SelectComboDao.selecttealist	*/
+		select teach_no as cd
+               ,name
+         from tb_userinfo
+        where user_type = 'T'
+        order by teach_no
+	</select>
+
+	
+	
+</mapper>

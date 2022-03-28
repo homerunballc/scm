@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.happyjob.study.ADMMNG.dao.TSTLecDao">
+
+	<!-- 강의 목록 조회 -->
+	<select id="listTSTLectureInfo" resultType="kr.happyjob.study.ADMMNG.model.TSTLectureInfo">
+		/*kr.happyjob.study.ADMMNG.dao.TSTLecDao.listTSTLectureInfo*/
+		SELECT		
+				ta.lec_no as lec_no 
+			,	ta.lec_name as lec_name
+			,	ta.test_no as test_no
+      		,	<![CDATA[ifnull((lec_start <= now()) + (lec_end <= now()),0) as lec_state]]>
+      		,	ifnull(ll.cnt,0) as cnt_cla_no
+      		,	ifnull(ll.cnt_cla_y,0) as cnt_cla_y
+      		,	ifnull(ll.cnt_cla_n,0) as cnt_cla_n
+		FROM	tb_lec ta
+					left outer join	(
+                            select lec_no
+                                  ,COUNT(class_no) as cnt
+                                  ,SUM(CASE WHEN ifnull(class_ox,'N') = 'Y' THEN 1 ELSE 0 END) as cnt_cla_y
+                                  ,SUM(CASE WHEN ifnull(class_ox,'N') = 'N' THEN 1 ELSE 0 END) as cnt_cla_n
+                              from tb_class
+                            group by lec_no
+                          ) ll on ll.lec_no=ta.lec_no
+     
+			<where>
+				ta.lec_no=tb.lec_no				
+			<if test="(sname != null) and (!sname.equals(''))">
+				<choose>
+					<when
+						test="oname eq 'lec_no'.toString()">
+						and lec_no Like CONCAT('%', #{sname}, '%')
+					</when>
+					<when
+						test="oname eq 'lec_name'.toString()">
+						and lec_name LIKE CONCAT('%', #{sname}, '%')
+					</when>
+					<otherwise>
+						AND 1=2
+					</otherwise>
+				</choose>
+			</if>
+		</where>
+		GROUP BY ta.lec_no	
+		ORDER BY lec_no DESC
+		LIMIT #{pageIndex}, #{pageSize}
+		
+	</select>
+
+	<!-- 강의 목록 총 갯수 조회 -->
+	<select id="countListTSTLectureInfo" resultType="int">
+		/*kr.happyjob.study.ADMMNG.dao.ComnADMMNGDao.countListAdminLectureInfo*/
+		SELECT COUNT(1) AS tot_cnt FROM tb_lec
+			<where>
+			<if test="(sname != null) and (!sname.equals(''))">
+				<choose>
+					<when
+						test="oname eq 'lec_no'.toString()">
+						and lec_no Like CONCAT('%', #{sname}, '%')
+					</when>
+					<when
+						test="oname eq 'lec_name'.toString()">
+						and lec_name LIKE CONCAT('%', #{sname}, '%')
+					</when>
+					<otherwise>
+						AND 1=2
+					</otherwise>
+				</choose>
+			</if>
+		</where>
+		
+	</select>
+	
+</mapper>

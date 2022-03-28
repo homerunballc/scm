@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <GenInfo version="1.1">
+    <Rule>
+      <ENV rule_version="1.05"/>
+      <ADL rule_version="1.14"/>
+      <FDL rule_version="1.04"/>
+      <XCSS rule_version="1.03"/>
+      <Script rule_version="1.02"/>
+    </Rule>
+    <Info project="C:\egov\workspace\uiadapter17-medi\src\main\nxui\packageB\" generated="C:\Users\HyeonGi\Documents\nexacro\17\outputs\packageB\">
+      <File url="typedefinition.xml" checksum="20211223120951" errormsg=""/>
+      <File url="appvariables.xml" checksum="20190923161320" errormsg=""/>
+      <File url="environment.xml" checksum="20190923161332" errormsg=""/>
+      <File url="_resource_\_theme_\default\theme.xcss" checksum="20190923161332" errormsg=""/>
+      <File url="packageB.xadl" checksum="20190923161332" errormsg=""/>
+      <File url="frame\frameTop.xfdl" checksum="20200613164558" errormsg=""/>
+      <File url="frame\frameLeft.xfdl" checksum="20190923161320" errormsg=""/>
+      <File url="frame\frameMDI.xfdl" checksum="20190923161320" errormsg=""/>
+      <File url="frame\frameMain.xfdl" checksum="20190923161320" errormsg=""/>
+      <File url="frame\frameBottom.xfdl" checksum="20190923161320" errormsg=""/>
+      <File url="frame\Find_form.xfdl" checksum="20200611145642" errormsg=""/>
+      <File url="frame\frameLogin.xfdl" checksum="20220214154902" errormsg=""/>
+      <File url="frame\frameWork.xfdl" checksum="20191011165018" errormsg=""/>
+      <File url="frame\frameWorkTitle.xfdl" checksum="20190923161320" errormsg=""/>
+      <File url="pattern\pattern01-modify.xfdl" checksum="20200613164600" errormsg=""/>
+      <File url="pattern\pattern01-transaction.xfdl" checksum="20190923161332" errormsg=""/>
+      <File url="pattern\pattern02-excel.xfdl" checksum="20190923161332" errormsg=""/>
+      <File url="pattern\pattern03-file.xfdl" checksum="20190923161332" errormsg=""/>
+      <File url="pattern\pattern04-largeData.xfdl" checksum="20190923161332" errormsg=""/>
+      <File url="cmm\cmmAlert.xfdl" checksum="20190923161332" errormsg=""/>
+      <File url="cmm\cmmConfirm.xfdl" checksum="20190923161332" errormsg=""/>
+      <File url="sample\common.xfdl" checksum="20190926134152" errormsg=""/>
+      <File url="sample\crudtest.xfdl" checksum="20190923161320" errormsg=""/>
+      <File url="sample\file.xfdl" checksum="20190923161320" errormsg=""/>
+      <File url="admin\ComcodeList.xfdl" checksum="20220218120236" errormsg=""/>
+      <File url="main\Main.xfdl" checksum="20210208095030" errormsg=""/>
+      <File url="sample\test.xfdl" checksum="20220216103238" errormsg=""/>
+      <File url="admin\test.xfdl" checksum="20220217120912" errormsg=""/>
+      <File url="user_board\hh.xfdl" checksum="20220217153727" errormsg=""/>
+      <File url="user_board\ApprovalDeclaration.xfdl" checksum="20220223091551" errormsg=""/>
+      <File url="user_board\ManufactureCertificate.xfdl" checksum="20220221162520" errormsg=""/>
+      <File url="user_board\PopupList.xfdl" checksum="20220219142637" errormsg=""/>
+      <File url="user_board\Popup_com.xfdl" checksum="20220219151608" errormsg=""/>
+      <File url="user_board\Popupcom.xfdl" checksum="20220221094905" errormsg=""/>
+      <File url="user_board\RepairCertificate.xfdl" checksum="20220221154951" errormsg=""/>
+      <File url="user_board\SaleRentCertificate.xfdl" checksum="20220221155018" errormsg=""/>
+      <File url="user_board\Popup_MC.xfdl" checksum="20220221162523" errormsg=""/>
+      <File url="user_board\Popup_MC.xfdl" checksum="20220221154919" errormsg=""/>
+      <File url="user_board\Popup_Model.xfdl" checksum="20220222151734" errormsg=""/>
+      <File url="user_board\test.xfdl" checksum="20220222092521" errormsg=""/>
+      <File url="user_board\ApprovalDeclaration_copy.xfdl" checksum="20220222121019" errormsg=""/>
+      <File url="user_board\test1.xfdl" checksum="20220222094355" errormsg=""/>
+      <File url="user_board\test2.xfdl" checksum="20220222094403" errormsg=""/>
+      <File url="user_board\test3.xfdl" checksum="20220222094607" errormsg=""/>
+      <File url="user_board\hu_ex01.xfdl" checksum="20220222104010" errormsg=""/>
+      <File url="user_board\hu_ex02.xfdl" checksum="20220222110208" errormsg=""/>
+      <File url="user_board\hu_ex03.xfdl" checksum="20220222133444" errormsg=""/>
+      <File url="user_board\ManufactureCertificate_copy.xfdl" checksum="20220221162520" errormsg=""/>
+      <File url="user_board\RepairCertificate_copy.xfdl" checksum="20220221154951" errormsg=""/>
+      <File url="user_board\SaleRentCertificate_copy.xfdl" checksum="20220221155018" errormsg=""/>
+      <File url="user_board\Popup_Model_c.xfdl" checksum="20220222123447" errormsg=""/>
+      <File url="user_board\Popup_Model_d.xfdl" checksum="20220222121644" errormsg=""/>
+    </Info>
+  </GenInfo>
+</root>

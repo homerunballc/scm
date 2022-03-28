@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.happyjob.study.ADMRSC.dao.TMGDao">
+
+	<!-- 강사관리 리스트 조회 -->
+	<select id="TMGList" resultType="kr.happyjob.study.ADMRSC.model.TeacherInfo">
+		SELECT loginID
+				, name as t_name
+				, teach_no as t_no
+				, password as pw
+				, hp
+				, dep
+				, joinDate 
+		FROM tb_userinfo
+		where user_type = 'T' or user_type = 'X'
+	   ORDER BY joinDate desc 
+	   LIMIT #{pageIndex}, #{pageSize}
+	</select>   
+	
+	<!-- 강사관리 리스트 총 갯수 조회 -->
+	<select id="countListTMG" resultType="int">
+		SELECT COUNT(1) AS totalCntTMG 
+		FROM tb_userinfo
+		where user_type = 'T' or user_type = 'X'
+	</select>	
+	
+	<!-- 강의실목록 리스트 단건 조회 -->
+	<select id="selectTMG" resultType="kr.happyjob.study.ADMRSC.model.TeacherInfo">
+		SELECT loginID
+				, password as pw
+				, name as t_name
+				, sex as gender
+				, age
+				, joinDate
+				, teach_no as t_no
+				, dep
+				, hp
+				, email
+				, zip
+				, addr
+				, addr_dtl
+		FROM	tb_userinfo T
+		where T.loginID = #{loginID}
+	</select>
+	
+	<!-- 강의실 추가 -->
+	<insert id="insertTMG">
+		INSERT INTO tb_userinfo
+		(
+				loginID, password, name, sex, age, joinDate, teach_no, dep, hp, email, zip, addr, addr_dtl, user_type
+		)
+		VALUES
+		(
+				#{loginID}
+			,	#{pw}
+			, 	#{t_name}
+			,	#{gender}
+			, 	#{age}
+			, 	STR_TO_DATE(#{joinDate}, '%Y-%m-%d')  
+			, 	#{t_no}
+			, 	#{dep}
+			, 	#{hp}
+			, 	#{email}
+			, 	#{zip}
+			, 	#{addr}
+			, 	#{addr_dtl}
+			,	'X'
+		)		
+	</insert>
+	
+	<!-- 강의실 수정 -->
+	<update id="updateTMG">
+		UPDATE tb_userinfo  SET
+				loginID = #{loginID}
+			,	password = #{pw}
+			,	name = #{t_name}
+			,	sex = #{gender}
+			,	age = #{age}
+			,	joinDate = STR_TO_DATE(#{joinDate}, '%Y-%m-%d')
+			,	teach_no = #{t_no}
+			,	dep = #{dep}
+			,	hp = #{hp}
+			,	email = #{email}
+			,	zip = #{zip}
+			,	addr = #{addr}
+			,   addr_dtl = #{addr_dtl}
+		WHERE	loginID = #{loginID}
+	</update>
+	
+	<!-- 강의실 삭제 -->
+	<delete id="deleteTMG">
+		DELETE FROM tb_userinfo WHERE loginID = #{loginID}
+	</delete>
+</mapper>
+

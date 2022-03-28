@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.happyjob.study.ADMRSC.dao.RMGDao">
+
+	<!-- 강의실관리 리스트 조회 -->
+	<select id="RMGList" resultType="kr.happyjob.study.ADMRSC.model.RoomInfo">
+		SELECT room_no 
+	             ,room_name
+	            ,room_addr
+		FROM tb_room
+		<where>
+			<if test="(sname != null) and (!sname.equals(''))">
+				<choose>
+					<when
+						test="oname eq 'room_name'.toString()">
+						and room_name Like CONCAT('%', #{sname}, '%')
+					</when>
+					<when
+						test="oname eq 'room_addr'.toString()">
+						and room_addr LIKE CONCAT('%', #{sname}, '%')
+					</when>
+					<otherwise>
+						AND 1=2
+					</otherwise>
+				</choose>
+			</if>
+		</where>
+	   ORDER BY room_addr 
+	   LIMIT #{pageIndex}, #{pageSize}
+	</select>   
+	
+	<!-- 강의실관리 리스트 총 갯수 조회 -->
+	<select id="countListRMG" resultType="int">
+	<!-- count(1) : null값과 상관없이 모든 행수를 카운트 -->
+		SELECT COUNT(1) AS totalCntRMG FROM tb_room
+			<where>
+			<if test="(sname != null) and (!sname.equals(''))">
+				<choose>
+					<when
+						test="oname eq 'room_name'.toString()">
+						and room_name Like CONCAT('%', #{sname}, '%')
+					</when>
+					<when
+						test="oname eq 'room_addr'.toString()">
+						and room_addr LIKE CONCAT('%', #{sname}, '%')
+					</when>
+					<otherwise>
+						AND 1=2
+					</otherwise>
+				</choose>
+			</if>
+		</where>
+	</select>	
+	
+	<!-- 강의실목록 리스트 단건 조회 -->
+	<select id="selectRMG" resultType="kr.happyjob.study.ADMRSC.model.RoomInfo">
+		SELECT room_no
+			,	room_name
+			,	room_addr
+		FROM	tb_room R
+		where R.room_no = #{room_no}
+	</select>
+	
+	<!-- 강의실 추가 -->
+	<insert id="insertRMG">
+		INSERT INTO tb_room
+		(
+				room_no, room_name	, room_addr
+		)
+		VALUES
+		(
+				#{room_no}
+			,	#{room_name}
+			,	#{room_addr}
+		)		
+	</insert>
+	
+	<!-- 강의실 수정 -->
+	<update id="updateRMG">
+		UPDATE tb_room  SET
+				room_no = #{room_no}
+			,	room_name = #{room_name}
+			,   room_addr = #{room_addr}
+		WHERE	room_no = #{room_no};
+	</update>
+	
+	<!-- 강의실 삭제 -->
+	<delete id="deleteRMG">
+		DELETE FROM tb_room WHERE room_no = #{room_no}
+	</delete>
+</mapper>
+
