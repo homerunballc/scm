@@ -77,9 +77,6 @@
 			$("#grp_cod").val("");
 			$("#grp_cod_nm").val("");
 			$("#grp_cod_eplti").val("");
-			$("#grp_tmp_fld_01").val("");
-			$("#grp_tmp_fld_02").val("");
-			$("#grp_tmp_fld_03").val("");
 			$("input:radio[name=grp_use_poa]:input[value='Y']").attr("checked", true);
 			$("#grp_cod").attr("readonly", false);
 			$("#grp_cod").css("background", "#FFFFFF");
@@ -687,8 +684,8 @@
 						</p>
 
 						<p class="conTitle">
-							<span>그룹 코드</span> <span class="fr"> <a
-								class="btnType blue" href="javascript:fPopModalComnGrpCod();" name="modal"><span>신규등록</span></a>
+							<span>그룹 코드</span> <span class="fr"> 
+								<a class="btnType blue" href="javascript:fPopModalComnGrpCod();" name="modal"><span>신규등록</span></a>
 							</span>
 						</p>
 						
