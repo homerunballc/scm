@@ -42,7 +42,7 @@ public class ComnCodController {
 	/**
 	 * 공통코드 관리 초기화면
 	 */
-	@RequestMapping("comnCodMgr.do")
+	     @RequestMapping("comnCodMgr.do")
 	public String initComnCod(Model model, @RequestParam Map<String, Object> paramMap, HttpServletRequest request,
 			HttpServletResponse response, HttpSession session) throws Exception {
 		
@@ -50,9 +50,10 @@ public class ComnCodController {
 		logger.info("   - paramMap : " + paramMap);
 		
 		logger.info("+ End " + className + ".initComnCod");
-		
+
 		return "system/comncod";
 	}
+	
 	
 	/**
 	 * 공통 그룹 코드 목록 조회
@@ -69,9 +70,7 @@ public class ComnCodController {
 		int pageSize = Integer.parseInt((String)paramMap.get("pageSize"));			// 페이지 사이즈
 		int pageIndex = (currentPage-1)*pageSize;												// 페이지 시작 row 번호
 				
-		String loginId = (String) session.getAttribute("loginId");
-		
-		paramMap.put("pageIndex", pageIndex);	// sql에서 숫자형으로 인식 시키기위해 다시 map에 담는다.
+		paramMap.put("pageIndex", pageIndex);
 		paramMap.put("pageSize", pageSize);
 		
 		// 공통 그룹코드 목록 조회

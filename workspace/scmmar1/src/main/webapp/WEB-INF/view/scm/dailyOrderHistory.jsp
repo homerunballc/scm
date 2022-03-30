@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:if test="${sessionScope.userType ne 'A'}">
     <c:redirect url="/dashboard/dashboard.do"/>
 </c:if>
@@ -9,7 +10,8 @@
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<title>Job Korea :: 공통 코드 관리</title>
+
+<title>일별수주내역</title>
 <!-- sweet alert import -->
 <script src='${CTX_PATH}/js/sweetalert/sweetalert.min.js'></script>
 <jsp:include page="/WEB-INF/view/common/common_include.jsp"></jsp:include>
@@ -19,11 +21,23 @@
 //그룹코드 페이징 설정
 var pageSize = 10;
 var pageBlockSize = 10;
-var returnserch = '';
+var returnsearch = '';	// 반품 목록 조회 검색 조건
+var selectsearch = '';	// 검색 조건 일자 구분
+var datesearch1 = '';	// 검색 조건 앞 날짜
+var datesearch2 = '';	// 검색 조건 뒤 날짜
+
+
+
+
 
 // onload list 및 검색조건 함수 불러오기
 $(function(){
 	
+	today = new Date();
+	today = today.toISOString().slice(0, 10);
+	
+	
+	$('#serchdate2').val(today);
 	init();
 	
 	
@@ -38,7 +52,10 @@ function init(currentPage) {
 	var param = {	
 			currentPage : currentPage
 		,	pageSize : pageSize
-		,	returnserch : returnserch
+		,	returnsearch : returnsearch
+		,	selectsearch : selectsearch
+		,	datesearch1 : datesearch1
+		,	datesearch2 : datesearch2
 			}
 	
 	var resultCallback = function(data) {
@@ -54,7 +71,6 @@ function init(currentPage) {
 		// pageBlockSize 보여지는 페이징 갯수
 		var paginationHtml = getPaginationHtml(currentPage, total,  pageSize, pageBlockSize, 'init');
 		console.log("paginationHtml : " + paginationHtml);
-		//swal(paginationHtml);
 		$("#comnGrpCodPagination").empty().append( paginationHtml );
 	};
 	callAjax("/scm/listdailyOrderHistory.do", "post", "text", true, param, resultCallback);
@@ -62,23 +78,63 @@ function init(currentPage) {
 
 
 
-
-
-function test(value){
+// 반품/미반품 목록 검색 조회
+function returnsearch(value){
 	console.log(value);
-	returnserch = value;
+	returnsearch = value;
 	init();
 }
-
+function search(){
+	
+	//$("select[name=searchgrouptype] option:selected").val()
+	selectsearch = $("#searchgrouptype option:selected").val()
+	datesearch1 = $("#serchdate1").val();
+	datesearch2 = $("#serchdate2").val();
+	var testdate ='';
+	
+	if(datesearch1 < datesearch2){
+		datesearch1 = datesearch1;
+		datesearch2 = datesearch2
+		
+		
+	}else{
+		testdate = datesearch2;
+		datesearch2 = datesearch1;
+		datesearch1 = testdate;
+		
+		$('#serchdate1').val(datesearch1);
+		$('#serchdate2').val(datesearch2);
+		
+		
+	}
+	init();
+	
+}
 
 
 
 
 
 // 지시서 작성 radio 모달창 실행
-function orderhi(){
+function orderhi(purid){
 	gfModalPop("#layer1");
 }
+
+// 지시서 작성  팝업 구분 실행
+function test(){
+	var aaa = $('input:radio[name=sel]:checked').val();
+	
+	//alert(aaa);
+	
+	if ( aaa == 1){
+		gfModalPop("#layer2");
+	}else if (aaa == 2){
+		gfModalPop("#layer3");
+	}else{
+		gfModalPop("#layer4");
+	}
+}
+
 
 </script>
 
@@ -118,15 +174,16 @@ function orderhi(){
 						<p class="conTitle">
 							<span>일별수주내역</span> 
 							<span class="fr">
-								 <input type="radio" name="returnserch" class="returnserch" value="a" onclick="test(this.value)" style="cursor: pointer;">반품요청 목록 조회
-	                             <input type="radio" name="returnserch" class="returnserch" value="b" onclick="test(this.value)" style="cursor: pointer;">미반품요청 목록 조회
+								 <input type="radio" name="returnsearch" class="returnsearch" value="a" onclick="returnsearch(this.value)" style="cursor: pointer;">반품요청 목록 조회
+	                             <input type="radio" name="returnsearch" class="returnsearch" value="b" onclick="returnsearch(this.value)" style="cursor: pointer;">미반품요청 목록 조회
 							     <select id="searchgrouptype"  name="searchgrouptype" style="width: 150px;">
 							            <option value="" >전체</option>
-							    		<option value="" >그룹코드</option>
-							    		<option value="" >그룹코드명</option>
+							    		<option value="0" >주문일자로 조회</option>
+							    		<option value="1" >반품처리일자로 조회</option>
 							     </select> 
-							     <input type="text" style="width: 300px; height: 25px;" id="sgroupinput" name="sgroupinput">                    
-	                              <a href="" class="btnType blue" id="btnSearchGrpcod" name="btn"><span>검  색</span></a>
+							     <input type = "date" id="serchdate1" name="serchdate1"> ~
+							     <input type = "date" id="serchdate2" name="serchdate2">
+	                              <a class="btnType blue" id="btnSearchGrpcod" name="btn" style="cursor: pointer;"><span onclick="search()" >검  색</span></a>
 	                             
 							</span>
     
@@ -189,7 +246,7 @@ function orderhi(){
 
 		<dl>
 			<dt>
-				<strong>그룹코드 관리</strong>
+				<strong>지시서 작성</strong>
 			</dt>
 			<dd class="content">
 				<!-- s : 여기에 내용입력 -->
@@ -220,15 +277,66 @@ function orderhi(){
 
 				<div class="btn_areaC mt30">
 				    <input type="hidden" name="Action" id="Action" value="">
-					<a href="" class="btnType blue" id="btnSaveGrpCod" name="btn"><span>작성</span></a> 
+					<a class="btnType blue" id="btnSaveGrpCod" name="btn" onclick="test()"><span>작성</span></a> 
 					<a href=""	class="btnType gray"  id="btnCloseGrpCod" name="btn"><span>취소</span></a>
 				</div>
 			</dd>
 		</dl>
 		<a href="" class="closePop"><span class="hidden">닫기</span></a>
 	</div>
+	
+	
+	
+	<div id="layer2" class="layerPop layerType2" style="width: 600px;">
 
+		<dl>
+			<dt>
+				<strong>반품지시서 관리</strong>
+				반품지시서 관리
+				111111111111
+				
+				<div class="btn_areaC mt30">
+				    <input type="hidden" name="Action" id="Action" value="">
+					<a class="btnType blue" id="btnSaveGrpCod" name="btn" onclick="ttt()"><span>작성</span></a> 
+					<a href=""	class="btnType gray"  id="btnCloseGrpCod" name="btn"><span>취소</span></a>
+				</div>
+			</dt>
+		</dl>
+	</div>
 
+	<div id="layer3" class="layerPop layerType2" style="width: 600px;">
+
+		<dl>
+			<dt>
+				<strong>배송지시서 관리</strong>
+				배송지시서 관리
+				2222222222222
+				
+				<div class="btn_areaC mt30">
+				    <input type="hidden" name="Action" id="Action" value="">
+					<a class="btnType blue" id="btnSaveGrpCod" name="btn" onclick="ttt()"><span>작성</span></a> 
+					<a href=""	class="btnType gray"  id="btnCloseGrpCod" name="btn"><span>취소</span></a>
+				</div>
+			</dt>
+		</dl>
+	</div>
+
+	<div id="layer4" class="layerPop layerType2" style="width: 600px;">
+
+		<dl>
+			<dt>
+				<strong>발주지시서 관리</strong>
+				발주지시서 관리
+				333333333333333
+				
+				<div class="btn_areaC mt30">
+				    <input type="hidden" name="Action" id="Action" value="">
+					<a class="btnType blue" id="btnSaveGrpCod" name="btn" onclick="ttt()"><span>작성</span></a> 
+					<a href=""	class="btnType gray"  id="btnCloseGrpCod" name="btn"><span>취소</span></a>
+				</div>
+			</dt>
+		</dl>
+	</div>
 </form>
 </body>
 </html>

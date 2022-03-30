@@ -18,7 +18,7 @@
 											<td>${list.wanted_date}</td>
 											<td>${list.depositYN}</td>
 											<td>
-											<a class="btnType blue" style="cursor: pointer;" onclick="orderhi()" >
+											<a class="btnType blue" style="cursor: pointer;" onclick="orderhi(${list.pur_id})" >
 											<span>지시서 작성</span></a>
 										</td>
 										</tr>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.happyjob.study.scm.dao.dailyOrderHistoryDao">
+	
+	
+	<select id="listdailyOrderHistory" resultType="kr.happyjob.study.scm.model.dailyOrderHistoryModel">
+		SELECT    pur.pur_id AS pur_id
+				, pur.purdate AS purdate
+				, user.name AS name
+				, sal.sales_nm AS sales_nm
+				, (select sum(st_cnt) from tb_stock st where st.sales_id=(select sa.sales_id from tb_sales sa)) AS price_sum
+				, sal.price AS price
+				, purinfo.pur_cnt AS pur_cnt
+				, (sal.price*purinfo.pur_cnt) AS price_cnt
+				, purinfo.returnYN AS returnYN
+				, purinfo.wanted_date AS wanted_date
+				, pur.depositYN AS depositYN
+		
+		FROM 		 tb_purchase pur 
+				join tb_userinfo user 
+				join tb_purchaseinfo purinfo 
+				join tb_sales sal 
+			
+		ON		 pur.pur_id=purinfo.pur_id AND user.loginID=pur.loginID
+		<where>
+				<choose>
+					<when
+						test="returnserch == 'a'.toString()">
+						and returnYN='Y'
+					</when>
+					<when
+						test="returnserch == 'b'.toString()">
+						and returnYN='N'
+					</when>
+				</choose>
+		</where>
+		LIMIT #{pageIndex}, #{pageSize}
+	</select>
+
+	<select id="total" resultType="int">
+		SELECT count(pur_id)
+		  FROM tb_purchase 
+	</select>
+
+
+
+
+
+</mapper>

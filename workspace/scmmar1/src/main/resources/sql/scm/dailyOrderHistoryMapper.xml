@@ -24,19 +24,70 @@
 			
 		ON		 pur.pur_id=purinfo.pur_id AND user.loginID=pur.loginID
 		<where>
+		
 				<choose>
-					<when
-						test="returnserch == 'a'.toString()">
+					<when test="returnsearch == 'a'.toString()">
 						and returnYN='Y'
 					</when>
-					<when
-						test="returnserch == 'b'.toString()">
+					<when test="returnsearch == 'b'.toString()">
 						and returnYN='N'
 					</when>
 				</choose>
+				
+				<if test="!selectsearch.equals('')">
+					<choose>
+					<when test="selectsearch == '0'.toString()">
+					<![CDATA[
+						and (pur.purdate >=
+						
+							#{datesearch1}
+							and
+							pur.purdate <=
+								(select date_add(date_format(#{datesearch2}, '%Y-%m-%d'), interval 1 day))
+							)
+						
+							
+						]]>		
+					</when>
+					<when test="selectsearch == '1'.toString()">
+					<![CDATA[
+						and (pur.purdate >=
+							#{datesearch1}
+							and
+							pur.purdate <=
+								(select date_add(date_format(#{datesearch2}, '%Y-%m-%d'), interval 1 day))
+							)
+						
+						
+						]]>
+					</when>
+				</choose>
+				
+				</if>
+				
+				
+				<!-- (SELECT
+							   distinct DATE_FORMAT(purdate, '%Y-%m-%d ')
+							FROM tb_purchase where purdate like CONCAT('%', #{datesearch1}, '%')
+							)
+							and
+							(SELECT
+							   distinct DATE_FORMAT(purdate, '%Y-%m-%d ')
+							FROM tb_purchase where purdate like CONCAT('%', #{datesearch2}, '%')
+							) -->
+				
+				
+				
+				
+				
 		</where>
 		LIMIT #{pageIndex}, #{pageSize}
 	</select>
+	
+	
+	
+	
+	
 
 	<select id="total" resultType="int">
 		SELECT count(pur_id)

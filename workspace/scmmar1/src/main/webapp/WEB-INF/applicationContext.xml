@@ -18,7 +18,6 @@
 
 	<!-- # DispatcherServlet의 매핑 경로를 '/'로 주었을 때, 기본 컨트롤러 연결 설정 -->
 	<mvc:view-controller path="/" view-name="/login/login" />
-	<!-- url에 locathost/ 이렇게만 치면 login/login으로 가게된다. -->
 	
 	
 
@@ -54,7 +53,6 @@
 	<context:property-placeholder location="/WEB-INF/classes/happyjob.properties"/>
 	<!-- ## MySQL setup ## -->
 	
-	
 <!--  	
 	
     <bean id="mysqlDataSource" class="org.apache.commons.dbcp.BasicDataSource"
@@ -70,7 +68,7 @@
    <bean id="mysqlDataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://13.125.198.29:3306/scmmar1?allowMultiQueries=true" /><!-- allowMultiQueries 여러명 접속 가능 -->
+		<property name="url" value="jdbc:mysql://13.125.198.29:3306/scmmar1?allowMultiQueries=true" />
 		<property name="username" value="root" />
 		<property name="password" value="hwangkh704!" />
 		<property name="validationQuery" value="select 1" />
