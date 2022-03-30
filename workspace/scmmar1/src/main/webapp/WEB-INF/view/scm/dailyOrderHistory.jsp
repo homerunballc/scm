@@ -35,9 +35,10 @@ $(function(){
 	
 	today = new Date();
 	today = today.toISOString().slice(0, 10);
-	
-	
 	$('#serchdate2').val(today);
+	
+	
+	
 	init();
 	
 	
