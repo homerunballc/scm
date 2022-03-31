@@ -3,7 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>					
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 						   
-							
 							<c:forEach items="${listdailyOrderHistory}" var="list">
 										<tr>
 											<td>${list.pur_id}</td>
@@ -18,7 +17,7 @@
 											<td>${list.wanted_date}</td>
 											<td>${list.depositYN}</td>
 											<td>
-											<a class="btnType blue" style="cursor: pointer;" onclick="orderhi(${list.pur_id})" >
+											<a class="btnType blue" style="cursor: pointer;" onclick="orderhi(${list.pur_id},${list.sales_id })" >
 											<span>지시서 작성</span></a>
 										</td>
 										</tr>

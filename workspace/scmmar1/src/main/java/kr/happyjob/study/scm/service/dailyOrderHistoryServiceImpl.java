@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.happyjob.study.scm.dao.dailyOrderHistoryDao;
+import kr.happyjob.study.scm.model.WorkOrderModel;
 import kr.happyjob.study.scm.model.dailyOrderHistoryModel;
+import kr.happyjob.study.scm.model.warehouseModel;
 
 @Service
 public class dailyOrderHistoryServiceImpl implements dailyOrderHistoryService{
@@ -24,8 +26,35 @@ public class dailyOrderHistoryServiceImpl implements dailyOrderHistoryService{
 	}
 
 	@Override
-	public int total() throws Exception {
-		return dailyorderhistorydao.total();
+	public int total(Map<String, Object> paramMap) throws Exception {
+		return dailyorderhistorydao.total(paramMap);
 	}
+
+	@Override
+	public WorkOrderModel onedailyOrderHistory(Map<String, Object> paramMap) throws Exception {
+		
+		WorkOrderModel onedailyOrderHistory = dailyorderhistorydao.onedailyOrderHistory(paramMap);
+		
+		return onedailyOrderHistory;
+	}
+
+	@Override
+	public List<warehouseModel> warehouse() throws Exception {
+		
+		List<warehouseModel> warehouse = dailyorderhistorydao.warehouse();
+		return warehouse;
+	}
+
+	@Override
+	public warehouseModel whcnt(Map<String, Object> paramMap) throws Exception {
+		warehouseModel whcnt = dailyorderhistorydao.whcnt(paramMap);
+		return whcnt;
+	}
+	
+	
+	
+	
+	
+	
 	
 }

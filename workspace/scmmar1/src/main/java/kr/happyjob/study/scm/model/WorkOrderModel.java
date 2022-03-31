@@ -1,28 +1,6 @@
 package kr.happyjob.study.scm.model;
 
-public class dailyOrderHistoryModel {
-
-	private int pur_id;
-	private String purdate;
-	private String name;
-	private String sales_nm;
-	private int price_sum;
-	private int price;
-	private int pur_cnt;
-	private int price_cnt;
-	private String returnYN;
-	private String wanted_date;
-	private String depositYN;
-	private int sales_id;
-	
-	
-	
-	public int getSales_id() {
-		return sales_id;
-	}
-	public void setSales_id(int sales_id) {
-		this.sales_id = sales_id;
-	}
+public class WorkOrderModel {
 	public int getPur_id() {
 		return pur_id;
 	}
@@ -89,7 +67,24 @@ public class dailyOrderHistoryModel {
 	public void setDepositYN(String depositYN) {
 		this.depositYN = depositYN;
 	}
-	
+	public int getSales_id() {
+		return sales_id;
+	}
+	public void setSales_id(int sales_id) {
+		this.sales_id = sales_id;
+	}
+	private int pur_id;
+	private String purdate;
+	private String name;
+	private String sales_nm;
+	private int price_sum;
+	private int price;
+	private int pur_cnt;
+	private int price_cnt;
+	private String returnYN;
+	private String wanted_date;
+	private String depositYN;
+	private int sales_id;
 	
 	
 	
