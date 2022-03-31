@@ -159,7 +159,7 @@ function whcnt(v){
 		,	wh_id : v
 	}
 	var resultCallback = function(data){
-		$("#warehcnt").val(data.whcnt.st_cnt);
+		$("#warehcnt").html(data.whcnt.st_cnt);
 	}
 	
 	callAjax("/scm/whcnd.do", "post", "json", true, param, resultCallback);

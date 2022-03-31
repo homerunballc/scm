@@ -50,7 +50,7 @@
 							
 						
 							<tr>
-								<td>
+								<td style="text-align: center;">
 									<select id="wareh" onchange="whcnt(this.value)">
 											<option value ="" selected="selected" disabled >::창고를 선택해 주세요::</option>
 										<c:forEach items="${warehouse}" var="list">
@@ -58,8 +58,8 @@
 										</c:forEach>
 									</select>
 								</td>
-								<td>
-									<input type="text" id="warehcnt" value = "">
+								<td style="text-align: center;">
+									<div id="warehcnt">0</div>
 								</td>
 								<td>
 									<input type="number">
