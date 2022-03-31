@@ -114,13 +114,7 @@ function search(){
 
 
 
-function reset(){
-	alert("11");
-	returnsearch = '';	
-	selectsearch = '';	
-	datesearch1 = '';	
-	datesearch2 = '';	
-}
+
 
 // 지시서 작성 radio 모달창 실행
 function orderhi(purid){
@@ -191,7 +185,6 @@ function test(){
 							     <input type = "date" id="serchdate1" name="serchdate1"> ~
 							     <input type = "date" id="serchdate2" name="serchdate2">
 	                              <a class="btnType blue" id="btnSearchGrpcod" name="btn" style="cursor: pointer;"><span onclick="search()" >검  색</span></a>
-	                              <a class="btnType blue" id="btnSearchGrpcod" name="btn" style="cursor: pointer;"><span onclick="reset()" >초기화</span></a>
 	                             
 							</span>
     
