@@ -161,13 +161,11 @@
 		 INTO tb_orderdir
 		 		(	
 		 			regdate
-		 		,	confirmYN
 		 		,	dir_result
 		 		,	wh_id
 				)
 		VALUES (
 				,	now()
-		        , 	'N'
 		        , 	'O'
 		        ,	 #{com_code}	
 				);

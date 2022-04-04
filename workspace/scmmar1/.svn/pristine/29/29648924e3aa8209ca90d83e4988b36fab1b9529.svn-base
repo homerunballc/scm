@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.happyjob.study.pcm.dao.PcmOrderListDao">
+
+	<!-- 발주 내역 목록 조회-->
+	<select id="listPurchaseOrder" resultType="kr.happyjob.study.pcm.model.PcmOrderListModel">
+		/*kr.happy.study.pcm.dao.PcmOrderListDao.listPurchaseOrder*/
+		SELECT od.orderid 
+			 , cp.comp_nm
+			 , sa.sales_nm
+			 , oi.order_cnt
+			 , od.regdate
+			 , od.confirmYN
+			 , ph.depositYN
+	
+		FROM tb_orderdir od
+		     inner join tb_orderinfo oi on oi.order_id = od.order_id
+		     inner join tb_sales sa on sa.sales_id = oi.sales_id
+		     inner join tb_detail_code dc on dc.detail_code = sa.sales_type and	dc.group_code = 'proCD'
+		     inner join tb_comp cp on oi.comp_id = cp.comp_id
+		     inner join tb_purchase ph on ph.pur_id = oi.pur_id
+	<!-- 		<if test="(sname != null) and (!sname.equals(''))">
+				<choose>
+					<when test="oname eq 'career_corp'.toString()">
+						AND a.corp LIKE CONCAT('%', #{sname}, '%')
+					</when>
+					<when test="oname eq 'career_name'.toString()">
+						AND b.name LIKE CONCAT('%', #{sname}, '%')
+					</when>
+					<otherwise>
+						AND 1=2
+					</otherwise>
+				</choose>
+			</if>
+			<if test="(cal1 != null) and (!cal1.equals(''))">
+				AND DATE_FORMAT(a.join_date, '%Y-%m-%d') <![CDATA[>=]]> #{cal1}			
+			</if>
+			<if test="(cal2 != null) and (!cal2.equals(''))">
+				AND DATE_FORMAT(a.join_date, '%Y-%m-%d') <![CDATA[<=]]> #{cal2}			
+			</if> -->
+		 
+			LIMIT #{pageIndex}, #{pageSize}
+	</select>
+	
+	<select id="totalCount" resultType="int">
+		/*kr.happy.study.pcm.dao.PcmOrderListDao.totalCount*/
+		SELECT count(*) as cnt
+	
+		FROM tb_orderdir od
+		     inner join tb_orderinfo oi on oi.order_id = od.order_id
+		     inner join tb_sales sa on sa.sales_id = oi.sales_id
+		     inner join tb_detail_code dc on dc.detail_code = sa.sales_type and	dc.group_code = 'proCD'
+		     inner join tb_comp cp on oi.comp_id = cp.comp_id
+	<!-- 		<if test="(sname != null) and (!sname.equals(''))">
+				<choose>
+					<when test="oname eq 'career_corp'.toString()">
+						AND a.corp LIKE CONCAT('%', #{sname}, '%')
+					</when>
+					<when test="oname eq 'career_name'.toString()">
+						AND b.name LIKE CONCAT('%', #{sname}, '%')
+					</when>
+					<otherwise>
+						AND 1=2
+					</otherwise>
+				</choose>
+			</if>
+			<if test="(cal1 != null) and (!cal1.equals(''))">
+				AND DATE_FORMAT(a.join_date, '%Y-%m-%d') <![CDATA[>=]]> #{cal1}			
+			</if>
+			<if test="(cal2 != null) and (!cal2.equals(''))">
+				AND DATE_FORMAT(a.join_date, '%Y-%m-%d') <![CDATA[<=]]> #{cal2}			
+			</if> -->
+	</select>	
+	
+	<select id="pcmOrderOne" resultType="kr.happyjob.study.pcm.model.PcmOrderListModel">
+	/*kr.happy.study.pcm.dao.PcmOrderListDao.pcmOrderOne*/
+			SELECT od.orderid 
+			 , cp.comp_nm
+			 , dc.detail_name
+			 , oi.order_cnt
+			 , od.regdate
+			 , od.confirmYN
+			 , ph.depositYN
+	
+		FROM tb_orderdir od
+		     inner join tb_orderinfo oi on oi.order_id = od.order_id
+		     inner join tb_sales sa on sa.sales_id = oi.sales_id
+		     inner join tb_detail_code dc on dc.detail_code = sa.sales_type and	dc.group_code = 'proCD'
+		     inner join tb_comp cp on oi.comp_id = cp.comp_id
+		     inner join tb_purchase ph on ph.pur_id = oi.pur_id
+		
+		WHERE od.orderid = #{orderid}
+	</select>
+	
+
+
+</mapper>
