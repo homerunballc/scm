@@ -136,7 +136,6 @@
 	
 	
 	<insert id="insertcom2">
-	INSERT
 		 INTO tb_orderinfo
 		 		(	
 		 	  		order_cnt
