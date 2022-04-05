@@ -136,7 +136,7 @@
 			<mvc:exclude-mapping path="/login.do" />
 			<mvc:exclude-mapping path="/loginProc.do" />
 			<mvc:exclude-mapping path="/selectFindInfo.do" />
-			<mvc:exclude-mapping path= "/register.do"/>
+			<mvc:exclude-mapping path="/register.do"/>
 			<mvc:exclude-mapping path="/updateFindPw.do" />
 			<mvc:exclude-mapping path="/system/selectUsrMgr.do" />
 			<mvc:exclude-mapping path="/adm/selectPrjMgr.do" />
