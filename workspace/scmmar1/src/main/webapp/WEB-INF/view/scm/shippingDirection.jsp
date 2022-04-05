@@ -38,16 +38,42 @@ function init(currentPage){
 	}
 	var resultCallback = function(data){
 		
-		
-		
+		$("#dlist").empty().append(data);
+		var total = $("#total").val();
 		
 		var paginationHtml = getPaginationHtml(currentPage, total,  pageSize, pageBlockSize, 'init');
 		console.log("paginationHtml : " + paginationHtml);
-		$("#comnGrpCodPagination").empty().append( paginationHtml );
+		$("#comnGrpCodPagination").empty().append( paginationHtml ); 
 	}
 	
 	callAjax("/scm/listshippingDirection.do", "post", "text", true, param, resultCallback);
 }
+	
+function ship(a){
+	//alert(a);
+	var param = {
+			deliv_id : a	// 주문번호
+		}
+	var resultCallback = function(data){
+		var today = data.onesip.regdate;
+		var date = today.substring(0,10);
+		
+		$("#regdate").val(date);
+		$("#client").val(data.onesip.client);
+		$("#sales_nm").val(data.onesip.sales_nm);
+		$("#pur_cnt").val(data.onesip.pur_cnt);
+		$("#depositYN").val(data.onesip.depositYN);
+		gfModalPop("#layer1");
+		
+	}
+	
+	
+	
+	callAjax("/scm/oneshippingDirection.do", "post", "json", true, param, resultCallback);
+}
+	
+	
+	
 	
 </script>
 
@@ -101,7 +127,7 @@ function init(currentPage){
 	
 								<thead>
 									<tr>
-										<th scope="col">주분 번호</th>
+										<th scope="col">주문 번호</th>
 										<th scope="col">주문일자</th>
 										<th scope="col">고객기업명</th>
 										<th scope="col">주문개수</th>
@@ -122,11 +148,11 @@ function init(currentPage){
 	</div>
 
 <!-- 모달팝업 -->
-	<div id="layer1" class="layerPop layerType2" style="width: 800px;">
+	<div id="layer1" class="layerPop layerType2" style="width: 1000px;">
 
 		<dl>
 			<dt>
-				<strong>제고 입/출 내역</strong>
+				<strong>배송 지시서</strong>
 			</dt>
 			<dd class="content">
 				<!-- s : 여기에 내용입력 -->
@@ -135,16 +161,18 @@ function init(currentPage){
 					
 					<tbody>
 						<tr>
-							<th >제품 번호</th>
-							<th >제품 명</th>
-							<th >입고 량</th>
-							<th >출고 량</th>
+							<th >주문일자</th>
+							<th >고객기업명</th>
+							<th >제품명</th>
+							<th >주문개수</th>
+							<th >입금여부</th>
 						</tr>
 						<tr>
-							<td><input type = "text" id = "sales_id" name="sales_id" readonly="readonly"></td>
+							<td><input type = "text" id = "regdate" name="sales_id" readonly="readonly"></td>
+							<td><input type = "text" id = "client" readonly="readonly"></td>
 							<td><input type = "text" id = "sales_nm" readonly="readonly"></td>
-							<td><input type = "text" id = "insal" readonly="readonly"></td>
-							<td><input type = "text" id = "outsal" readonly="readonly"></td>
+							<td><input type = "text" id = "pur_cnt" readonly="readonly"></td>
+							<td><input type = "text" id = "depositYN" readonly="readonly"></td>
 						</tr>
 					</tbody>
 				</table>
