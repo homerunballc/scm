@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.happyjob.study.scm.dao.purchaseDirDao">
+	
+	<select id="listpurchaseDir" resultType="kr.happyjob.study.scm.model.purchaseDirModel">
+		select 	ord.sales_id AS sales_id
+				, 	sal.sales_nm AS sales_nm
+				,	com.comp_nm AS comp_nm
+				, 	ordr.regdate AS regdate
+				, 	imp.unitprice AS unitprice
+				,	ord.order_cnt AS order_cnt
+				,	(select (imp.unitprice*ord.order_cnt)) AS avg
+		from 		tb_orderinfo ord
+				join		tb_orderdir ordr on ord.order_id = ordr.order_id
+				join 		tb_sales sal ON sal.sales_id = ord.sales_id
+				join 		tb_import imp on imp.sales_id = sal.sales_id
+				join 		tb_comp com on imp.comp_id = com.comp_id
+		<where>
+					<choose>
+						<when test="!datesearch1.equals('')">
+						<![CDATA[
+							and (ordr.regdate >=
+								#{datesearch1}
+								and
+								ordr.regdate <=
+									(select date_add(date_format(#{datesearch2}, '%Y-%m-%d'), interval 1 day))
+								)
+						]]>	
+						</when>
+					</choose>
+					
+					<if test="!searchinput.equals('')">
+						<choose>
+							<when test="selectsearch == '0'.toString()">
+								and sales_nm Like CONCAT('%', #{searchinput}, '%')		
+							</when>
+							<when test="selectsearch == '1'.toString()">
+								and comp_nm Like CONCAT('%', #{searchinput}, '%')
+							</when>
+						</choose>
+					</if>
+				
+		</where>		
+		LIMIT #{pageIndex}, #{pageSize}
+	</select>
+	
+	<select id="total" resultType="int">
+		select count(orderid)
+		from 	tb_orderdir
+	
+	</select>
+	
+	
+	
+	
+</mapper>
