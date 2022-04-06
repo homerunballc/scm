@@ -70,8 +70,10 @@ public class refundInfoController {
 	public Map<String,Object> refupdate(Model model, @RequestParam Map<String, Object> paramMap, HttpServletRequest request,
 	    HttpServletResponse response, HttpSession session) throws Exception{
 		 
-		
+		System.out.println(paramMap.get("sales_nm"));
 		 
+		refundinfoservice.refupdate(paramMap);
+		
 		 Map<String,Object> returnmap = new HashMap<String,Object>();
 		 String resultMsg = "승인 요청이 완료 되었습니다.";
 		 returnmap.put("resultMsg", resultMsg);

@@ -7,10 +7,30 @@ public class refundInfoModel {
 	private int return_cnt;
 	private int avg;
 	private int return_id;
+	private int purinf_id;
+	private String confirm_requestYN;
 	
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	public String getConfirm_requestYN() {
+		return confirm_requestYN;
+	}
+	public void setConfirm_requestYN(String confirm_requestYN) {
+		this.confirm_requestYN = confirm_requestYN;
+	}
+	public int getPurinf_id() {
+		return purinf_id;
+	}
+	public void setPurinf_id(int purinf_id) {
+		this.purinf_id = purinf_id;
+	}
 	public int getReturn_id() {
 		return return_id;
 	}

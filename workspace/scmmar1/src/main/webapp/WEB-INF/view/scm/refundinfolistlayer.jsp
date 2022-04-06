@@ -40,8 +40,14 @@
 				</table>
 				<div class="btn_areaC mt30">
 				    <input type="hidden" name="Action" id="Action" value="">
-					<a class="btnType blue" id="btnSaveGrpCod" name="btn" onclick="com()"><span style="cursor: pointer;">승인요청</span></a> 
+				    <input type="hidden" name="return_id"value='${onereinfo.return_id }'>
+				    <c:choose>
+				    	<c:when test="${onereinfo.confirm_requestYN !='1' }">
+							<a class="btnType blue" id="btnSaveGrpCod" name="btn" onclick="com()"><span style="cursor: pointer;">승인요청</span></a> 
+				    	</c:when>
+				    </c:choose>
 					<a href=""	class="btnType gray"  id="btnCloseGrpCod" name="btn"><span>취소</span></a>
+					
 				</div>
 			</dd>
 		</dl>

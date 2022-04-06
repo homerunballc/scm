@@ -89,7 +89,8 @@ function com(){
 	console.log(a);
 	
 	var resultCallback = function(data){
-		
+		alert(data.resultMsg);
+		gfCloseModal();
 	}
 	
 	callAjax("/scm/refupdate.do", "post", "json", true, $("#refdata").serialize(), resultCallback);

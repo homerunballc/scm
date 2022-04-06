@@ -33,6 +33,11 @@ public class refundInfoServiceImpl implements refundInfoService {
 		return onereinfo;
 	}
 
+	@Override
+	public int refupdate(Map<String, Object> paramMap) throws Exception {
+		return refundinfodao.refupdate(paramMap);
+	}
+
 	
 	
 	
