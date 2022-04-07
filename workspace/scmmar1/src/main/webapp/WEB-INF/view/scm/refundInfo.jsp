@@ -11,7 +11,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-<title>일별수주내역</title>
+<title>반품 신청 목록</title>
 <!-- sweet alert import -->
 <script src='${CTX_PATH}/js/sweetalert/sweetalert.min.js'></script>
 <jsp:include page="/WEB-INF/view/common/common_include.jsp"></jsp:include>
@@ -122,7 +122,6 @@ function search(){
 	init();
 } 
 
-
 	
 	
 </script>
@@ -179,10 +178,11 @@ function search(){
 							<table class="col">
 								<caption>caption</caption>
 								<colgroup>
-									<col width="4%">
-									<col width="6%">
-									<col width="6%">
-									<col width="8%">
+									<col width="20%">
+									<col width="30%">
+									<col width="10%">
+									<col width="20%">
+									<col width="20%">
 								</colgroup>
 	
 								<thead>
@@ -191,6 +191,7 @@ function search(){
 										<th scope="col">반품 신청날짜</th>
 										<th scope="col">반품 수량</th>
 										<th scope="col">반품 금액</th>
+										<th scope="col">승인 요청 여부</th>
 									</tr>
 								</thead>
 								<tbody id="relist"></tbody>

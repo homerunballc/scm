@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.happyjob.study.epc.dao.RefundRequestDao">
+
+	<select id="getOrderList" parameterType="kr.happyjob.study.epc.model.OrderListItemDTO" resultType="kr.happyjob.study.epc.model.OrderListItemDTO">
+		SELECT 
+		    p.pur_id, p.purdate, i.purinf_id, i.pur_cnt, s.price, (i.pur_cnt * s.price) as total, i.wanted_date, s.sales_id, d.deliv_type
+		    , (
+		        SELECT 
+		            COUNT(*)
+		        FROM 
+		            tb_purchaseinfo si
+		        WHERE 
+		            si.pur_id = p.pur_id
+		    ) as item_cnt
+		FROM 
+		    tb_purchase p
+		    LEFT OUTER JOIN tb_purchaseinfo i ON i.pur_id = p.pur_id
+		    LEFT OUTER JOIN tb_delivdir d ON i.purinf_id = d.purinf_id
+		    LEFT OUTER JOIN tb_sales s ON i.sales_id = s.sales_id
+		WHERE 
+		    p.loginID = #{loginID}
+		GROUP BY i.pur_id
+		ORDER BY p.pur_id
+	</select>
+	
+	<select id="getOrderDetailListByPurID" parameterType="int" resultType="kr.happyjob.study.epc.model.OrderListItemDTO">
+		SELECT 
+		    i.pur_id, s.sales_type, s.model_nm, s.mfcomp, s.price, i.pur_cnt, (price * pur_cnt) as total
+		FROM 
+		    tb_purchaseinfo i
+		    INNER JOIN tb_sales s ON s.sales_id = i.sales_id
+		WHERE
+		    i.pur_id = #{pur_id}
+    </select>
+</mapper>

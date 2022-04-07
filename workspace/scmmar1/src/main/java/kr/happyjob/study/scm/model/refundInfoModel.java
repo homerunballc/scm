@@ -10,15 +10,6 @@ public class refundInfoModel {
 	private int purinf_id;
 	private String confirm_requestYN;
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	public String getConfirm_requestYN() {
 		return confirm_requestYN;
 	}

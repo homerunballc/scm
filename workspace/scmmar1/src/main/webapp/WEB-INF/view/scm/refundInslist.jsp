@@ -10,7 +10,14 @@
 											<td>${list.client}</td>
 											<td>${list.return_cnt}</td>
 											<td>${list.avg}</td>
-											<td>${list.confirmYN}</td>
+										<c:choose>
+											<c:when test='${list.confirmYN eq "Y"}'>
+												<td style="color: blue;">승인 완료</td>
+											</c:when>
+											<c:otherwise>
+												<td style="color: red;">승인 대기</td>
+											</c:otherwise>
+										</c:choose>
 							</c:forEach>
 							<input type="hidden" id="total" name="total" value ="${total}"/>
 							

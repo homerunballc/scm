@@ -28,7 +28,9 @@
 							<td style="text-align: center;">${onedata.name }</td>
 							<td style="text-align: center;">${onedata.sales_nm }</td>
 							<td style="text-align: center;">${onedata.pur_cnt}</td>
-							<td style="text-align: center;"></td>
+							<td style="text-align: center;">
+								<select id="purchaser"></select>
+							</td>
 							<td style="text-align: center;">${onedata.depositYN }</td>
 						</tr>
 					</tbody>

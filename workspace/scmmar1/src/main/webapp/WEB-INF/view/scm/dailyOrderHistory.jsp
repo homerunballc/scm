@@ -140,6 +140,18 @@ function layer1btn(){
 		console.log(data);
 		//alert(data.onedata.loginID);
 		$("#layer").empty().append(data);
+		console.log(param.selcheck);
+		switch(param.selcheck){
+		
+			case '1':
+				break;
+			case '2':
+				console.log('entered....');
+				comcombo('B', 'purchaser', 'sel', null, '${CTX_PATH}/scm/whComcombo.do');
+				break;
+			case '3':
+				break;
+		}
 		gfModalPop("#layer");
 		
 		
