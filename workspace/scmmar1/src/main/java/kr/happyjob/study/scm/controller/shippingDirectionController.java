@@ -58,14 +58,16 @@ public class shippingDirectionController {
 	@ResponseBody
 	public Map<String,Object> gouppcodelistvue(Model model, @RequestParam Map<String, Object> paramMap, HttpServletRequest request,
 	   HttpServletResponse response, HttpSession session) throws Exception{
-		 
-		oneshipModel onesip = shippingdirectionservice.onesip(paramMap);
-		 
-		 Map<String,Object> returnmap = new HashMap<String,Object>();
-		 
-		 returnmap.put("onesip", onesip); 
-		 
-		 
+		
+		Map<String,Object> returnmap = new HashMap<String,Object>();
+		String msg = "";
+		try {
+			oneshipModel onesip = shippingdirectionservice.onesip(paramMap);
+			 returnmap.put("onesip", onesip); 
+		} catch (Exception e) {
+			msg = "상품정보가 없습니다 (test data error)";
+			returnmap.put("msg", msg);
+		}
 	      return returnmap;
 		 
 	 }

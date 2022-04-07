@@ -36,8 +36,28 @@
 	</select>
 	
 	<select id="total" resultType="int">
-		select count(return_id)
-		from 	tb_returndir
+		select count(ret.return_id)
+	  	from 		tb_returndir ret
+		    join tb_purchaseinfo pinfo ON pinfo.purinf_id = ret.purinf_id
+		    join tb_sales sal ON sal.sales_id = pinfo.sales_id
+		    join tb_userinfo user ON pinfo.loginID = user.loginID	
+	    <where>
+	    	<choose>
+				<when test="!datesearch1.equals('')">
+				<![CDATA[
+					and (ret.regdate >=
+						#{datesearch1}
+						and
+						ret.regdate <=
+							(select date_add(date_format(#{datesearch2}, '%Y-%m-%d'), interval 1 day))
+						)
+				]]>	
+				</when>
+			</choose>
+			<if test="!searchinput.equals('')">
+				and user.client Like CONCAT('%', #{searchinput}, '%')
+			</if>
+	    </where>
 	</select>
 	
 	

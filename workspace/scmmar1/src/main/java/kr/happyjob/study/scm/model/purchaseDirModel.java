@@ -9,8 +9,17 @@ public class purchaseDirModel {
 	private int unitprice;
 	private int order_cnt;
 	private int avg;
+	private int order_id;
 	
 	
+	
+	
+	public int getOrder_id() {
+		return order_id;
+	}
+	public void setOrder_id(int order_id) {
+		this.order_id = order_id;
+	}
 	public int getSales_id() {
 		return sales_id;
 	}

@@ -50,25 +50,26 @@ function init(currentPage){
 }
 	
 function ship(a){
-	//alert(a);
+	
 	var param = {
 			deliv_id : a	// 주문번호
 		}
 	var resultCallback = function(data){
-		var today = data.onesip.regdate;
-		var date = today.substring(0,10);
 		
-		$("#regdate").val(date);
-		$("#client").val(data.onesip.client);
-		$("#sales_nm").val(data.onesip.sales_nm);
-		$("#pur_cnt").val(data.onesip.pur_cnt);
-		$("#depositYN").val(data.onesip.depositYN);
-		gfModalPop("#layer1");
-		
+		if(data.msg){
+			alert(data.msg);
+		}else{
+			var today = data.onesip.regdate;
+			var date = today.substring(0,10);
+			$("#regdate").val(date);
+			$("#client").val(data.onesip.client);
+			$("#sales_nm").val(data.onesip.sales_nm);
+			$("#pur_cnt").val(data.onesip.pur_cnt);
+			var YN = (data.onesip.depositYN =='Y' ? "입금완료" : "입금대기");
+			$("#depositYN").val(YN);
+			gfModalPop("#layer1");
+		}
 	}
-	
-	
-	
 	callAjax("/scm/oneshippingDirection.do", "post", "json", true, param, resultCallback);
 }
 	
@@ -77,6 +78,13 @@ function ship(a){
 	
 </script>
 
+<style type="text/css">
+	
+	input[type=text]{
+		border: none;
+		text-align: center;
+	}
+</style>
 
 </head>
 <body>
@@ -168,11 +176,11 @@ function ship(a){
 							<th >입금여부</th>
 						</tr>
 						<tr>
-							<td><input type = "text" id = "regdate" name="sales_id" readonly="readonly"></td>
-							<td><input type = "text" id = "client" readonly="readonly"></td>
-							<td><input type = "text" id = "sales_nm" readonly="readonly"></td>
-							<td><input type = "text" id = "pur_cnt" readonly="readonly"></td>
-							<td><input type = "text" id = "depositYN" readonly="readonly"></td>
+							<td><input type="text" id="regdate" name="sales_id" readonly="readonly"></td>
+							<td><input type="text" id="client" readonly="readonly"></td>
+							<td><input type="text" id="sales_nm" readonly="readonly"></td>
+							<td><input type="text" id="pur_cnt" readonly="readonly"></td>
+							<td><input type="text" id="depositYN" readonly="readonly"></td>
 						</tr>
 					</tbody>
 				</table>

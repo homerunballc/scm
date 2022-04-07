@@ -5,6 +5,7 @@
 						   
 							<c:forEach items="${listpurchaseDir}" var="list">
 										<tr style="cursor: pointer;">
+											<td>${list.order_id}</td>
 											<td>${list.sales_id}</td>
 											<td>${list.sales_nm}</td>
 											<td>${list.comp_nm}</td>

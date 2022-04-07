@@ -24,7 +24,7 @@ public interface dailyOrderHistoryDao {
 	public List<CompModel> comp() throws Exception;
 
 	//발주지시서 저장
-	public Map<String,Object> insertcom1(Map<String, Object> paramMap) throws Exception;
+	public int insertcom1(Map<String, Object> paramMap) throws Exception;
 	//발주지시서 저장
-	public Map<String,Object> insertcom2(Map<String, Object> paramMap) throws Exception;
+	public int insertcom2(Map<String, Object> paramMap) throws Exception;
 }

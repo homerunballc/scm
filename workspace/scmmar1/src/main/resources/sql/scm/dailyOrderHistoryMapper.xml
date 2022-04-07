@@ -103,9 +103,56 @@
 	</select>
 
 	<select id="total" resultType="int">
-		SELECT count(pur_id)
-		  FROM tb_purchase
-		   
+		SELECT  count(pur.pur_id)
+		FROM    tb_purchase pur 
+				inner join tb_userinfo user ON pur.loginID = user.loginID
+				inner join tb_purchaseinfo purinfo ON pur.pur_id = purinfo.pur_id
+				inner join tb_sales sal ON purinfo.sales_id = sal.sales_id
+				left outer join (
+				                   select st.sales_id
+				                        , sum(st_cnt) as sumcnt 
+				                     from tb_stock st 
+				                    where st.sales_id IN (
+				                                            select sa.sales_id 
+				                                              from tb_sales sa				                                              
+				                                         )
+				                   group by st.sales_id
+				                ) ll on ll.sales_id = purinfo.sales_id
+		<where>
+					<choose>
+						<when test="returnsearch == 'a'.toString()">
+							and returnYN='Y'
+						</when>
+						<when test="returnsearch == 'b'.toString()">
+							and returnYN='N'
+						</when>
+					</choose>
+				
+				<if test="!selectsearch.equals('')">
+					<choose>
+					<when test="selectsearch == '0'.toString()">
+					<![CDATA[
+						and (pur.purdate >=
+							#{datesearch1}
+							and
+							pur.purdate <=
+								(select date_add(date_format(#{datesearch2}, '%Y-%m-%d'), interval 1 day))
+							)
+						]]>		
+					</when>
+					<when test="selectsearch == '1'.toString()">
+					<![CDATA[
+						and (pur.purdate >=
+							#{datesearch1}
+							and
+							pur.purdate <=
+								(select date_add(date_format(#{datesearch2}, '%Y-%m-%d'), interval 1 day))
+							)
+						]]>
+					</when>
+				</choose>
+				</if>
+		</where>   
 		  
 		  
 	</select>
@@ -135,7 +182,7 @@
 	</select>
 	
 	
-	<insert id="insertcom2">
+	<insert id="insertcom2" >
 	INSERT
 		 INTO tb_orderinfo
 		 		(	
@@ -166,9 +213,9 @@
 		 		,	wh_id
 				)
 		VALUES (
-				,	now()
+					now()
 		        , 	'O'
-		        ,	 #{com_code}	
+		        ,	 #{wh_id}	
 				);
 	</insert>
 	

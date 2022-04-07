@@ -150,6 +150,7 @@ function search(){
 								<caption>caption</caption>
 								<colgroup>
 									<col width="4%">
+									<col width="4%">
 									<col width="6%">
 									<col width="6%">
 									<col width="10%">
@@ -160,6 +161,7 @@ function search(){
 	
 								<thead>
 									<tr>
+										<th scope="col">발주 번호</th>
 										<th scope="col">제품 번호</th>
 										<th scope="col">제품명</th>
 										<th scope="col">발주업체명</th>

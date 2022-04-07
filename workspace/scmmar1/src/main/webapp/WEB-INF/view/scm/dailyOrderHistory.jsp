@@ -119,12 +119,23 @@ function reset(){
 }
 
 // 지시서 작성 radio 모달창 실행
-function orderhi(purid,salesid,login_ID){
+function orderhi(purid,salesid,login_ID,rYN,dYN){
 	pur_id = purid;
 	sales_id = salesid;
 	loginID = login_ID;
 	gfModalPop("#layer1");
-	init();
+	if(rYN == 'Y'){
+		$("#sel2").css("display","none");
+		$("#sel3").css("display","none");
+		$("#sel5").css("display","none");
+		$("#sel6").css("display","none");
+	}else{
+		 $('#sel1').css("display","inline-block"); 
+		 $('#sel3').css("display","inline-block"); 
+		 $('#sel5').css("display","inline-block"); 
+		 $('#sel6').css("display","inline-block"); 
+	}
+	
 }
 
 // 지시서 작성  팝업 구분 실행
@@ -141,6 +152,7 @@ function layer1btn(){
 		//alert(data.onedata.loginID);
 		$("#layer").empty().append(data);
 		console.log(param.selcheck);
+		
 		switch(param.selcheck){
 		
 			case '1':
@@ -197,6 +209,8 @@ function send(f){
 	}else if(f == 'com'){
 		var a = $("#compcnt").val();
 		var b = $("#selcomcnt").val();
+		var selcheck = $('#selcomcnt option:selected').val();
+		alert(selcheck);
 		alert(loginID);
 		var param = {
 				com_cnt : a				// 발주 개수
@@ -205,15 +219,13 @@ function send(f){
 			,	active : f				// 구분자
 			,	pur_id : pur_id			// 구매 번호
 			,	loginID : loginID		// 구매한 이용자 아이디
+			,	wh_id : selcheck
 				}
 		var resultCallback = function(data){
+			alert("발주를 완료 했습니다");
 		}
 		
 		callAjax("/scm/sendtotal.do", "post", "json", true, param, resultCallback);
-		
-		
-		
-		
 		
 	//반품지시서	
 	}else{
@@ -347,11 +359,11 @@ function send(f){
 						<tr>
 							<th scope="row">지시서 작성<span class="font_red">*</span></th>
 							<td colspan="3">
-							   <input type="radio" 	name="sel" id="sel1" value='1' style="cursor: pointer;"/>반품지시서
+							   <input type="radio" 	name="sel" id="sel1" value='1' style="cursor: pointer;"/><span id="sel4">반품지시서</span>
 								&nbsp;&nbsp;&nbsp;&nbsp; 
-								<input type="radio" name="sel" id="sel2" value="2" style="cursor: pointer;"/>배송지시서
+								<input type="radio" name="sel" id="sel2" value="2" style="cursor: pointer;"/><span id="sel5">배송지시서</span>
 								&nbsp;&nbsp;&nbsp;&nbsp; 
-								<input type="radio" name="sel" id="sel3" value="3" style="cursor: pointer;"/>발주지시서
+								<input type="radio" name="sel" id="sel3" value="3" style="cursor: pointer;"/><span id="sel6">발주지시서</span>
 							</td>
 						</tr>
 					</tbody>
