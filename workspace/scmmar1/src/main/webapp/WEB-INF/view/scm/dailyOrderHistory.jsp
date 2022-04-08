@@ -135,21 +135,7 @@ function orderhi(purid,salesid,login_ID,rYN,dYN){
 	var price_sum = $("#price_sum").val(); 
 	var pur_cnt = $("#pur_cnt").val(); 
 	
-	
-	// 미입금 배송지시서 비활성화
-	if(dYN =='N'){
-		$("#sel1").css("display","none");
-		$("#sel2").css("display","none");
-		$("#sel4").css("display","none");
-		$("#sel5").css("display","none");
-	}else{
-		$("#sel1").css("display","inline-block");
-		$("#sel2").css("display","inline-block");
-		$("#sel4").css("display","inline-block");
-		$("#sel5").css("display","inline-block");
-	}
-	
-	
+	// 반품,입금 유무에 따른 지시서 작성 버튼 활성화 
 	if(dYN =='N'){
 		$("#sel1").css("display","none");
 		$("#sel2").css("display","none");
@@ -167,6 +153,8 @@ function orderhi(purid,salesid,login_ID,rYN,dYN){
 			$("#sel5").css("display","none");
 			$("#sel6").css("display","none");
 		}else{
+			 $("#sel1").css("display","none");
+			 $("#sel4").css("display","none");
 			 $('#sel2').css("display","inline-block"); 
 			 $('#sel3').css("display","inline-block"); 
 			 $('#sel5').css("display","inline-block"); 
@@ -202,8 +190,6 @@ function layer1btn(){
 				break;
 		}
 		gfModalPop("#layer");
-		
-		
 	};
 	callAjax("/scm/onedailyOrderHistory.do", "post", "text", true, param, resultCallback);
 }
@@ -260,8 +246,8 @@ function send(f){
 			,	wh_id : selcheck		// 창고 선택 코드 
 				}
 		var resultCallback = function(data){
-			alert("발주를 완료 했습니다");
-			$("#ordersned").css("display","none");
+			alert(data.msg);
+			gfCloseModal();
 		}
 		
 		callAjax("/scm/sendtotal.do", "post", "json", true, param, resultCallback);
@@ -270,46 +256,35 @@ function send(f){
 	}else if(f == 're'){
 		var pur_id = $("#pur_id").val();
 		var sales_nm = $("#sales_nm").val();
-		var pur_cnt = $("#pur_cnt").val();
+		var pur_cnt_one = $("#pur_cnt_one").val();
 		var name = $("#name").val();
-		var enter_cnt = $("#enter_cnt").val();
+		var return_cnt = $("#return_cnt").val();
 		
-		alert("pur_id : " + pur_id + "sales_nm : " + sales_nm +"pur_cnt : " + pur_cnt + "name : " + name + " enter_cnt : " +enter_cnt)
+		console.log("pur_id : " + pur_id);
+		console.log("sales_nm : " + sales_nm);
+		console.log("pur_cnt_one : " + pur_cnt_one);
+		console.log("name : " + name);
+		console.log("return_cnt : " + return_cnt);
+		console.log("pur_cnt type : " + typeof(pur_cnt_one));
 		
-		
-		
-		
-		
-		/* var param = {
-				active : f				// 구분자
-				
+		var param = {
+					active : f				// 구분자
+				,	pur_id : pur_id
+				,	sales_nm : sales_nm
+				,	pur_cnt_one : pur_cnt_one
+				,	name : name
+				,	return_cnt : return_cnt
 				}
 		var resultCallback = function(data){
-			 alert("발주를 완료 했습니다");
+			alert(data.msg);
 			$("#ordersned").css("display","none"); 
+			gfCloseModal();
 		}
 		
-		callAjax("/scm/sendtotal.do", "post", "json", true, param, resultCallback);*/
+		callAjax("/scm/sendtotal.do", "post", "json", true, param, resultCallback);
 	}
 }
 
-// 반품지시서 구매수량보다 반품이 많을경우
-function enter(value){
-	//let pur_cnt = parseInt($("#pur_cnt_one").val());
-	//let pur_cnt = $("#pur_cnt_one").val();
-	//console.log(pur_cnt);
-	console.log(value);
-	
-	/* if(pur_cnt<value){
-		alert("구매 수량 보다 많습니다.");
-		$("#enter_cnt").val('');
-		return true;
-		
-	}else{
-		return false;
-	} */ 
-	
-}
 	
 </script>
 

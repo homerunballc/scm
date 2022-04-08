@@ -20,13 +20,11 @@
 							<th scope="row">반품 수량</th>
 						</tr>
 						<tr>
-							<td><input type="text" id = "pur_id" value="${onedata.pur_id }" style="border: none;"></td>
-							<td><input type="text" id = "sales_nm" value="${onedata.sales_nm }" style="border: none;"></td>
-							<td><input type="text" id = "pur_cnt_one" value="${onedata.pur_cnt}" style="border: none;"></td>
-							<td><input type="text" id = "name" value="${onedata.name }" style="border: none;"></td>
-							<td>
-								<input type="number" min="0" max="${onedata.pur_cnt}" id="enter_cnt">
-							</td>
+							<td><input type="text" id = "pur_id" value="${onedata.pur_id}" style="border: none; text-align: center;" readonly></td>
+							<td><input type="text" id = "sales_nm" value="${onedata.sales_nm}" style="border: none; text-align: center;" readonly></td>
+							<td><input type="text" id = "pur_cnt_one" value="${onedata.pur_cnt}" style="border: none; text-align: center;" readonly></td>
+							<td><input type="text" id = "name" value="${onedata.name}" style="border: none; text-align: center;" readonly></td>
+							<td><input type="text" id = "return_cnt" value="${onedata.return_cnt}" style="border: none; text-align: center;" readonly></td>
 						</tr>
 						
 					</tbody>

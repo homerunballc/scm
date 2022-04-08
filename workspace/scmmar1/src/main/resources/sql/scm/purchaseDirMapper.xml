@@ -17,6 +17,7 @@
 	  join 	 tb_sales sal on sal.sales_id = ordinfo.sales_id
 	  join 	 tb_comp com on com.comp_id = ordinfo.comp_id
 	  join 	 tb_import imp on ordinfo.comp_id = imp.comp_id and ordinfo.sales_id = imp.sales_id
+	  order by ord.order_id desc
 	
 		<where>
 					<choose>

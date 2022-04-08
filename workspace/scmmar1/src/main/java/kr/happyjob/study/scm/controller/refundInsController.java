@@ -20,7 +20,6 @@ import kr.happyjob.study.scm.service.refundInsService;
 @RequestMapping("/scm/")
 public class refundInsController {
 	
-	
 	@Autowired
 	refundInsService refundinsservice;
 	

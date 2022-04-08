@@ -66,6 +66,11 @@ public class dailyOrderHistoryServiceImpl implements dailyOrderHistoryService{
 		
 		return dailyorderhistorydao.insertcom2(paramMap);
 	}
+
+	@Override
+	public int insertreturn(Map<String, Object> paramMap) throws Exception {
+		return dailyorderhistorydao.insertreturn(paramMap);
+	}
 	
 	
 	

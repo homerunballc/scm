@@ -27,5 +27,7 @@ public interface dailyOrderHistoryService {
 	public int insertcom1(Map<String, Object> paramMap) throws Exception;
 	//발주지시서 저장
 	public int insertcom2(Map<String, Object> paramMap) throws Exception;
+	//반품지시서 저장
+	public int insertreturn(Map<String, Object> paramMap) throws Exception;
 	
 }

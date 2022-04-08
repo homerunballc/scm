@@ -114,25 +114,30 @@ public class dailyOrderHistoryController {
 		 System.out.println("com_code : "+paramMap.get("com_code"));
 		 System.out.println("com_code : "+paramMap.get("wh_id"));
 		 
+		 Map<String,Object> returnmap = new HashMap<String,Object>();
 		 String act = (String) paramMap.get("active");
-		 
+		 String msg = "";
 		 //발주 지시서 
 		 if(act.equals("com")){
+			 paramMap.put("fk", "");
 			 int a = dailyorderhistoryservice.insertcom2(paramMap);
+			
 			 System.out.println("insertcom2 return : " + a);
-			 if(a > 0){
+			 if(a == 1){
 				 dailyorderhistoryservice.insertcom1(paramMap);
+				 msg = "발주 신청 완료";
+				 returnmap.put("msg", msg);
 			 }
 		 //반품 지시서	 
 		 }else if(act.equals("re")){
-			 
+			 int a = dailyorderhistoryservice.insertreturn(paramMap);
+			 if(a == 1){
+				 msg = "반품 신청 완료";
+				 returnmap.put("msg", msg);
+			 }
 		 }
 		 
-		 
-		 Map<String,Object> returnmap = new HashMap<String,Object>();
-		 
-		 
-		 
+		
 	      return returnmap;
 	 }
 	

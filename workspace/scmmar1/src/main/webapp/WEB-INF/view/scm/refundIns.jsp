@@ -23,11 +23,11 @@ var pageBlockSize = 10;
 var searchinput = '';
 var datesearch1 = '';
 var datesearch2 = '';
+today = new Date();
+today = today.toISOString().slice(0, 10);
 
 // onload list 및 검색조건 함수 불러오기
 $(function(){
-	today = new Date();
-	today = today.toISOString().slice(0, 10);
 	$('#serchdate2').val(today);
 	init();
 });
