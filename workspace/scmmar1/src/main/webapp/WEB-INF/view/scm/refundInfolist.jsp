@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 						   
 							<c:forEach items="${reinfolist}" var="list">
-										<tr style="cursor: pointer;" onclick="reinfo(${list.return_id})">
+										<tr style="cursor: pointer;" onclick="reinfo('${list.return_id}')">
 											<td>${list.sales_nm}</td>
 											<td>${list.wanted_date}</td>
 											<td>${list.return_cnt}</td>

@@ -8,10 +8,16 @@ public class refundInsModel {
 	private int avg;
 	private String confirmYN;
 	private String client;
+	private String confirm_requestYN;
 	
 	
 	
-	
+	public String getConfirm_requestYN() {
+		return confirm_requestYN;
+	}
+	public void setConfirm_requestYN(String confirm_requestYN) {
+		this.confirm_requestYN = confirm_requestYN;
+	}
 	public String getClient() {
 		return client;
 	}

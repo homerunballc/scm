@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -48,7 +49,6 @@ public class dailyOrderHistoryController {
 	      int total = dailyorderhistoryservice.total(paramMap);
 	      List<dailyOrderHistoryModel> listdailyOrderHistory = dailyorderhistoryservice.listdailyOrderHistory(paramMap);
 	      
-	      
 	      System.out.println("pur_id123 : " + paramMap.get("pur_id"));
 	      
 	      model.addAttribute("total",total);
@@ -70,8 +70,7 @@ public class dailyOrderHistoryController {
  			returnjsp = "scm/layer22";
 		 }else if (selcheck == 2){
 			 returnjsp = "scm/layer33";
-			
-		 }else{
+		 }else {
 			 returnjsp = "scm/layer44";
 		 }	 
  		 
@@ -113,16 +112,19 @@ public class dailyOrderHistoryController {
 		 System.out.println("com_cnt : "+paramMap.get("com_cnt"));
 		 System.out.println("sales_id : "+paramMap.get("sales_id"));
 		 System.out.println("com_code : "+paramMap.get("com_code"));
+		 System.out.println("com_code : "+paramMap.get("wh_id"));
 		 
 		 String act = (String) paramMap.get("active");
 		 
-		 
+		 //발주 지시서 
 		 if(act.equals("com")){
 			 int a = dailyorderhistoryservice.insertcom2(paramMap);
 			 System.out.println("insertcom2 return : " + a);
 			 if(a > 0){
 				 dailyorderhistoryservice.insertcom1(paramMap);
 			 }
+		 //반품 지시서	 
+		 }else if(act.equals("re")){
 			 
 		 }
 		 

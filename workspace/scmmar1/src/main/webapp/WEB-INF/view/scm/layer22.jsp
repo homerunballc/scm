@@ -11,24 +11,24 @@
 				<!-- s : 여기에 내용입력 -->
 				<table class="row">
 					<caption>caption</caption>
-					<colgroup>
-						<col width="120px">
-						<col width="*">
-						<col width="120px">
-						<col width="*">
-					</colgroup>
-
 					<tbody>
 						<tr>
-							<th scope="row">반품지시서 작성<span class="font_red">*</span></th>
-							<td colspan="3">
-							   <input type="radio" 	name="sel" id="sel1" value='1' style="cursor: pointer;"/>반품지시서
-								&nbsp;&nbsp;&nbsp;&nbsp; 
-								<input type="radio" name="sel" id="sel2" value="2" style="cursor: pointer;"/>배송지시서
-								&nbsp;&nbsp;&nbsp;&nbsp; 
-								<input type="radio" name="sel" id="sel3" value="3" style="cursor: pointer;"/>발주지시서
+							<th scope="row">상품 구매번호</th>
+							<th scope="row">제품명</th>
+							<th scope="row">구매 수량</th>
+							<th scope="row">고객명</th>
+							<th scope="row">반품 수량</th>
+						</tr>
+						<tr>
+							<td><input type="text" id = "pur_id" value="${onedata.pur_id }" style="border: none;"></td>
+							<td><input type="text" id = "sales_nm" value="${onedata.sales_nm }" style="border: none;"></td>
+							<td><input type="text" id = "pur_cnt_one" value="${onedata.pur_cnt}" style="border: none;"></td>
+							<td><input type="text" id = "name" value="${onedata.name }" style="border: none;"></td>
+							<td>
+								<input type="number" min="0" max="${onedata.pur_cnt}" id="enter_cnt">
 							</td>
 						</tr>
+						
 					</tbody>
 				</table>
 
@@ -36,7 +36,8 @@
 
 				<div class="btn_areaC mt30">
 				    <!-- <input type="hidden" name="Action" id="Action" value="wa"> -->
-					<a class="btnType blue" id="savesa" name="btn" ><span onclick="send('11')" style="cursor: pointer;">작성</span></a> 
+				    <input type="hidden" name="pur_cnt" id="pur_cnt" value="${onedata.pur_cnt}">
+					<a class="btnType blue" id="savesa" name="btn" ><span onclick="send('re')" style="cursor: pointer;">작성</span></a> 
 					<a href=""	class="btnType gray"  id="btnClosewa" name="btn"><span>취소</span></a>
 				</div>
 							

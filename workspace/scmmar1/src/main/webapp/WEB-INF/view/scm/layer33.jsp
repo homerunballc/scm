@@ -19,7 +19,6 @@
 							<th style="text-align: center;">고객기업명</th>
 							<th style="text-align: center;">제품명</th>
 							<th style="text-align: center;">주문개수</th>
-							<th style="text-align: center;">배송담당자</th>
 							<th style="text-align: center;">입금여부</th>
 						</tr>
 						<tr>
@@ -28,9 +27,6 @@
 							<td style="text-align: center;">${onedata.name }</td>
 							<td style="text-align: center;">${onedata.sales_nm }</td>
 							<td style="text-align: center;">${onedata.pur_cnt}</td>
-							<td style="text-align: center;">
-								<select id="purchaser"></select>
-							</td>
 							<td style="text-align: center;">${onedata.depositYN }</td>
 						</tr>
 					</tbody>
@@ -45,7 +41,8 @@
 						<tbody>
 							<tr>
 								<th>창고별 품목</th>
-								<th>총 재고 건수</th>
+								<th>배송담당자</th>
+								<th>총 재고</th>
 								<th>주문 개수 입력</th>
 							</tr>
 							
@@ -59,11 +56,16 @@
 										</c:forEach>
 									</select>
 								</td>
+								
+								<td style="text-align: center;">
+									<select id="purchaser"></select>
+								</td>
+								
 								<td style="text-align: center;">
 									<div id="warehcnt">0</div>
 								</td>
 								<td style="text-align: center">
-									<input type="number" id="warehinput" name="warehinput" onkeyup="t()">
+									<input type="number" id="warehinput" name="warehinput" onkeyup="t()" min="0">
 								</td>
 							</tr>
 							

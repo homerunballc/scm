@@ -210,12 +210,10 @@
 		 		(	
 		 			regdate
 		 		,	dir_result
-		 		,	wh_id
 				)
 		VALUES (
 					now()
 		        , 	'O'
-		        ,	 #{wh_id}	
 				);
 	</insert>
 	

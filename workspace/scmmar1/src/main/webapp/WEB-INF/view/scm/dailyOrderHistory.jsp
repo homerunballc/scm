@@ -37,6 +37,14 @@ $(function(){
 	$('#serchdate2').val(today);
 	init();
 	
+	
+	/* $('body').on('keyup','#enter_cnt',function(e){
+		if(enter($(this).val())){
+			e.preventDefault();
+		};
+		
+	}) */
+	
 });
 
 
@@ -124,18 +132,47 @@ function orderhi(purid,salesid,login_ID,rYN,dYN){
 	sales_id = salesid;
 	loginID = login_ID;
 	gfModalPop("#layer1");
-	if(rYN == 'Y'){
+	var price_sum = $("#price_sum").val(); 
+	var pur_cnt = $("#pur_cnt").val(); 
+	
+	
+	// 미입금 배송지시서 비활성화
+	if(dYN =='N'){
+		$("#sel1").css("display","none");
 		$("#sel2").css("display","none");
-		$("#sel3").css("display","none");
+		$("#sel4").css("display","none");
 		$("#sel5").css("display","none");
-		$("#sel6").css("display","none");
 	}else{
-		 $('#sel1').css("display","inline-block"); 
-		 $('#sel3').css("display","inline-block"); 
-		 $('#sel5').css("display","inline-block"); 
-		 $('#sel6').css("display","inline-block"); 
+		$("#sel1").css("display","inline-block");
+		$("#sel2").css("display","inline-block");
+		$("#sel4").css("display","inline-block");
+		$("#sel5").css("display","inline-block");
 	}
 	
+	
+	if(dYN =='N'){
+		$("#sel1").css("display","none");
+		$("#sel2").css("display","none");
+		$("#sel4").css("display","none");
+		$("#sel5").css("display","none");
+	}else{
+		$("#sel1").css("display","inline-block");
+		$("#sel2").css("display","inline-block");
+		$("#sel4").css("display","inline-block");
+		$("#sel5").css("display","inline-block");
+		
+		if(rYN == 'Y'){
+			$("#sel2").css("display","none");
+			$("#sel3").css("display","none");
+			$("#sel5").css("display","none");
+			$("#sel6").css("display","none");
+		}else{
+			 $('#sel2').css("display","inline-block"); 
+			 $('#sel3').css("display","inline-block"); 
+			 $('#sel5').css("display","inline-block"); 
+			 $('#sel6').css("display","inline-block"); 
+		}
+	}
 }
 
 // 지시서 작성  팝업 구분 실행
@@ -210,8 +247,9 @@ function send(f){
 		var a = $("#compcnt").val();
 		var b = $("#selcomcnt").val();
 		var selcheck = $('#selcomcnt option:selected').val();
-		alert(selcheck);
-		alert(loginID);
+		
+		//alert(selcheck);
+		//alert(loginID);
 		var param = {
 				com_cnt : a				// 발주 개수
 			,	com_code : b			// 발주 회사 코드
@@ -219,21 +257,59 @@ function send(f){
 			,	active : f				// 구분자
 			,	pur_id : pur_id			// 구매 번호
 			,	loginID : loginID		// 구매한 이용자 아이디
-			,	wh_id : selcheck
+			,	wh_id : selcheck		// 창고 선택 코드 
 				}
 		var resultCallback = function(data){
 			alert("발주를 완료 했습니다");
+			$("#ordersned").css("display","none");
 		}
 		
 		callAjax("/scm/sendtotal.do", "post", "json", true, param, resultCallback);
 		
 	//반품지시서	
-	}else{
-		alert("111");
+	}else if(f == 're'){
+		var pur_id = $("#pur_id").val();
+		var sales_nm = $("#sales_nm").val();
+		var pur_cnt = $("#pur_cnt").val();
+		var name = $("#name").val();
+		var enter_cnt = $("#enter_cnt").val();
 		
+		alert("pur_id : " + pur_id + "sales_nm : " + sales_nm +"pur_cnt : " + pur_cnt + "name : " + name + " enter_cnt : " +enter_cnt)
+		
+		
+		
+		
+		
+		/* var param = {
+				active : f				// 구분자
+				
+				}
+		var resultCallback = function(data){
+			 alert("발주를 완료 했습니다");
+			$("#ordersned").css("display","none"); 
+		}
+		
+		callAjax("/scm/sendtotal.do", "post", "json", true, param, resultCallback);*/
 	}
 }
+
+// 반품지시서 구매수량보다 반품이 많을경우
+function enter(value){
+	//let pur_cnt = parseInt($("#pur_cnt_one").val());
+	//let pur_cnt = $("#pur_cnt_one").val();
+	//console.log(pur_cnt);
+	console.log(value);
 	
+	/* if(pur_cnt<value){
+		alert("구매 수량 보다 많습니다.");
+		$("#enter_cnt").val('');
+		return true;
+		
+	}else{
+		return false;
+	} */ 
+	
+}
 	
 </script>
 
@@ -379,7 +455,7 @@ function send(f){
 	</div>
 	
 	
-	<div id="layer" class="layerPop layerType2" style="width: 600px;"></div>
+	<div id="layer" class="layerPop layerType2" style="width: auto;"></div>
 </form>
 </body>
 </html>

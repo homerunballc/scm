@@ -156,7 +156,7 @@ function ship(a){
 	</div>
 
 <!-- 모달팝업 -->
-	<div id="layer1" class="layerPop layerType2" style="width: 1000px;">
+	<div id="layer1" class="layerPop layerType2" style="width: auto;">
 
 		<dl>
 			<dt>

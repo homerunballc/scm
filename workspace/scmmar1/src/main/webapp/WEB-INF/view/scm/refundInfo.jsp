@@ -63,9 +63,9 @@ function init(currentPage){
 	callAjax("/scm/refundInfolist.do", "post", "text", true, param, resultCallback);
 }
 
+
+
 function reinfo(a){
-	
-	
 	var param = {	
 			return_id : a	// 반품고유번호
 			}
@@ -75,10 +75,7 @@ function reinfo(a){
 		  // list tbody에 넣는 내용
 		 $("#onelayer").empty().append(data);
 		 gfModalPop("#layer1");
-		 //a = $("#refdata").serialize();
 	}
-	
-	
 	callAjax("/scm/refundinfolistlayer.do", "post", "text", true, param, resultCallback);
 	
 }
@@ -91,6 +88,7 @@ function com(){
 	var resultCallback = function(data){
 		alert(data.resultMsg);
 		gfCloseModal();
+		init();
 	}
 	
 	callAjax("/scm/refupdate.do", "post", "json", true, $("#refdata").serialize(), resultCallback);
