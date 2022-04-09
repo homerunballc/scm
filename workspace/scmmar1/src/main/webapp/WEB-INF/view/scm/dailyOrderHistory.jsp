@@ -45,6 +45,7 @@ $(function(){
 		
 	}) */
 	
+	
 });
 
 
@@ -285,7 +286,14 @@ function send(f){
 	}
 }
 
-	
+
+function zzi(){
+	console.log("아 왜안돼냐");
+}
+
+
+
+
 </script>
 
 
