@@ -38,7 +38,7 @@ public class whInventoryFormController {
 	         HttpServletResponse response, HttpSession session) throws Exception {
 		
 		List<whInventoryFormModel> whlist = whinventoryformservice.whlist(paramMap);
-		
+	      
 		
 		System.out.println("searchgrouptype : " + paramMap.get("searchgrouptype"));
 		System.out.println("searchtext : " + paramMap.get("searchtext"));
@@ -52,12 +52,20 @@ public class whInventoryFormController {
 	@ResponseBody
 	public Map<String,Object> lay1(Model model, @RequestParam Map<String, Object> paramMap, HttpServletRequest request,
 		     HttpServletResponse response, HttpSession session) throws Exception{
-		
-		whcntModel cnt = whinventoryformservice.cnt(paramMap);
-		
 		Map<String,Object> returnmap = new HashMap<String,Object>();
-		returnmap.put("cnt", cnt); 
-		 System.out.println("------------"+cnt.getSales_id());
+		String msg = "";
+		try {
+			whcntModel cnt = whinventoryformservice.cnt(paramMap);
+			returnmap.put("cnt", cnt);
+			returnmap.put("msg", msg);
+			
+			System.out.println("------------"+cnt.getSales_id());
+		} catch (Exception e) {
+			msg = "데이터가 없습니다.";
+			returnmap.put("msg", msg);
+			System.out.println("e : " + e);
+		}
+		
 	    return returnmap;
 	}
 	

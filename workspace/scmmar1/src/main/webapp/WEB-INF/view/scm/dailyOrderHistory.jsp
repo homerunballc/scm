@@ -84,7 +84,7 @@ function init(currentPage) {
 // 반품/미반품 목록 검색 조회
 function returns(value){
 	
-	alert(value);
+	//alert(value);
 	returnsearch = value;
 	init();
 }
@@ -221,8 +221,11 @@ function t(){
 		return;
 	}
 }
+
 //지시서 작성
 function send(f){
+	
+	
 	//배송지시서
 	if(f == 'wa'){
 		var deliv_wh_id = $('#wasel option:selected').val();		// 창고 지정
@@ -237,9 +240,13 @@ function send(f){
 			,	pur_id : pur_id				// 구매 번호
 			,	name : delname				// 배송 담당자
 			,	deliv_wh_id : deliv_wh_id	// 창고 타임
-			,	dpt_cnt : dpt_cnt			// 
 			
 				}
+		var resultCallback = function(data){
+			alert(data.msg);
+			closemodel();
+			
+		}
 		
 		callAjax("/scm/sendtotal.do", "post", "json", true, param, resultCallback);
 		
@@ -247,6 +254,7 @@ function send(f){
 		
 	//발주지시서
 	}else if(f == 'com'){
+		console.log(f);
 		var a = $("#compcnt").val();
 		var b = $("#selcomcnt").val();
 		var selcheck = $('#selcomcnt option:selected').val();
@@ -264,11 +272,11 @@ function send(f){
 				}
 		var resultCallback = function(data){
 			alert(data.msg);
-			gfCloseModal();
+			closemodel();
 			
 		}
 		
-		//callAjax("/scm/sendtotal.do", "post", "json", true, param, resultCallback);
+		callAjax("/scm/sendtotal.do", "post", "json", true, param, resultCallback);
 		
 	//반품지시서	
 	}else if(f == 're'){
@@ -295,11 +303,15 @@ function send(f){
 		var resultCallback = function(data){
 			alert(data.msg);
 			$("#ordersned").css("display","none"); 
-			gfCloseModal();
+			closemodel();
 		}
 		
 		callAjax("/scm/sendtotal.do", "post", "json", true, param, resultCallback);
 	}
+}
+
+function closemodel(){
+	gfCloseModal();
 }
 
 
@@ -448,7 +460,7 @@ function addrow(){
 				<div class="btn_areaC mt30">
 				    <input type="hidden" name="Action" id="Action" value="">
 					<a class="btnType blue" id="btnSaveGrpCod" name="btn" onclick="layer1btn()"><span style="cursor: pointer;">작성</span></a> 
-					<a href=""	class="btnType gray"  id="btnCloseGrpCod" name="btn"><span>취소</span></a>
+					<a	class="btnType gray"  id="btnCloseGrpCod" name="btn"><span onclick="closemodel()" style="cursor: pointer;">취소</span></a>
 				</div>
 			</dd>
 		</dl>

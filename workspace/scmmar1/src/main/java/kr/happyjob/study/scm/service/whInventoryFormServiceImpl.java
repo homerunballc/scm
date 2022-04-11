@@ -29,12 +29,6 @@ public class whInventoryFormServiceImpl implements whInventoryFormService {
 		whcntModel cnt = whinventoryformdao.cnt(paramMap);
 		return cnt;
 	}
-
-	
-	
-	
-	
-	
 	
 	
 }

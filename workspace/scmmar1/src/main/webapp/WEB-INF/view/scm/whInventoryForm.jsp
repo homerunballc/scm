@@ -19,7 +19,8 @@
 <script type="text/javascript">
 var searchgrouptype = '';
 var searchtext = '';
-
+var pageSize = 10;
+var pageBlockSize = 10;
 
 // onload list 및 검색조건 함수 불러오기
 $(function(){
@@ -36,6 +37,12 @@ function init(){
 			};
 	var resultCallback = function(data) {
 		$("#whlist").empty().append(data);
+		
+		// 페이지 네비게이션 생성
+		// pageBlockSize 보여지는 페이징 갯수
+		/* var paginationHtml = getPaginationHtml(currentPage, total,  pageSize, pageBlockSize, 'init');
+		console.log("paginationHtml : " + paginationHtml);
+		$("#comnGrpCodPagination").empty().append( paginationHtml ); */
 	};
 	
 	callAjax("/scm/whInventoryFormlist.do", "post", "text", true, param, resultCallback);
@@ -59,14 +66,19 @@ function test(a,b,c){
 		,	sales_id : b
 			};
 	var resultCallback = function(data) {
-		console.log(data.cnt.sales_id);
+		//console.log(data.cnt.sales_id);
 		
-		$("#sales_id").val(data.cnt.sales_id);
-		$("#sales_nm").val(data.cnt.sales_nm);
-		$("#insal").val(data.cnt.in_cnt);
-		$("#outsal").val(data.cnt.out_cnt); 
-		
-		gfModalPop("#layer1");
+		if(data.cnt == null){
+			alert(data.msg);
+		}else{
+			
+			$("#sales_id").val(data.cnt.sales_id);
+			$("#sales_nm").val(data.cnt.sales_nm);
+			$("#insal").val(data.cnt.in_cnt);
+			$("#outsal").val(data.cnt.out_cnt); 
+			
+			gfModalPop("#layer1");
+		}
 		
 	};
 	
@@ -153,7 +165,7 @@ function test(a,b,c){
 								<tbody id="whlist"></tbody>
 							</table>
 						</div>
-	
+				<div class="paging_area"  id="comnGrpCodPagination"> </div>
 					</div> <!--// content -->
 
 					<h3 class="hidden">풋터 영역</h3>

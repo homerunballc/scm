@@ -27,7 +27,16 @@
 							<td style="text-align: center;">${onedata.name }</td>
 							<td style="text-align: center;">${onedata.sales_nm }</td>
 							<td style="text-align: center;">${onedata.pur_cnt}</td>
-							<td style="text-align: center;">${onedata.depositYN }</td>
+						<c:choose>
+							<c:when test='${onedata.depositYN eq "Y"}'>
+								<td style="text-align: center;">완료</td>
+							</c:when>
+							<c:otherwise>
+								<td style="text-align: center;">미 입금</td>
+							</c:otherwise>
+						</c:choose>
+							
+							
 						</tr>
 					</tbody>
 				</table>
@@ -37,7 +46,7 @@
 				
 				<div style="text-align: left; font-size: 15px; font-weight: bold;">배송정보 입력</div> 
 				<div style="text-align: right;">
-					<a class="btnType blue" id="addrow" name="btn" onclick="addrow()"><span style="cursor: pointer;">행 추가</span></a> 
+					<!-- <a class="btnType blue" id="addrow" name="btn" onclick="addrow()"><span style="cursor: pointer;">행 추가</span></a> --> 
 				</div>
 					<table class="row">
 					<caption>caption</caption>
@@ -82,7 +91,7 @@
 				<div class="btn_areaC mt30">
 				    <!-- <input type="hidden" name="Action" id="Action" value="wa"> -->
 					<a class="btnType blue" id="savesa" name="btn" ><span onclick="send('wa')" style="cursor: pointer;">작성</span></a> 
-					<a href=""	class="btnType gray"  id="btnClosewa" name="btn"><span>취소</span></a>
+					<a	class="btnType gray"  id="btnClosewa" name="btn"><span onclick="closemodel()" style="cursor: pointer;">취소</span></a>
 				</div>
 			</dd>
 		</dl>

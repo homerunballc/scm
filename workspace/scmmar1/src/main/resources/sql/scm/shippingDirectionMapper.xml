@@ -11,12 +11,15 @@
 	from		tb_userinfo user
 		join 	tb_purchaseinfo pcin on user.loginID = pcin.loginID
 		join 	tb_delivdir del on del.purinf_id = pcin.purinf_id
+		order by del.deliv_id desc
   		LIMIT #{pageIndex}, #{pageSize}
 	</select>
 	
 	<select id="total" resultType="int">
-	SELECT	COUNT(deliv_id)
-	FROM	tb_delivdir
+	select 		COUNT(deliv_id)
+	from		tb_userinfo user
+		join 	tb_purchaseinfo pcin on user.loginID = pcin.loginID
+		join 	tb_delivdir del on del.purinf_id = pcin.purinf_id
 	</select>
 	
 	<select id="onesip" resultType="kr.happyjob.study.scm.model.oneshipModel">
@@ -27,10 +30,10 @@
 		,		pc.depositYN AS depositYN
 
 	from 		tb_userinfo user
-	join 		tb_purchase pc on pc.loginID = user.loginID
-	join 		tb_purchaseinfo pcin on pc.loginID = pcin.loginID
-	join 		tb_delivdir del on del.purinf_id = pcin.purinf_id
-	join 		tb_sales sal ON sal.sales_id = pcin.sales_id
+		join 		tb_purchase pc on pc.loginID = user.loginID
+		join 		tb_purchaseinfo pcin on pc.loginID = pcin.loginID
+		join 		tb_delivdir del on del.purinf_id = pcin.purinf_id
+		join 		tb_sales sal ON sal.sales_id = pcin.sales_id
 	where 	del.deliv_id = #{deliv_id}
 	
 	</select>

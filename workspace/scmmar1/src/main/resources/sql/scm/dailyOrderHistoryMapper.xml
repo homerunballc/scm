@@ -84,24 +84,23 @@
 				, pur.depositYN AS depositYN
 				, sal.sales_id AS sales_id
 				, user.loginID AS loginID
-				, ret.return_cnt AS return_cnt
-				
+				, red.return_cnt
 		FROM    tb_purchase pur 
-				inner join tb_userinfo user ON pur.loginID = user.loginID
-				inner join tb_purchaseinfo purinfo ON pur.pur_id = purinfo.pur_id
-				inner join tb_sales sal ON purinfo.sales_id = sal.sales_id
+				join tb_userinfo user ON pur.loginID = user.loginID
+				join tb_purchaseinfo purinfo ON pur.pur_id = purinfo.pur_id
+        		join tb_refundinfo reinfo on reinfo.purinf_id = purinfo.purinf_id
+        		join tb_returndir red on red.return_id = reinfo.rfinfo_id
+				join tb_sales sal ON purinfo.sales_id = sal.sales_id
 				left outer join (
 				                   select st.sales_id
 				                        , sum(st_cnt) as sumcnt 
 				                     from tb_stock st 
 				                    where st.sales_id IN (
 				                                            select sa.sales_id 
-				                                              from tb_sales sa	
+				                                              from tb_sales sa				                                              
 				                                         )
 				                   group by st.sales_id
 				                ) ll on ll.sales_id = purinfo.sales_id
-				inner join tb_refundinfo rinfo on rinfo.purinf_id = purinfo.purinf_id
-				inner join tb_returndir ret on rinfo.rfinfo_id = ret.rfinfo_id
 		WHERE 	pur.pur_id = #{pur_id}
 	</select>
 
@@ -227,7 +226,7 @@
 	    		(	regdate 
 	    		, 	return_cnt
 	    		, 	dir_result
-	    		, 	purinf_id
+	    		, 	rfinfo_id
 	    		)
 	    values 	(	now()
 	    		, 	#{return_cnt}
@@ -242,14 +241,26 @@
 	</insert>
 	
 	<!-- 배송 지시서 -->
-	<!-- <insert id="insertdel">
+	<insert id="insertdel">
 		insert into tb_delivdir
 			(
 				regdate
-			,	
+			,	purinf_id
+			)
+	values
+			(
+				now()
+			,	(
+					select distinct(pinfo.purinf_id)
+					  from tb_purchaseinfo pinfo
+							  join tb_delivdir del on del.purinf_id = pinfo.purinf_id
+							  join tb_purchase pur on pur.pur_id = pinfo.pur_id
+					  where pur.pur_id = #{pur_id}
+				)
 			)
 			
 			
-	</insert> -->
+			
+	</insert>
 	
 </mapper>

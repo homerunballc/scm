@@ -19,7 +19,7 @@
 							<th scope="row">고객명</th>
 							<th scope="row">반품 수량</th>
 						</tr>
-						<tr>
+						<tr>	
 							<td><input type="text" id = "pur_id" value="${onedata.pur_id}" style="border: none; text-align: center;" readonly></td>
 							<td><input type="text" id = "sales_nm" value="${onedata.sales_nm}" style="border: none; text-align: center;" readonly></td>
 							<td><input type="text" id = "pur_cnt_one" value="${onedata.pur_cnt}" style="border: none; text-align: center;" readonly></td>
@@ -36,6 +36,6 @@
 				    <!-- <input type="hidden" name="Action" id="Action" value="wa"> -->
 				    <input type="hidden" name="pur_cnt" id="pur_cnt" value="${onedata.pur_cnt}">
 					<a class="btnType blue" id="savesa" name="btn" ><span onclick="send('re')" style="cursor: pointer;">작성</span></a> 
-					<a href=""	class="btnType gray"  id="btnClosewa" name="btn"><span>취소</span></a>
+					<a class="btnType gray"  id="btnClosewa" name="btn"><span onclick="closemodel()" style="cursor: pointer;">취소</span></a>
 				</div>
 							

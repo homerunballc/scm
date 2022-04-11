@@ -45,12 +45,10 @@ public class DailyOrderHistoryController {
 	      paramMap.put("pageIndex", pageIndex);	
 	      paramMap.put("pageSize", pageSize);
 	      
-	      int total = dailyorderhistoryservice.total(paramMap);
 	      List<DailyOrderHistoryModel> listdailyOrderHistory = dailyorderhistoryservice.listdailyOrderHistory(paramMap);
 	      
 	      System.out.println("pur_id123 : " + paramMap.get("pur_id"));
 	      
-	      model.addAttribute("total",total);
 	      model.addAttribute("listdailyOrderHistory",listdailyOrderHistory);
 	      
 	      
@@ -67,15 +65,20 @@ public class DailyOrderHistoryController {
 		 
  		 if(selcheck == 1){
  			returnjsp = "scm/layer22";
+ 			System.out.println(selcheck);
 		 }else if (selcheck == 2){
 			 returnjsp = "scm/layer33";
+			 System.out.println(selcheck);
 		 }else {
 			 returnjsp = "scm/layer44";
+			 System.out.println(selcheck);
 		 }	 
  		 
  		 List<warehouseModel> warehouse = dailyorderhistoryservice.warehouse();
 		 WorkOrderModel onedailyOrderHistory = dailyorderhistoryservice.onedailyOrderHistory(paramMap);
 		 List<CompModel> comp = dailyorderhistoryservice.comp();
+		 
+		 System.out.println("onedailyOrderHistory : " + onedailyOrderHistory);
 		 
 		 model.addAttribute("onedata",onedailyOrderHistory);
 		 model.addAttribute("warehouse",warehouse);
@@ -128,6 +131,8 @@ public class DailyOrderHistoryController {
 				 msg = "발주 신청 완료";
 				 returnmap.put("msg", msg);
 			 }
+			 
+			 
 		 //반품 지시서	 
 		 }else if(act.equals("re")){
 			 a = dailyorderhistoryservice.insertreturn(paramMap);
@@ -135,9 +140,11 @@ public class DailyOrderHistoryController {
 				 msg = "반품 신청 완료";
 				 returnmap.put("msg", msg);
 			 }
+			 
+			 
 		 //배송 지시서
 		 }else if(act.equals("wa")){
-			 //a = dailyorderhistoryservice.insertdel(paramMap);
+			 a = dailyorderhistoryservice.insertdel(paramMap);
 			 if(a == 1){
 				 msg = "배송 신청 완료";
 				 returnmap.put("msg", msg);
