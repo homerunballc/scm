@@ -11,9 +11,10 @@
 				,	ret.return_id AS return_id
 				,	pinfo.purinf_id AS purinf_id
 				,	ret.confirm_requestYN AS confirm_requestYN
-		  from		 tb_returndir ret 
-			  join 	tb_purchaseinfo pinfo ON pinfo.purinf_id = ret.purinf_id
-			  join 	tb_sales sal on pinfo.sales_id = sal.sales_id
+		  from		 tb_returndir ret
+	        join tb_refundinfo reinfo ON reinfo.rfinfo_id = ret.rfinfo_id
+	        join tb_purchaseinfo pinfo ON pinfo.purinf_id = reinfo.purinf_id
+			join tb_sales sal on pinfo.sales_id = sal.sales_id
 				<where>
 			    	<choose>
 						<when test="!datesearch1.equals('')">
@@ -36,9 +37,10 @@
 	
 	<select id="total" resultType="int">
 		select count(ret.return_id)
-		  from		 tb_returndir ret 
-			  join 	tb_purchaseinfo pinfo ON pinfo.purinf_id = ret.purinf_id
-			  join 	tb_sales sal on pinfo.sales_id = sal.sales_id
+		   from		 tb_returndir ret
+		        join tb_refundinfo reinfo ON reinfo.rfinfo_id = ret.rfinfo_id
+		        join tb_purchaseinfo pinfo ON pinfo.purinf_id = reinfo.purinf_id
+			 	join tb_sales sal on pinfo.sales_id = sal.sales_id
 				<where>
 			    	<choose>
 						<when test="!datesearch1.equals('')">

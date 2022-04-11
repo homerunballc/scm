@@ -11,32 +11,31 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.happyjob.study.scm.model.CompModel;
+import kr.happyjob.study.scm.model.DailyOrderHistoryModel;
 import kr.happyjob.study.scm.model.WorkOrderModel;
-import kr.happyjob.study.scm.model.dailyOrderHistoryModel;
 import kr.happyjob.study.scm.model.warehouseModel;
-import kr.happyjob.study.scm.service.dailyOrderHistoryService;
+import kr.happyjob.study.scm.service.DailyOrderHistoryService;
 
 @Controller
 @RequestMapping("/scm/")
-public class dailyOrderHistoryController {
+public class DailyOrderHistoryController {
 	
 	@Autowired
-	dailyOrderHistoryService dailyorderhistoryservice;
+	DailyOrderHistoryService dailyorderhistoryservice;
 	
 	// 화면 이동
 	@RequestMapping("dailyOrderHistory.do")
-	public String initApproval(Model model, @RequestParam Map<String, Object> paramMap) throws Exception {
+	public String InitApproval(Model model, @RequestParam Map<String, Object> paramMap) throws Exception {
 		return "scm/dailyOrderHistory";
 	}
 	
 	 @RequestMapping("listdailyOrderHistory.do")
-	 public String gouppcodelist(Model model, @RequestParam Map<String, Object> paramMap, HttpServletRequest request,
+	 public String Initlist(Model model, @RequestParam Map<String, Object> paramMap, HttpServletRequest request,
 	         HttpServletResponse response, HttpSession session) throws Exception {
 	      
 	      int currentPage = Integer.parseInt((String)paramMap.get("currentPage"));	// 현재 페이지 번호
@@ -47,7 +46,7 @@ public class dailyOrderHistoryController {
 	      paramMap.put("pageSize", pageSize);
 	      
 	      int total = dailyorderhistoryservice.total(paramMap);
-	      List<dailyOrderHistoryModel> listdailyOrderHistory = dailyorderhistoryservice.listdailyOrderHistory(paramMap);
+	      List<DailyOrderHistoryModel> listdailyOrderHistory = dailyorderhistoryservice.listdailyOrderHistory(paramMap);
 	      
 	      System.out.println("pur_id123 : " + paramMap.get("pur_id"));
 	      
@@ -59,7 +58,7 @@ public class dailyOrderHistoryController {
 	   }  
 
 	 @RequestMapping("onedailyOrderHistory.do")
-	 public String onedailyOrderHistory(Model model, @RequestParam Map<String, Object> paramMap, HttpServletRequest request,
+	 public String OnedailyOrderHistory(Model model, @RequestParam Map<String, Object> paramMap, HttpServletRequest request,
 	         HttpServletResponse response, HttpSession session) throws Exception{
 		 
 		 String returnjsp = "";
@@ -87,7 +86,7 @@ public class dailyOrderHistoryController {
 	
 	 @RequestMapping("whcnd.do")
 	 @ResponseBody
-	 public Map<String,Object> gouppcodelistvue(Model model, @RequestParam Map<String, Object> paramMap, HttpServletRequest request,
+	 public Map<String,Object> Whlist(Model model, @RequestParam Map<String, Object> paramMap, HttpServletRequest request,
 	     HttpServletResponse response, HttpSession session) throws Exception{
 		 
 		 warehouseModel whcnt = dailyorderhistoryservice.whcnt(paramMap);
@@ -106,7 +105,7 @@ public class dailyOrderHistoryController {
 	
 	 @RequestMapping("sendtotal.do")
 	 @ResponseBody
-	 public Map<String,Object> insert(Model model, @RequestParam Map<String, Object> paramMap, HttpServletRequest request,
+	 public Map<String,Object> Insert(Model model, @RequestParam Map<String, Object> paramMap, HttpServletRequest request,
 		     HttpServletResponse response, HttpSession session) throws Exception{
 		 System.out.println("active : "+paramMap.get("active"));
 		 System.out.println("com_cnt : "+paramMap.get("com_cnt"));
@@ -117,10 +116,11 @@ public class dailyOrderHistoryController {
 		 Map<String,Object> returnmap = new HashMap<String,Object>();
 		 String act = (String) paramMap.get("active");
 		 String msg = "";
+		 int a = 0;
 		 //발주 지시서 
 		 if(act.equals("com")){
 			 paramMap.put("fk", "");
-			 int a = dailyorderhistoryservice.insertcom2(paramMap);
+			 a = dailyorderhistoryservice.insertcom2(paramMap);
 			
 			 System.out.println("insertcom2 return : " + a);
 			 if(a == 1){
@@ -130,13 +130,19 @@ public class dailyOrderHistoryController {
 			 }
 		 //반품 지시서	 
 		 }else if(act.equals("re")){
-			 int a = dailyorderhistoryservice.insertreturn(paramMap);
+			 a = dailyorderhistoryservice.insertreturn(paramMap);
 			 if(a == 1){
 				 msg = "반품 신청 완료";
 				 returnmap.put("msg", msg);
 			 }
+		 //배송 지시서
+		 }else if(act.equals("wa")){
+			 //a = dailyorderhistoryservice.insertdel(paramMap);
+			 if(a == 1){
+				 msg = "배송 신청 완료";
+				 returnmap.put("msg", msg);
+			 }
 		 }
-		 
 		
 	      return returnmap;
 	 }

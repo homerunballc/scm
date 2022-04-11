@@ -1,6 +1,6 @@
 package kr.happyjob.study.scm.model;
 
-public class dailyOrderHistoryModel {
+public class DailyOrderHistoryModel {
 
 	private int pur_id;
 	private String purdate;

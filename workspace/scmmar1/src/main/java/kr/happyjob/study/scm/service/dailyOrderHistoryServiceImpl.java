@@ -6,22 +6,22 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import kr.happyjob.study.scm.dao.dailyOrderHistoryDao;
+import kr.happyjob.study.scm.dao.DailyOrderHistoryDao;
 import kr.happyjob.study.scm.model.CompModel;
+import kr.happyjob.study.scm.model.DailyOrderHistoryModel;
 import kr.happyjob.study.scm.model.WorkOrderModel;
-import kr.happyjob.study.scm.model.dailyOrderHistoryModel;
 import kr.happyjob.study.scm.model.warehouseModel;
 
 @Service
-public class dailyOrderHistoryServiceImpl implements dailyOrderHistoryService{
+public class DailyOrderHistoryServiceImpl implements DailyOrderHistoryService{
 
 	@Autowired
-	dailyOrderHistoryDao dailyorderhistorydao;
+	DailyOrderHistoryDao dailyorderhistorydao;
 	
 	@Override
-	public List<dailyOrderHistoryModel> listdailyOrderHistory(Map<String, Object> paramMap) throws Exception {
+	public List<DailyOrderHistoryModel> listdailyOrderHistory(Map<String, Object> paramMap) throws Exception {
 
-		List<dailyOrderHistoryModel> listdailyOrderHistory = dailyorderhistorydao.listdailyOrderHistory(paramMap);
+		List<DailyOrderHistoryModel> listdailyOrderHistory = dailyorderhistorydao.listdailyOrderHistory(paramMap);
 		
 		return listdailyOrderHistory;
 	}
@@ -70,6 +70,11 @@ public class dailyOrderHistoryServiceImpl implements dailyOrderHistoryService{
 	@Override
 	public int insertreturn(Map<String, Object> paramMap) throws Exception {
 		return dailyorderhistorydao.insertreturn(paramMap);
+	}
+
+	@Override
+	public int insertdel(Map<String, Object> paramMap) throws Exception {
+		return dailyorderhistorydao.insertdel(paramMap);
 	}
 	
 	

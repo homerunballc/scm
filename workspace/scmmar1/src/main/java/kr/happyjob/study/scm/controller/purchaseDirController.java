@@ -13,7 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import kr.happyjob.study.scm.model.dailyOrderHistoryModel;
 import kr.happyjob.study.scm.model.purchaseDirModel;
 import kr.happyjob.study.scm.service.purchaseDirService;
 

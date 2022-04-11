@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="kr.happyjob.study.scm.dao.dailyOrderHistoryDao">
+<mapper namespace="kr.happyjob.study.scm.dao.DailyOrderHistoryDao">
 	
 	
-	<select id="listdailyOrderHistory" resultType="kr.happyjob.study.scm.model.dailyOrderHistoryModel">
+	<select id="listdailyOrderHistory" resultType="kr.happyjob.study.scm.model.DailyOrderHistoryModel">
 		SELECT    pur.pur_id AS pur_id
 				, pur.purdate AS purdate
 				, user.name AS name
@@ -100,7 +100,8 @@
 				                                         )
 				                   group by st.sales_id
 				                ) ll on ll.sales_id = purinfo.sales_id
-				inner join tb_returndir ret on purinfo.purinf_id = ret.purinf_id
+				inner join tb_refundinfo rinfo on rinfo.purinf_id = purinfo.purinf_id
+				inner join tb_returndir ret on rinfo.rfinfo_id = ret.rfinfo_id
 		WHERE 	pur.pur_id = #{pur_id}
 	</select>
 
@@ -183,7 +184,7 @@
 	    WHERE 		sa.sales_id= #{sales_id} AND wh.wh_id = #{wh_id};
 	</select>
 	
-	
+	<!-- 발주상세 -->
 	<insert id="insertcom2" useGeneratedKeys="true" keyProperty="fk" >
 	INSERT
 		 INTO tb_orderinfo
@@ -203,6 +204,7 @@
 				)
 	</insert>
 	
+	<!-- 발주지시서 -->
 	<insert id="insertcom1">
 		<!-- <selectKey resultType="string" keyProperty="orderid" order="BEFORE">
             select DISTINCT(select max(orderid) from tb_orderdir)+1 from tb_orderdir
@@ -211,17 +213,15 @@
 		 INTO tb_orderdir
 		 		(	
 		 			regdate
-		 		,	dir_result
 		 		,	order_id
 				)
 		VALUES (
 					now()
-		        , 	'O'
 		        ,	#{fk}
 				);
 	</insert>
 	
-	
+	<!-- 반품 지시서 -->
 	<insert id="insertreturn">
 		insert into tb_returndir
 	    		(	regdate 
@@ -233,13 +233,23 @@
 	    		, 	#{return_cnt}
 	    		, 	'O'
 	    		,  (
-	    			select info.purinf_id 
-	                  from tb_purchaseinfo info 
-	                  	where info.pur_id = '3'
+	    			select rinfo.rfinfo_id
+			          from tb_refundinfo rinfo
+			            join tb_purchaseinfo pinfo ON pinfo.purinf_id = rinfo.purinf_id
+			              where pinfo.pur_id = #{pur_id}
 	                )
 	    		)
-		
-		
 	</insert>
+	
+	<!-- 배송 지시서 -->
+	<!-- <insert id="insertdel">
+		insert into tb_delivdir
+			(
+				regdate
+			,	
+			)
+			
+			
+	</insert> -->
 	
 </mapper>

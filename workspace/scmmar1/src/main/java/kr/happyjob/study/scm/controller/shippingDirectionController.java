@@ -15,12 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import kr.happyjob.study.scm.model.dailyOrderHistoryModel;
 import kr.happyjob.study.scm.model.oneshipModel;
 import kr.happyjob.study.scm.model.shippingDirectionModel;
-import kr.happyjob.study.scm.model.warehouseModel;
 import kr.happyjob.study.scm.service.shippingDirectionService;
-
 
 @Controller
 @RequestMapping("/scm/")

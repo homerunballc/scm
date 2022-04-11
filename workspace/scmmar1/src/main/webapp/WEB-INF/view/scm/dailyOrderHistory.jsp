@@ -225,10 +225,23 @@ function t(){
 function send(f){
 	//배송지시서
 	if(f == 'wa'){
+		console.log(pur_id);
+
+		//alert(selcheck + delname + wainput);
+		//alert(f);
+		var param = {
+				active : f					// 구분자
+			,	pur_id : pur_id				// 구매 번호
+			,	name : delname				// 배송 담당자
+			,	deliv_wh_id : deliv_wh_id	// 창고 타임
+			,	dpt_cnt : dpt_cnt			// 
+			
+				}
+		
+		callAjax("/scm/sendtotal.do", "post", "json", true, param, resultCallback);
 		
 		
-		alert(f);
-	
+		
 	//발주지시서
 	}else if(f == 'com'){
 		var a = $("#compcnt").val();
@@ -249,13 +262,13 @@ function send(f){
 		var resultCallback = function(data){
 			alert(data.msg);
 			gfCloseModal();
+			
 		}
 		
-		callAjax("/scm/sendtotal.do", "post", "json", true, param, resultCallback);
+		//callAjax("/scm/sendtotal.do", "post", "json", true, param, resultCallback);
 		
 	//반품지시서	
 	}else if(f == 're'){
-		var pur_id = $("#pur_id").val();
 		var sales_nm = $("#sales_nm").val();
 		var pur_cnt_one = $("#pur_cnt_one").val();
 		var name = $("#name").val();
@@ -287,8 +300,10 @@ function send(f){
 }
 
 
-function zzi(){
-	console.log("아 왜안돼냐");
+function addrow(){
+	
+	alert(" 행 추가 ");
+	
 }
 
 
