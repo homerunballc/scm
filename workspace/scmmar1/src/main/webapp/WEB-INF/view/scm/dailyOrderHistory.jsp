@@ -225,6 +225,9 @@ function t(){
 function send(f){
 	//배송지시서
 	if(f == 'wa'){
+		var deliv_wh_id = $('#wasel option:selected').val();		// 창고 지정
+		var delname = $('#purchaser option:selected').val();	// 배송담당자 지정
+		var pur_cnt =$('#warehinput').val();					// 수량 지정
 		console.log(pur_id);
 
 		//alert(selcheck + delname + wainput);
