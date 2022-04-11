@@ -37,7 +37,7 @@
 				
 				<div style="text-align: left; font-size: 15px; font-weight: bold;">배송정보 입력</div> 
 				<div style="text-align: right;">
-					<a class="btnType blue" id="addrow" name="btn" ><span style="cursor: pointer;" onclick="zzi()">행 추가</span></a> 
+					<a class="btnType blue" id="addrow" name="btn" onclick="addrow()"><span style="cursor: pointer;">행 추가</span></a> 
 				</div>
 					<table class="row">
 					<caption>caption</caption>
@@ -72,6 +72,9 @@
 								</td>
 							</tr>
 							
+							<tr>
+							
+							</tr>
 						</tbody>
 					</table>
 					
