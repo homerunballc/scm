@@ -83,11 +83,6 @@ public class DailyOrderHistoryServiceImpl implements DailyOrderHistoryService{
 		return comf;
 	}
 	
-	@Override
-	public DailyOrderHistoryModel come(Map<String, Object> paramMap) throws Exception {
-		DailyOrderHistoryModel come = dailyorderhistorydao.come(paramMap);
-		return come;
-	}
 	
 	
 	

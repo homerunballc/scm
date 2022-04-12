@@ -29,22 +29,20 @@ $(function(){
 	
 });
 
-function init(currentPage){
-	currentPage = currentPage || 1;
+function init(){
+	
 	var param = {
 			searchgrouptype : searchgrouptype
 		,	searchtext : searchtext
-		,	currentPage : currentPage
-		,	pageSize : pageSize
 			};
 	var resultCallback = function(data) {
 		$("#whlist").empty().append(data);
-		var total = $("#total").val();
+		
 		// 페이지 네비게이션 생성
 		// pageBlockSize 보여지는 페이징 갯수
-		 var paginationHtml = getPaginationHtml(currentPage, total,  pageSize, pageBlockSize, 'init');
+		/* var paginationHtml = getPaginationHtml(currentPage, total,  pageSize, pageBlockSize, 'init');
 		console.log("paginationHtml : " + paginationHtml);
-		$("#comnGrpCodPagination").empty().append( paginationHtml ); 
+		$("#comnGrpCodPagination").empty().append( paginationHtml ); */
 	};
 	
 	callAjax("/scm/whInventoryFormlist.do", "post", "text", true, param, resultCallback);
@@ -204,7 +202,7 @@ function test(a,b,c){
 					</tbody>
 				</table>
 				<div class="btn_areaC mt30">
-					<a href=""	class="btnType gray"  id="btnCloseGrpCod" name="btn"><span >취소</span></a>
+					<a href=""	class="btnType gray"  id="btnCloseGrpCod" name="btn"><span>취소</span></a>
 				</div>
 			</dd>
 		</dl>

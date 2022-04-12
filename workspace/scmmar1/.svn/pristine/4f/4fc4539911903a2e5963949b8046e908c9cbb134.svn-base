@@ -28,9 +28,5 @@ public class whInventoryFormServiceImpl implements whInventoryFormService {
 		return cnt;
 	}
 	
-	@Override
-	public int total(Map<String, Object> paramMap) throws Exception {
-		return whinventoryformdao.total(paramMap);
-	}
 	
 }

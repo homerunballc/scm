@@ -31,9 +31,9 @@
 							<c:when test='${onedata.depositYN eq "Y"}'>
 								<td style="text-align: center;">완료</td>
 							</c:when>
-							<c:when test='${onedata.depositYN eq "N"}'>
+							<c:otherwise>
 								<td style="text-align: center;">미 입금</td>
-							</c:when>
+							</c:otherwise>
 						</c:choose>
 							
 							

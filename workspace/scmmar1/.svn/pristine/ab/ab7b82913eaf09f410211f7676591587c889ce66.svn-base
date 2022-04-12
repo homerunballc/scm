@@ -165,14 +165,6 @@
 		 where pur.pur_id = #{pur_id}
 	</select>
 	
-	<select id="come" resultType="kr.happyjob.study.scm.model.DailyOrderHistoryModel">
-		select pur.pur_id
-		  from tb_purchase pur
-			  join tb_purchaseinfo pinfo on pur.pur_id = pinfo.pur_id
-			  join tb_refundinfo rinfo on pinfo.purinf_id = rinfo.purinf_id
-			  join tb_returndir rdir on rdir.rfinfo_id = rinfo.rfinfo_id
-  	 where pur.pur_id = #{pur_id}
-	</select>
 	
 	<select id="warehouse" resultType="kr.happyjob.study.scm.model.warehouseModel">
 		SELECT		wh_id AS wh_id

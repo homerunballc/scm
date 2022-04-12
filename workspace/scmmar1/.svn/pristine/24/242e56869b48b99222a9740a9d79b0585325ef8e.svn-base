@@ -79,12 +79,9 @@ public class DailyOrderHistoryController {
 		 WorkOrderModel onedailyOrderHistory = dailyorderhistoryservice.onedailyOrderHistory(paramMap);
 		 List<CompModel> comp = dailyorderhistoryservice.comp();
 		 DailyOrderHistoryModel comf = dailyorderhistoryservice.comf(paramMap);
-		 DailyOrderHistoryModel come = dailyorderhistoryservice.come(paramMap);
-		 
 		 String comfp = "";
-		 String comfg = "";
-		 
 		 if(comf == null){
+			 System.out.println("가나다라마");
 			 comfp = "N";
 			 model.addAttribute("comfp",comfp);
 		 }else{
@@ -92,17 +89,7 @@ public class DailyOrderHistoryController {
 			 model.addAttribute("comfp",comfp);
 		 }
 		 
-		 if(come == null){
-			 comfg = "N";
-			 model.addAttribute("comfg",comfg);
-		 }else{
-			 comfg = "Y";
-			 model.addAttribute("comfg",comfg);
-		 }
-				 
-				 
 		 System.out.println("comf : " + comf);
-		 System.out.println("come : " + come);
 		 System.out.println("onedailyOrderHistory : " + onedailyOrderHistory);
 		 
 		 model.addAttribute("onedata",onedailyOrderHistory);

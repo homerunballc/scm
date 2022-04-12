@@ -31,9 +31,9 @@
 							<c:when test='${onedata.depositYN eq "Y"}'>
 								<td style="text-align: center;">완료</td>
 							</c:when>
-							<c:when test='${onedata.depositYN eq "N"}'>
+							<c:otherwise>
 								<td style="text-align: center;">미 입금</td>
-							</c:when>
+							</c:otherwise>
 						</c:choose>
 							
 							
@@ -79,8 +79,7 @@
 								<td style="text-align: center;">${onedata.pur_cnt}</td>
 								
 								
-								<!-- 배송담당자 지정 
-								<td style="text-align: center;">
+								<!-- <td style="text-align: center;">
 									<select id="purchaser"></select>
 								</td> -->
 								
