@@ -30,7 +30,6 @@
 								<td style="text-align: center">
 									<input type="number" id="compcnt">
 								</td>
-								<td id="userID"></td>
 							</tr>
 							
 						</tbody>

@@ -27,7 +27,6 @@
 							<td style="text-align: center;">${onedata.name }</td>
 							<td style="text-align: center;">${onedata.sales_nm }</td>
 							<td style="text-align: center;">${onedata.pur_cnt}</td>
-							<td>${comf.deliv_id }</td>
 						<c:choose>
 							<c:when test='${onedata.depositYN eq "Y"}'>
 								<td style="text-align: center;">완료</td>
@@ -59,8 +58,12 @@
 								<!-- <th>배송담당자</th> -->
 							</tr>
 							
-						
 							<tr>
+					<c:choose>
+						<c:when test='${comfp eq "Y" }'>
+							<td colspan="3" style="text-align: center;">배송 신청 완료 된 제품 입니다.</td>
+						</c:when>
+						<c:otherwise>
 								<td style="text-align: center;">
 									<select id="wasel" onchange="whcnt(this.value)">
 											<option value ="" selected="selected" disabled >::창고를 선택해 주세요::</option>
@@ -83,6 +86,8 @@
 								<!-- <td style="text-align: center">
 									<input type="number" id="warehinput" name="warehinput" onkeyup="t()" min="0">
 								</td> -->
+						</c:otherwise>
+					</c:choose>
 							</tr>
 							
 						</tbody>
@@ -91,7 +96,11 @@
 
 				<div class="btn_areaC mt30">
 				    <!-- <input type="hidden" name="Action" id="Action" value="wa"> -->
-					<a class="btnType blue" id="savesa" name="btn" ><span onclick="send('wa')" style="cursor: pointer;">작성</span></a> 
+				 <c:choose>
+					<c:when test='${comfp eq "N" }'>
+						<a class="btnType blue" id="savesa" name="btn" ><span onclick="send('wa')" style="cursor: pointer;">작성</span></a>
+					</c:when>
+				</c:choose> 
 					<a	class="btnType gray"  id="btnClosewa" name="btn"><span onclick="closemodel()" style="cursor: pointer;">취소</span></a>
 				</div>
 			</dd>
