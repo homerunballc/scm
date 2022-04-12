@@ -15,8 +15,14 @@ public class DailyOrderHistoryModel {
 	private String depositYN;
 	private int sales_id;
 	private String loginID;
+	private int deliv_id;
 	
-	
+	public int getDeliv_id() {
+		return deliv_id;
+	}
+	public void setDeliv_id(int deliv_id) {
+		this.deliv_id = deliv_id;
+	}
 	public String getLoginID() {
 		return loginID;
 	}

@@ -11,9 +11,6 @@ public class purchaseDirModel {
 	private int avg;
 	private int order_id;
 	
-	
-	
-	
 	public int getOrder_id() {
 		return order_id;
 	}

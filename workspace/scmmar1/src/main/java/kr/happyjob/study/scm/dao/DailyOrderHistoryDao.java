@@ -31,4 +31,6 @@ public interface DailyOrderHistoryDao {
 	public int insertreturn(Map<String, Object> paramMap) throws Exception;
 	//배송지시서 저장
 	public int insertdel(Map<String,Object> paramMap) throws Exception;
+	//배송지시서 작성 유무 확인
+	public DailyOrderHistoryModel comf(Map<String,Object> paramMap) throws Exception;
 }

@@ -27,6 +27,7 @@
 							<td style="text-align: center;">${onedata.name }</td>
 							<td style="text-align: center;">${onedata.sales_nm }</td>
 							<td style="text-align: center;">${onedata.pur_cnt}</td>
+							<td>${comf.deliv_id }</td>
 						<c:choose>
 							<c:when test='${onedata.depositYN eq "Y"}'>
 								<td style="text-align: center;">완료</td>

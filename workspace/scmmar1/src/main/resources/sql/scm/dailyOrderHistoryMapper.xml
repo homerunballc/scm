@@ -157,6 +157,13 @@
 		WHERE 	pur.pur_id = #{pur_id}
 	</select>
 
+	<select id="comf" resultType="kr.happyjob.study.scm.model.DailyOrderHistoryModel">
+		select del.deliv_id
+		from tb_purchase pur
+			join tb_purchaseinfo pinfo on pur.pur_id = pinfo.pur_id
+			join tb_delivdir del on del.purinf_id = pinfo.purinf_id
+		 where pur.pur_id = #{pur_id}
+	</select>
 	
 	
 	<select id="warehouse" resultType="kr.happyjob.study.scm.model.warehouseModel">

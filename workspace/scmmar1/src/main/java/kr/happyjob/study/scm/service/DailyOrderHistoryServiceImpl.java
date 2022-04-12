@@ -76,6 +76,12 @@ public class DailyOrderHistoryServiceImpl implements DailyOrderHistoryService{
 	public int insertdel(Map<String, Object> paramMap) throws Exception {
 		return dailyorderhistorydao.insertdel(paramMap);
 	}
+
+	@Override
+	public DailyOrderHistoryModel comf(Map<String, Object> paramMap) throws Exception {
+		DailyOrderHistoryModel comf = dailyorderhistorydao.comf(paramMap);
+		return comf;
+	}
 	
 	
 	

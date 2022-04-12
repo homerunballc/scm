@@ -78,12 +78,15 @@ public class DailyOrderHistoryController {
  		 List<warehouseModel> warehouse = dailyorderhistoryservice.warehouse();
 		 WorkOrderModel onedailyOrderHistory = dailyorderhistoryservice.onedailyOrderHistory(paramMap);
 		 List<CompModel> comp = dailyorderhistoryservice.comp();
+		 DailyOrderHistoryModel comf = dailyorderhistoryservice.comf(paramMap); 
 		 
+		 System.out.println("comf : " + comf);
 		 System.out.println("onedailyOrderHistory : " + onedailyOrderHistory);
 		 
 		 model.addAttribute("onedata",onedailyOrderHistory);
 		 model.addAttribute("warehouse",warehouse);
 		 model.addAttribute("comp",comp);
+		 model.addAttribute("comf",comf);
 		 
 		 return returnjsp;
 	 }

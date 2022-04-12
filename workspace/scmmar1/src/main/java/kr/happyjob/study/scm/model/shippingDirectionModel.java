@@ -7,8 +7,6 @@ public class shippingDirectionModel {
 	private String client;
 	private int pur_cnt;
 	
-	
-	
 	public int getDeliv_id() {
 		return deliv_id;
 	}

@@ -7,6 +7,7 @@ public class oneshipModel {
 	private String sales_nm;
 	private int pur_cnt;
 	private String depositYN;
+	
 	public String getRegdate() {
 		return regdate;
 	}

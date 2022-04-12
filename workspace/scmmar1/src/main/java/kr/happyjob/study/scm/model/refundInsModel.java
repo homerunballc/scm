@@ -10,8 +10,6 @@ public class refundInsModel {
 	private String client;
 	private String confirm_requestYN;
 	
-	
-	
 	public String getConfirm_requestYN() {
 		return confirm_requestYN;
 	}
