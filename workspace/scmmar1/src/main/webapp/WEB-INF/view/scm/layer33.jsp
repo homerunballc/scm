@@ -53,9 +53,9 @@
 						<tbody>
 							<tr>
 								<th>창고별 품목</th>
-								<th>배송담당자</th>
 								<th>총 재고</th>
 								<th>주문 개수 입력</th>
+								<!-- <th>배송담당자</th> -->
 							</tr>
 							
 						
@@ -70,20 +70,20 @@
 								</td>
 								
 								<td style="text-align: center;">
-									<select id="purchaser"></select>
-								</td>
-								
-								<td style="text-align: center;">
 									<div id="warehcnt">0</div>
 								</td>
-								<td style="text-align: center">
+								<td style="text-align: center;">${onedata.pur_cnt}</td>
+								
+								
+								<!-- <td style="text-align: center;">
+									<select id="purchaser"></select>
+								</td> -->
+								
+								<!-- <td style="text-align: center">
 									<input type="number" id="warehinput" name="warehinput" onkeyup="t()" min="0">
-								</td>
+								</td> -->
 							</tr>
 							
-							<tr>
-							
-							</tr>
 						</tbody>
 					</table>
 					

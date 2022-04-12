@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 						   
 							<c:forEach items="${listpurchaseDir}" var="list">
-										<tr style="cursor: pointer;">
+										<tr>
 											<td>${list.order_id}</td>
 											<td>${list.sales_id}</td>
 											<td>${list.sales_nm}</td>

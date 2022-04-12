@@ -46,10 +46,11 @@ public class DailyOrderHistoryController {
 	      paramMap.put("pageSize", pageSize);
 	      
 	      List<DailyOrderHistoryModel> listdailyOrderHistory = dailyorderhistoryservice.listdailyOrderHistory(paramMap);
-	      
+	      int total = dailyorderhistoryservice.total(paramMap);
 	      System.out.println("pur_id123 : " + paramMap.get("pur_id"));
 	      
 	      model.addAttribute("listdailyOrderHistory",listdailyOrderHistory);
+	      model.addAttribute("total",total);
 	      
 	      
 	      return "scm/dailyOrderHistorylist";
@@ -93,15 +94,15 @@ public class DailyOrderHistoryController {
 	     HttpServletResponse response, HttpSession session) throws Exception{
 		 
 		 warehouseModel whcnt = dailyorderhistoryservice.whcnt(paramMap);
-		 System.out.println("sales_id : " + paramMap.get("sales_id"));
-		 System.out.println("wh_id : " + paramMap.get("wh_id"));
-		 System.out.println("whcnt : " + whcnt.getSt_cnt());
-		 
 		 Map<String,Object> returnmap = new HashMap<String,Object>();
-		 
-		 returnmap.put("whcnt", whcnt); 
-		 
-		 
+		 String msg = "이 창고는 재고 준비중 입니다";
+		 //System.out.println("sales_id : " + paramMap.get("sales_id"));
+		 //System.out.println("wh_id : " + paramMap.get("wh_id"));
+		 //System.out.println("whcnt : " + whcnt.getSt_cnt());
+			
+		 	returnmap.put("whcnt", whcnt); 
+			returnmap.put("msg", msg);
+		
 	      return returnmap;
 		 
 	 }

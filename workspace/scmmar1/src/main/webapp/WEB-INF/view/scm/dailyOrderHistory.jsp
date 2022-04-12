@@ -36,24 +36,17 @@ $(function(){
 	
 	$('#serchdate2').val(today);
 	init();
-	
-	
 	/* $('body').on('keyup','#enter_cnt',function(e){
 		if(enter($(this).val())){
 			e.preventDefault();
 		};
-		
 	}) */
-	
-	
 });
-
 
 // list 조회
 function init(currentPage) {
 	
 	currentPage = currentPage || 1;
-	
 	var param = {	
 			currentPage : currentPage
 		,	pageSize : pageSize
@@ -63,7 +56,6 @@ function init(currentPage) {
 		,	datesearch2 : datesearch2
 		,	pur_id : pur_id
 			}
-	
 	var resultCallback = function(data) {
 		
 		// list tbody에 넣는 내용
@@ -79,18 +71,14 @@ function init(currentPage) {
 	callAjax("/scm/listdailyOrderHistory.do", "post", "text", true, param, resultCallback);
 }
 
-
-
 // 반품/미반품 목록 검색 조회
 function returns(value){
 	
-	//alert(value);
 	returnsearch = value;
 	init();
 }
 function search(){
 	
-	//$("select[name=searchgrouptype] option:selected").val()
 	selectsearch = $("#searchgrouptype option:selected").val()
 	datesearch1 = $("#serchdate1").val();
 	datesearch2 = $("#serchdate2").val();
@@ -100,7 +88,6 @@ function search(){
 		datesearch1 = datesearch1;
 		datesearch2 = datesearch2
 		
-		
 	}else{
 		testdate = datesearch2;
 		datesearch2 = datesearch1;
@@ -109,12 +96,10 @@ function search(){
 		$('#serchdate1').val(datesearch1);
 		$('#serchdate2').val(datesearch2);
 		
-		
 	}
 	init();
 	
 }
-
 
 // 검색 조건 초기화
 function reset(){
@@ -167,48 +152,48 @@ function orderhi(purid,salesid,login_ID,rYN,dYN){
 // 지시서 작성  팝업 구분 실행
 function layer1btn(){
 	var selcheck = $('input:radio[name=sel]:checked').val();
-	var param = {	
-			pur_id : pur_id,
-			selcheck : selcheck
-			}
-	
-	var resultCallback = function(data) {
-
-		console.log(data);
-		//alert(data.onedata.loginID);
-		$("#layer").empty().append(data);
-		console.log(param.selcheck);
-		
-		switch(param.selcheck){
-		
-			case '1':
-				break;
-			case '2':
-				console.log('entered....');
-				comcombo('B', 'purchaser', 'sel', null, '${CTX_PATH}/scm/whComcombo.do');
-				break;
-			case '3':
-				break;
-		}
-		gfModalPop("#layer");
-	};
-	callAjax("/scm/onedailyOrderHistory.do", "post", "text", true, param, resultCallback);
+	if(selcheck == null){
+		alert("지시서를 선택해 주세요.");
+	}else{
+		var param = {	
+				pur_id : pur_id,
+				selcheck : selcheck
+				}
+		var resultCallback = function(data) {
+			console.log(data);
+			console.log(param.selcheck);
+			$("#layer").empty().append(data);
+			// 배송담당자 이름 불러 오기
+			/* switch(param.selcheck){
+				case '1':
+					break;
+				case '2':
+					console.log('entered....');
+					comcombo('B', 'purchaser', 'sel', null, '${CTX_PATH}/scm/whComcombo.do');
+					break;
+				case '3':
+					break;
+			} */
+			gfModalPop("#layer");
+		};
+		callAjax("/scm/onedailyOrderHistory.do", "post", "text", true, param, resultCallback);
+	}
 }
 
-	
-	
 function whcnt(v){
-	//alert(v);
-	//alert(sales_id);
 	var param = {
 			sales_id : sales_id
 		,	wh_id : v
 	}
 	var resultCallback = function(data){
-		$("#warehcnt").html(data.whcnt.st_cnt);
-		test = data.whcnt.st_cnt;
+		
+		if(data.whcnt == null){
+			alert(data.msg);
+		}else{
+			$("#warehcnt").html(data.whcnt.st_cnt);
+			test = data.whcnt.st_cnt;
+		}
 	}
-	
 	callAjax("/scm/whcnd.do", "post", "json", true, param, resultCallback);
 }
 
@@ -225,32 +210,23 @@ function t(){
 //지시서 작성
 function send(f){
 	
-	
 	//배송지시서
 	if(f == 'wa'){
 		var deliv_wh_id = $('#wasel option:selected').val();		// 창고 지정
 		var delname = $('#purchaser option:selected').val();	// 배송담당자 지정
 		var pur_cnt =$('#warehinput').val();					// 수량 지정
 		console.log(pur_id);
-
-		//alert(selcheck + delname + wainput);
-		//alert(f);
 		var param = {
 				active : f					// 구분자
 			,	pur_id : pur_id				// 구매 번호
 			,	name : delname				// 배송 담당자
 			,	deliv_wh_id : deliv_wh_id	// 창고 타임
-			
 				}
 		var resultCallback = function(data){
 			alert(data.msg);
 			closemodel();
-			
 		}
-		
 		callAjax("/scm/sendtotal.do", "post", "json", true, param, resultCallback);
-		
-		
 		
 	//발주지시서
 	}else if(f == 'com'){
@@ -259,8 +235,6 @@ function send(f){
 		var b = $("#selcomcnt").val();
 		var selcheck = $('#selcomcnt option:selected').val();
 		
-		//alert(selcheck);
-		//alert(loginID);
 		var param = {
 				com_cnt : a				// 발주 개수
 			,	com_code : b			// 발주 회사 코드
@@ -273,9 +247,7 @@ function send(f){
 		var resultCallback = function(data){
 			alert(data.msg);
 			closemodel();
-			
 		}
-		
 		callAjax("/scm/sendtotal.do", "post", "json", true, param, resultCallback);
 		
 	//반품지시서	
@@ -284,7 +256,6 @@ function send(f){
 		var pur_cnt_one = $("#pur_cnt_one").val();
 		var name = $("#name").val();
 		var return_cnt = $("#return_cnt").val();
-		
 		console.log("pur_id : " + pur_id);
 		console.log("sales_nm : " + sales_nm);
 		console.log("pur_cnt_one : " + pur_cnt_one);
@@ -310,18 +281,14 @@ function send(f){
 	}
 }
 
+// 취소시 모달창 닫기
 function closemodel(){
 	gfCloseModal();
 }
 
-
 function addrow(){
-	
 	alert(" 행 추가 ");
-	
 }
-
-
 
 
 </script>
@@ -446,7 +413,7 @@ function addrow(){
 
 					<tbody>
 						<tr>
-							<th scope="row">지시서 작성<span class="font_red">*</span></th>
+							<th scope="row">지시서 작성</th>
 							<td colspan="3">
 							   <input type="radio" 	name="sel" id="sel1" value='1' style="cursor: pointer;"/><span id="sel4">반품지시서</span>
 								&nbsp;&nbsp;&nbsp;&nbsp; 

@@ -57,7 +57,6 @@ function search(){
 function test(a,b,c){
 	//alert(a);
 	//alert(b);
-	
 	//$("#sales_id").val(b);	// 제품 번호
 	//$("#sales_nm").val(c);	// 제품명
 	
@@ -195,10 +194,10 @@ function test(a,b,c){
 							<th >출고 량</th>
 						</tr>
 						<tr>
-							<td><input type = "text" id = "sales_id" name="sales_id" readonly="readonly"></td>
-							<td><input type = "text" id = "sales_nm" readonly="readonly"></td>
-							<td><input type = "text" id = "insal" readonly="readonly"></td>
-							<td><input type = "text" id = "outsal" readonly="readonly"></td>
+							<td><input type="text" id="sales_id" readonly="readonly" style="text-align: center; border: none;"></td>
+							<td><input type="text" id="sales_nm" readonly="readonly" style="text-align: center; border: none;"></td>
+							<td><input type="text" id="insal" readonly="readonly" style="text-align: center; border: none;"></td>
+							<td><input type="text" id="outsal" readonly="readonly" style="text-align: center; border: none;"></td>
 						</tr>
 					</tbody>
 				</table>
