@@ -91,7 +91,7 @@ public class DailyOrderHistoryController {
 			 comfp = "Y";
 			 model.addAttribute("comfp",comfp);
 		 }
-		 
+		   
 		 if(come == null){
 			 comfg = "N";
 			 model.addAttribute("comfg",comfg);
