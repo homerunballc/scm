@@ -3,7 +3,6 @@ package kr.happyjob.study.ged.dao;
 import java.util.List;
 import java.util.Map;
 
-import kr.happyjob.study.ged.model.OrderConfirmModel;
 import kr.happyjob.study.ged.model.SalesStatusModel;
 
 public interface SalesStatusDao {
