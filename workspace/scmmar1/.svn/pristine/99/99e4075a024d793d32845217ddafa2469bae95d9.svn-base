@@ -30,5 +30,22 @@
 		    join tb_userinfo user on user.loginID = pur.loginID
 	    where del.deliv_id = #{deliv_id}
 	
+	
+	
+	
+	
+	<!-- select		del.regdate AS regdate
+		,	 	user.client AS client
+		,		sal.sales_nm AS sales_nm
+		,		pcin.pur_cnt AS pur_cnt
+		,		pc.depositYN AS depositYN
+
+	from 		tb_userinfo user
+		join 		tb_purchase pc on pc.loginID = user.loginID
+		join 		tb_purchaseinfo pcin on pc.loginID = pcin.loginID
+		join 		tb_delivdir del on del.purinf_id = pcin.purinf_id
+		join 		tb_sales sal ON sal.sales_id = pcin.sales_id
+	where 	del.deliv_id = #{deliv_id} -->
+	
 	</select>
 </mapper>
