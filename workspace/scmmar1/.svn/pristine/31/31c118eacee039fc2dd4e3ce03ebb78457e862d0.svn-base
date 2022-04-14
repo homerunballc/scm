@@ -52,12 +52,13 @@
 	
 	<select id="getOrderDetailList" parameterType="kr.happyjob.study.epc.model.SearchParamDTO" resultType="kr.happyjob.study.epc.model.OrderListItemDTO">
 		SELECT 
-		    i.pur_id, i.purinf_id, s.sales_type, s.model_nm, s.mfcomp, s.price, i.pur_cnt, (price * pur_cnt) as total,  i.returnYN
+		    i.pur_id, i.purinf_id, s.sales_type, s.model_nm, s.mfcomp, s.price, i.pur_cnt, (price * pur_cnt) as total
 		FROM 
 		    tb_purchaseinfo i
 		    INNER JOIN tb_sales s ON s.sales_id = i.sales_id
 		WHERE
 		    i.pur_id = #{purID}
+		    AND i.returnYN = 'N'
 		LIMIT #{startIndex}, #{pageBlockSize}
     </select>
     
@@ -71,6 +72,7 @@
 			    INNER JOIN tb_sales s ON s.sales_id = i.sales_id
 			WHERE
 			    i.pur_id = #{purID}
+			    AND i.returnYN = 'N'
 		    ) as a
 				
     </select>
