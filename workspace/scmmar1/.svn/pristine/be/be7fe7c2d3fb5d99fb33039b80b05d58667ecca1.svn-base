@@ -246,15 +246,12 @@
 		insert into tb_delivdir
 			(
 				regdate
-			,	deliverStatus
 			,	purinf_id
 			,	deliv_wh_id
-			
 			)
 	values
 			(
 				now()
-			,	'U'
 			,	(
 					select pinfo.purinf_id
 					  from tb_purchaseinfo pinfo
