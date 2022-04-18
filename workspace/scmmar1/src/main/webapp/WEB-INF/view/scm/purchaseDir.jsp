@@ -59,9 +59,9 @@ function init(currentPage){
 		console.log("paginationHtml : " + paginationHtml);
 		$("#comnGrpCodPagination").empty().append( paginationHtml ); 
 	};
+	    
 	
-	
-	
+	    
 	callAjax("/scm/listpurchaseDir.do", "post", "text", true, param, resultCallback);
 }
 
